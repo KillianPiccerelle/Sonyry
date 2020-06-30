@@ -1,51 +1,11 @@
-<!--
-*** Thanks for checking out this README Template. If you have a suggestion that would
-*** make this better, please fork the repo and create a pull request or simply open
-*** an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
--->
 
-
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 
 
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">Best-README-Template</h3>
-
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
+  <h3 align="center">Sonyry</h3>
 </p>
 
 
@@ -69,8 +29,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 Our project aims to create a website for writing knowledge record and portfolios.
 
 The application should eventually be able to record pages containing all types of information, such as those relating to the students' career path during their training. This will involve the generation of pages that can be filled in as desired by users, with the possibility of placing them in collections (tags) and being able to share them with groups or individuals.
@@ -83,7 +41,6 @@ Finally, teachers will have access to its pages and collections for evaluation.
 ### Built With
 This section lists the main frameworks we used to build our project.
 * [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
 * [Laravel](https://laravel.com)
 
 
@@ -95,7 +52,7 @@ To obtain a local copy of the project, follow these steps.
 
 ### Prerequisites
 
-
+//
 
 ### Installation
 
@@ -125,9 +82,9 @@ php artisan key:generate
 ```
 8. Create an empty database for your project
 9. Configure your .env file to allow a connection to the database.
-
+```
 In the .env file, fill in the options DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME and DB_PASSWORD to match the credentials of the database you just created.
-
+```
 10. Add tables and contents of your database with migrations or in sql
 ```laravel
 php artisan migrate
@@ -145,31 +102,10 @@ Here will be space to show useful examples of how the project can be used. Addit
 
 
 
-
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+See the [open issues](https://github.com/Fenightix/Sonyry/issues) for a list of proposed features (and known issues).
 
 
 
@@ -179,18 +115,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=flat-square
-[contributors-url]: https://github.com/Fenightix/Sonyry/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=flat-square
-[forks-url]: https://github.com/Fenightix/Sonyry/network
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=flat-square
-[stars-url]: https://github.com/Fenightix/Sonyry/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=flat-square
-[issues-url]: https://github.com/Fenightix/Sonyry/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
-[license-url]: https://github.com/Fenightix/Sonyry/master/LICENSE.txt
 [product-screenshot]: images/screenshot.png
