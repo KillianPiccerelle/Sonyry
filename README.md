@@ -20,8 +20,6 @@
   * [Installation](#installation)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
 * [Acknowledgements](#acknowledgements)
 
 
