@@ -50,7 +50,7 @@ To obtain a local copy of the project, follow these steps.
 
 ### Prerequisites
 
-//
+* [Node.JS](https://nodejs.org/en/)
 
 ### Installation
 
