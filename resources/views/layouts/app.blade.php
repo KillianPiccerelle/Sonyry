@@ -20,7 +20,8 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/signin.css" rel="stylesheet">
-    @include('incs.auth.header')
+
+    @include('incs.header')
 </head>
 
 <body>

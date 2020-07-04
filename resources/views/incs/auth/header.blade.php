@@ -10,15 +10,32 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Créer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Modifier</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Partager</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Collaborer</a>
+                </li>
             </ul>
-
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary">
+                        Notifications <span class="badge badge-light">4</span>
+                    </button>
+                </li>
+
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
@@ -35,7 +52,7 @@
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                {{ __('Se déconnecter') }}
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
