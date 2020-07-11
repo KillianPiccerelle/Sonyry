@@ -10,7 +10,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('page.create') }}">{{ __('Créer une page')}}</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

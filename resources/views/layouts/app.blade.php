@@ -20,6 +20,11 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/signin.css" rel="stylesheet">
+
+    <!-- Font awesome icon -->
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+
     @include('incs.auth.header')
 </head>
 

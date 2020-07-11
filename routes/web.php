@@ -21,3 +21,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/**
+ * Pages
+ */
+
+Route::get('/page/create','PageController@create')->name('page.create');
+Route::post('/page/store','PageController@store')->name('page.store');
