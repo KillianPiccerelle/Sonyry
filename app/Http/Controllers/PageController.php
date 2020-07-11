@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
+
+    public function index(){
+        $pages = Page::where('user_id', Auth::user()->id)->get();
+        return view('page.index',[
+            'pages'=>$pages
+        ]);
+    }
+
     /**
      * Return the creation page view
      */
@@ -26,7 +34,17 @@ class PageController extends Controller
         $page->description = $request->input('description');
         $page->user_id = Auth::user()->id;
 
+        $image = $request->file('image');
+        $imageFullName = $image->getClientOriginalName();
+        $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
+        $extension = $image->getClientOriginalExtension();
+        $file = time(). '_' . $imageName . '.' . $extension;
+        $image->storeAs('public/pages/'.Auth::user()->id, $file);
+
+        $page->image = $file;
+
         $page->save();
 
+        return redirect()->route('page.index');
     }
 }

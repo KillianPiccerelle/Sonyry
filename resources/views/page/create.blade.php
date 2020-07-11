@@ -16,7 +16,10 @@
                             <label for="description">Description de la page</label>
                             <textarea type="textarea" class="form-control" id="description" name="description" placeholder="Description de la page"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Créer la page</button>
+                        <div class="form-group">
+                            <input type="file" name="image"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> Créer la page</button>
                 </form>
             </div>
         </div>
