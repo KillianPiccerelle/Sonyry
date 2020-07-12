@@ -35,6 +35,9 @@
                 <a class="ml-3 btn btn-link" href="{{ route('register') }}">
                     Pas encore inscrit ?
                 </a>
+                <a class="ml-3 btn btn-link" href="{{ 'password/reset' }}">
+                    Mot de passe oublié ?
+                </a>
             </form>
         </div>
     </div>
