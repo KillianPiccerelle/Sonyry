@@ -13,6 +13,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('page.create') }}">{{ __('Créer une page')}}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Modifier</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Partager</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Collaborer</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
