@@ -28,3 +28,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/pages','PageController@index')->name('page.index');
 Route::get('/page/create','PageController@create')->name('page.create');
 Route::post('/page/store','PageController@store')->name('page.store');
+Route::get('page/{id}/edit','PageController@edit')->name('page.edit');

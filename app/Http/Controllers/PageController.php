@@ -47,4 +47,12 @@ class PageController extends Controller
 
         return redirect()->route('page.index');
     }
+
+    public function edit($id){
+        $page = Page::find($id);
+
+        return view('page.edit',[
+            'page'=>$page
+        ]);
+    }
 }

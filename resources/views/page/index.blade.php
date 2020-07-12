@@ -22,7 +22,7 @@
                                 </div>
                                 <br>
                                 <div class="text-center">
-                                    <a href="#" class="btn btn-primary">
+                                    <a href="{{ route('page.edit', $page->id) }}" class="btn btn-primary">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                         Editer
                                     </a>
