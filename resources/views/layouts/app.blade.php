@@ -20,7 +20,7 @@
 
     <title>Connexion</title>
 
-    @include('incs.auth.header')
+    @include('incs.header')
 </head>
 
 <body>
