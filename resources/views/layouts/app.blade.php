@@ -32,6 +32,11 @@
     <!-- Custom styles for this template -->
     <link href="/css/signin.css" rel="stylesheet">
 
+    <!-- gridstack -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@1.1.2/dist/gridstack.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/gridstack@1.1.2/dist/gridstack.all.js"></script>
+
     @include('incs.header')
 </head>
 

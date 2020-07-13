@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
+
+    public function __construct()
+{
+    $this->middleware('auth');
+}
 
     public function index(){
         $pages = Page::where('user_id', Auth::user()->id)->get();
@@ -54,5 +60,26 @@ class PageController extends Controller
         return view('page.edit',[
             'page'=>$page
         ]);
+    }
+
+    public function update(){
+
+    }
+
+    /**
+     *delete the page in the database
+     */
+    public function delete($id){
+        $page = Page::find($id);
+
+        $fileToDelete = 'public/pages/'.Auth::user()->id.'/'.$page->image;
+
+        if(Storage::exists($fileToDelete)){
+            Storage::delete($fileToDelete);
+        }
+
+        $page->delete();
+
+        return redirect()->route('page.index');
     }
 }
