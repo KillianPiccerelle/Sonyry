@@ -62,7 +62,36 @@ class PageController extends Controller
         ]);
     }
 
-    public function update(){
+    public function update(Request $request, $id){
+        $page = Page::find($id);
+
+        if($request->input('title') != null){
+            $page->title = $request->input('title');
+        }
+        if($request->input('description') != null){
+            $page->description = $request->input('description');
+        }
+        if($request->file('image')){
+            //update de l'image
+            //suppression de l'ancienne image
+            $fileToDelete = 'public/pages/'.Auth::user()->id.'/'.$page->image;
+
+            if(Storage::exists($fileToDelete)){
+                Storage::delete($fileToDelete);
+            }
+            $image = $request->file('image');
+            $imageFullName = $image->getClientOriginalName();
+            $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $file = time(). '_' . $imageName . '.' . $extension;
+            $image->storeAs('public/pages/'.Auth::user()->id, $file);
+            $page->image = $file;
+        }
+
+        $page->save();
+
+        return redirect()->route('page.edit', $page->id);
+
 
     }
 
