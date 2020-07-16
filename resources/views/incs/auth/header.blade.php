@@ -10,8 +10,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('page.create') }}">{{ __('Créer une page')}}</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Créer
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('page.create') }}">{{ __('Créer une page')}}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('collection.create') }}">{{ __('Créer une collection') }}</a>
+                        <div class="dropdown-divider"></div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Modifier</a>

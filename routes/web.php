@@ -31,3 +31,11 @@ Route::post('/page/store','PageController@store')->name('page.store');
 Route::get('page/{id}/edit','PageController@edit')->name('page.edit');
 Route::get('page/{id}/delete','PageController@delete')->name('page.delete');
 Route::put('page/{id}/update','PageController@update')->name('page.update');
+
+/**
+ * Collection
+ */
+
+Route::get('/collections','CollectionController@index')->name('collection.index');
+Route::get('/collection/create','CollectionController@create')->name('collection.create');
+Route::post('/collection/store','CollectionController@store')->name('collection.store');
