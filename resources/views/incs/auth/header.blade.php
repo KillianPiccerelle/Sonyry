@@ -48,7 +48,23 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
+
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">
+                                {{__('Profil')}}
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                {{__('Mes pages')}}
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                {{__('Mes collections')}}
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                {{__('Documents partagés avec moi')}}
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                {{__('Préférence')}}
+                            </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
