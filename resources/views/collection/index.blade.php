@@ -4,8 +4,11 @@
 @section('content')
 
     <div class="container">
-        <div class="card-header text-center">
+        <div class=" text-center">
             <h1>Liste de mes collections :</h1>
+        </div>
+        <div class="text-center">
+            <input class="form-control" id="myInput" type="text" placeholder="Rechercher une collection..">
         </div>
         <br>
         <div class="row">
@@ -18,7 +21,11 @@
                             </div>
                             <div class="card-body">
                                 <div>
-
+                                    @if($collection->image === 'default_collection.jpg')
+                                    <img src="/storage/default/{{ $collection->image }}" height="150px">
+                                    @else
+                                        <img src="/storage/collections/{{ Auth::user()->id  }}/{{ $collection->image }}" height="150px">
+                                    @endif
                                 </div>
                                 <br>
                                 <div class="text-center">
@@ -37,5 +44,14 @@
             @endif
         </div>
     </div>
-
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".col-md-4").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 @stop

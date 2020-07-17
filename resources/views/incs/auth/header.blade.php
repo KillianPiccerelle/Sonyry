@@ -21,8 +21,16 @@
                         <div class="dropdown-divider"></div>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Modifier</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Modifier
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('page.index') }}">{{ __('Modifier mes pages')}}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('collection.index') }}">{{ __('Modifier mes collection') }}</a>
+                        <div class="dropdown-divider"></div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Partager</a>

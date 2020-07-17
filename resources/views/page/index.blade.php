@@ -4,8 +4,12 @@
 @section('content')
 
     <div class="container">
-        <div class="card-header text-center">
+        <div class="text-center">
             <h1>Liste de mes pages :</h1>
+        </div>
+        <br>
+        <div class="text-center">
+            <input class="form-control" id="myInput" type="text" placeholder="Rechercher une page..">
         </div>
         <br>
         <div class="row">
@@ -18,7 +22,7 @@
                             </div>
                             <div class="card-body">
                                 <div>
-                                    <img src="/storage/pages/{{ $page->user_id }}/{{ $page->image }}">
+                                    <img src="/storage/pages/{{ $page->user_id }}/{{ $page->image }}" height="150px">
                                 </div>
                                 <br>
                                 <div class="text-center">
@@ -40,5 +44,16 @@
             @endif
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".col-md-4").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 
 @stop

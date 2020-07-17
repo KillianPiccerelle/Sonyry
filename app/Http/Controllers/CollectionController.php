@@ -35,7 +35,7 @@ class CollectionController extends Controller
 
         }
         else{
-            $file = 'default_collection';
+            $file = 'default_collection.jpg';
         }
         $collection->image = $file;
 
