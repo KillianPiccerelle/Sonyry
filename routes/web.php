@@ -38,3 +38,8 @@ Route::post('/page/store','PageController@store')->name('page.store');
 Route::get('page/{id}/edit','PageController@edit')->name('page.edit');
 Route::get('page/{id}/delete','PageController@delete')->name('page.delete');
 Route::put('page/{id}/update','PageController@update')->name('page.update');
+
+/**
+ * Profil
+ */
+Route::get('/profil', 'ProfilController@index')->name('profil.index');
