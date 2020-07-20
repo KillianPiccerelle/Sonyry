@@ -18,21 +18,19 @@
                                     </h5>
                                 </div>
                                 <!--card body-->
-                                <br>
-                                <div class="post mt-3">
-                                    <p style="margin-left: 20px">voilà 1</p>
-                                </div>
-                                <hr style="size: 5px">
-                                <div class="post">
-                                    <p style="margin-left: 20px">voilà 2</p>
-                                </div>
-                                <hr style="size: 5px">
-                                <div class="post">
-                                    <p style="margin-left: 20px">voilà 3</p>
-                                </div>
-                                <hr style="size: 5px">
-                                <div class="post">
-                                    <p style="margin-left: 20px">voilà 3</p>
+                                <div class="list-group">
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 1</a>
+                                    </div>
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 2</a>
+                                    </div>
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 3</a>
+                                    </div>
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 4</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -45,13 +43,13 @@
                                     </h5>
                                 </div>
                                 <!--card body-->
-                                <br>
-                                <div class="post mt-3">
-                                    <p style="margin-left: 20px">voilà 1</p>
-                                </div>
-                                <hr style="size: 5px">
-                                <div class="post">
-                                    <p style="margin-left: 20px">voilà 2</p>
+                                <div class="list-group">
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 1</a>
+                                    </div>
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 2</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +65,11 @@
                                     </h5>
                                 </div>
                                 <!--card body-->
-                                <p style="margin-left: 20px">voilà</p>
+                                <div class="list-group">
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 1</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col">
@@ -79,7 +81,11 @@
                                     </h5>
                                 </div>
                                 <!--card body-->
-                                <p style="margin-left: 20px">voilà</p>
+                                <div class="list-group">
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 1</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -94,7 +100,11 @@
                                     </h5>
                                 </div>
                                 <!--card body-->
-                                <p style="margin-left: 20px">voilà</p>
+                                <div class="list-group">
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 1</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col">
@@ -106,7 +116,11 @@
                                     </h5>
                                 </div>
                                 <!--card body-->
-                                <p style="margin-left: 20px">voilà</p>
+                                <div class="list-group">
+                                    <div class="post">
+                                        <a href="#" class="list-group-item list-group-item-action">voilà 1</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -121,21 +135,19 @@
                             </h4>
                             <p class="" style="font-size: smaller">(10 dernières minutes)</p>
                         </div>
-                        <br>
-                        <div class="post mt-3">
-                            <p style="margin-left: 20px">Utilisateur 1</p>
-                        </div>
-                        <hr style="size: 5px">
-                        <div class="post">
-                            <p style="margin-left: 20px">Utilisateur 2</p>
-                        </div>
-                        <hr style="size: 5px">
-                        <div class="post">
-                            <p style="margin-left: 20px">Utilisateur 3</p>
-                        </div>
-                        <hr style="size: 5px">
-                        <div class="post">
-                            <p style="margin-left: 20px">Utilisateur 3</p>
+                        <div class="list-group">
+                            <div class="post">
+                                <a href="#" class="list-group-item list-group-item-action">Utilisateur 1</a>
+                            </div>
+                            <div class="post">
+                                <a href="#" class="list-group-item list-group-item-action">Utilisateur 2</a>
+                            </div>
+                            <div class="post">
+                                <a href="#" class="list-group-item list-group-item-action">Utilisateur 3</a>
+                            </div>
+                            <div class="post">
+                                <a href="#" class="list-group-item list-group-item-action">Utilisateur 4</a>
+                            </div>
                         </div>
                     </div>
                 </div>
