@@ -19,17 +19,31 @@
                                 </div>
                                 <!--card body-->
                                 <div class="list-group">
-                                    <div class="post">
-                                        <a href="#" class="list-group-item list-group-item-action">voilà 1</a>
-                                    </div>
-                                    <div class="post">
-                                        <a href="#" class="list-group-item list-group-item-action">voilà 2</a>
-                                    </div>
-                                    <div class="post">
-                                        <a href="#" class="list-group-item list-group-item-action">voilà 3</a>
-                                    </div>
-                                    <div class="post">
-                                        <a href="#" class="list-group-item list-group-item-action">voilà 4</a>
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link active" id="page-tab" data-toggle="tab" href="#page" role="tab" aria-controls="page" aria-selected="true">Page</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="Collection-tab" data-toggle="tab" href="#collection" role="tab" aria-controls="Collection" aria-selected="false">Collection</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="page" role="tabpanel" aria-labelledby="page-tab">
+                                            @if(count(Auth::user()->pages) > 0)
+                                                @foreach(Auth::user()->pages as $page)
+                                                    <div class="list-group">
+                                                        <div class="post">
+                                                            <a href="" class="list-group-item list-group-item-action">{{ $page->title }} édité le {{ $page->updated_at }}</a>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <p>Aucun élément modifié dernièrement.</p>
+                                            @endif
+                                        </div>
+                                        <div class="tab-pane fade" id="collection" role="tabpanel" aria-labelledby="collection-tab">
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -65,9 +79,30 @@
                                     </h5>
                                 </div>
                                 <!--card body-->
-                                <div class="list-group">
-                                    <div class="post">
-                                        <a href="#" class="list-group-item list-group-item-action">voilà 1</a>
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" id="page-tab" data-toggle="tab" href="#page" role="tab" aria-controls="page" aria-selected="true">Page</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="Collection-tab" data-toggle="tab" href="#collection" role="tab" aria-controls="Collection" aria-selected="false">Collection</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="page" role="tabpanel" aria-labelledby="page-tab">
+                                        @if(count(Auth::user()->pages) > 0)
+                                            @foreach(Auth::user()->pages as $page)
+                                                <div class="list-group">
+                                                    <div class="post">
+                                                        <a href="" class="list-group-item list-group-item-action">{{ $page->title }} édité le {{ $page->updated_at }}</a>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <p>Aucun élément modifié dernièrement.</p>
+                                        @endif
+                                    </div>
+                                    <div class="tab-pane fade" id="collection" role="tabpanel" aria-labelledby="collection-tab">
+
                                     </div>
                                 </div>
                             </div>
