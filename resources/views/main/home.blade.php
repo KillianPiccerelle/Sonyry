@@ -93,7 +93,7 @@
                                             @foreach(Auth::user()->pages as $page)
                                                 <div class="list-group">
                                                     <div class="post">
-                                                        <a href="" class="list-group-item list-group-item-action">{{ $page->title }} édité le {{ $page->updated_at }}</a>
+                                                        <a href="" class="list-group-item list-group-item-action">{{ $page->title }}</a>
                                                     </div>
                                                 </div>
                                             @endforeach
