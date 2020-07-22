@@ -16,7 +16,10 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">test</a>
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">{{ __("S'enregistrer") }}</a>
                 </li>
             </ul>
         </div>
