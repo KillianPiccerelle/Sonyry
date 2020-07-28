@@ -3,8 +3,7 @@
 @section('content')
 
 
-
-    <div id="carouselExemple" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <div style="margin-top: 120px;" id="carouselExemple" class="carousel slide" data-ride="carousel" data-interval="5000">
 
         <ol class="carousel-indicators">
             <li data-target="#carouselExemple" data-slide-to="0" class="active"></li>
@@ -47,14 +46,15 @@
 
         </div>
 
-        <a href="#carouselExemple" class="carousel-control-prev" role="button" data-slide="prev">
+        <a   class="carousel-control-prev" href="#carouselExemple" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">Précédent</span>
         </a>
-        <a href="#carouselExemple" class="carousel-control-next" role="button" data-slide="next">
+        <a  class="carousel-control-next" href="#carouselExemple" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
+            <span class="sr-only">Suivant</span>
         </a>
+
 
     </div>
 

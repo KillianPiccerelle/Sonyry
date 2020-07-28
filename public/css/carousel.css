@@ -2,6 +2,9 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    background-image:url('https://diapogram.com/upload/2019/04/19/20190419171910-96076126.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #carouselExemple {
@@ -16,3 +19,7 @@ body {
     object-fit: contain;
 
 }
+
+
+
+
