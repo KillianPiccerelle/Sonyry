@@ -2,6 +2,7 @@
 
 @section('content')
 
+    <div class="background"></div>
 
     <div style="margin-top: 120px;" id="carouselExemple" class="carousel slide" data-ride="carousel" data-interval="5000">
 
@@ -16,7 +17,7 @@
 
             <div class="carousel-item active">
                 <img
-                    src="https://images.unsplash.com/photo-1516414447565-b14be0adf13e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1266&q=80"
+                    src="/img/carou2.jpg"
                     class="d-block w-100">
                 <div class="carousel-caption d-none d-md-block">
                     <h1>Créez</h1>
@@ -26,7 +27,7 @@
 
             <div class="carousel-item">
                 <img
-                    src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                    src="/img/carou1.jpg"
                     class="d-block w-100">
                 <div class="carousel-caption d-none d-md-block">
                     <h1>Collaborez</h1>
@@ -36,7 +37,7 @@
 
             <div class="carousel-item">
                 <img
-                    src="https://images.unsplash.com/photo-1585909694668-0a6e0ddbfe8b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                    src="/img/carou3.jpg"
                     class="d-block w-100">
                 <div class="carousel-caption d-none d-md-block">
                     <h1>Partagez</h1>
