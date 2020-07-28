@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+#carouselExemple {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.carousel-inner img {
+
+    height:700px;
+
+    object-fit: contain;
+
+}
