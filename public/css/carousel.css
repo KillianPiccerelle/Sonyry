@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+
+}
+
+#carouselExemple {
+    width: 60%;
+    margin: 0 auto;
+
+}
+
+.carousel-inner img {
+
+    height:700px;
+    filter: blur(0px);
+    object-fit: contain;
+
+}
+
+
+
+.background {
+    background-image:url('/img/carousel.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(5px);
+    position: absolute;
+    height: 90%;
+    top: 80px;
+    left: 0;
+    width: 100%;
+}

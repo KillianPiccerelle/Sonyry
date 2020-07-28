@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav  style="position: absolute; top: 0; left: 0; right: 0;"  class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
@@ -16,7 +16,10 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">test</a>
+                    <a class="nav-link active" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('register') }}">{{ __("S'enregistrer") }}</a>
                 </li>
             </ul>
         </div>

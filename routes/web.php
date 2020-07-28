@@ -22,6 +22,7 @@ Route::get('/', function () {
     }else{
         return redirect('login');
     }
+
 });
 
 Auth::routes();
