@@ -18,12 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if(Auth::check()){
-        return redirect('home');
+        return view('main.auth.home');
     }else{
-        return redirect('login');
+        return view('main.ano.home');
     }
 
-});
+})->name('home');
 
 Auth::routes();
 
