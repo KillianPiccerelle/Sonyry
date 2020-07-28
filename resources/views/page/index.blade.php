@@ -24,12 +24,12 @@
                                 <div class="text-center">
                                     <a href="{{ route('page.edit', $page->id) }}" class="btn btn-primary">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        Editer
+                                        Éditer
                                     </a>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <small>Dernière modification : {{ $page->updated_at }}</small>
+                                <small>Dernière modification : {{ $page->updated_at->format('d/m/y à H\hi') }}</small>
                             </div>
                         </div>
                         <br>
