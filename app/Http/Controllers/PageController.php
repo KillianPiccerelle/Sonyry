@@ -18,7 +18,8 @@ class PageController extends Controller
     public function index(){
         $pages = Page::where('user_id', Auth::user()->id)->get();
         return view('page.index',[
-            'pages'=>$pages
+            'pages'=>$pages,
+            'title'=>'Mes pages'
         ]);
     }
 
