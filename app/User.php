@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Page');
     }
+
+    public function collections()
+    {
+        return $this->hasMany('App\Collection');
+    }
 }

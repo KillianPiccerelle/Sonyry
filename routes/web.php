@@ -30,11 +30,13 @@ Route::get('/logout', function() {
 
 Route::get('/', function () {
     if(Auth::check()){
-        return redirect('pages');
+        return redirect('home');
     }else{
         return redirect('login');
     }
 });
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 /**
  * Pages
