@@ -41,12 +41,18 @@ class PageController extends Controller
         $page->description = $request->input('description');
         $page->user_id = Auth::user()->id;
 
-        $image = $request->file('image');
-        $imageFullName = $image->getClientOriginalName();
-        $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
-        $extension = $image->getClientOriginalExtension();
-        $file = time(). '_' . $imageName . '.' . $extension;
-        $image->storeAs('public/pages/'.Auth::user()->id, $file);
+        if($request->file('image')){
+            $image = $request->file('image');
+            $imageFullName = $image->getClientOriginalName();
+            $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $file = time(). '_' . $imageName . '.' . $extension;
+            $image->storeAs('public/pages/'.Auth::user()->id, $file);
+
+        }
+        else{
+            $file = 'default_page.png';
+        }
 
         $page->image = $file;
 
