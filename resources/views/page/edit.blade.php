@@ -87,7 +87,7 @@
                             <div class="form-group">
                                 <label for="image"><i>Image actuelle :</i></label>
                                 <br>
-                                <img src="/storage/pages/{{ Auth::user()->id }}/{{ $page->image }}">
+                                <img src="/storage/pages/{{ Auth::user()->id }}/{{ $page->image }}" height="300px">
                             </div>
 
                         </div>

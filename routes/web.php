@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,20 +15,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
 
 Route::get('/', function () {
     if(Auth::check()){
-        return redirect('pages');
+        return redirect('home');
     }else{
         return redirect('login');
     }
 });
 
+Auth::routes();
+
+Route::get('/logout', function() {
+    auth()->logout();
+    Session()->flush();
+
+    return Redirect::to('/');
+});
+
+
 /**
  * Pages
  */
+
 Route::middleware('auth')->group(function(){
+    /**
+     * Nécessite l'authentification
+     * Le Route::ressource gère toutes les routes présentes dans un controller
+     */
     Route::get('pages','PageController@index')->name('pages');
     Route::resource('page','PageController');
+
+    Route::get('pages','PageController@index')->name('collections');
+    Route::resource('collection','CollectionController');
 });
+

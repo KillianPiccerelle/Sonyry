@@ -4,47 +4,49 @@
 @section('content')
 
     <div class="container">
-        <div class="text-center">
-            <h1>Liste de mes pages :</h1>
+        <div class=" text-center">
+            <h1>Liste de mes collections :</h1>
         </div>
-        <br>
         <div class="text-center">
-            <input class="form-control" id="myInput" type="text" placeholder="Rechercher une page..">
+            <input class="form-control" id="myInput" type="text" placeholder="Rechercher une collection..">
         </div>
         <br>
         <div class="row">
-            @if(count($pages) > 0)
-                @foreach($pages as $page)
+            @if(count($collections) > 0)
+                @foreach($collections as $collection)
                     <div class="col-md-4">
                         <div class="card text-center">
                             <div class="card-header">
-                                <h5><span>{{ $page->title }}</span></h5>
+                                <h5><span>{{ $collection->name }}</span></h5>
                             </div>
                             <div class="card-body">
                                 <div>
-                                    <img src="/storage/pages/{{ $page->user_id }}/{{ $page->image }}" height="150px">
+                                    @if($collection->image === 'default_collection.jpg')
+                                    <img src="/storage/default/{{ $collection->image }}" height="150px">
+                                    @else
+                                        <img src="/storage/collections/{{ Auth::user()->id  }}/{{ $collection->image }}" height="150px">
+                                    @endif
                                 </div>
                                 <br>
-                                <div class="text-center">
-                                    <a href="{{ route('page.edit', $page->id) }}" class="btn btn-primary">
+                                <div class="container text-center">
+                                    <a href="{{ route('collection.edit', $collection->id) }}" class="btn btn-primary">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        Éditer
+                                        Editer
                                     </a>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <small>Dernière modification : {{ $page->updated_at->format('d/m/y à H\hi') }}</small>
+                            <div class="card-footer text-center">
+                                <p>Nombre de pages dans la collection : </p>
                             </div>
                         </div>
                         <br>
                     </div>
                 @endforeach
             @else
-                <p>Pas de pages.</p>
+                <p>Pas de collections.</p>
             @endif
         </div>
     </div>
-
     <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
@@ -55,5 +57,4 @@
             });
         });
     </script>
-
 @stop
