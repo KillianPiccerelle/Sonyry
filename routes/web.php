@@ -14,20 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('main.home');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+    if(Auth::check()){
+        return redirect('pages');
+    }else{
+        return redirect('login');
+    }
+});
 
 /**
  * Pages
  */
-Route::get('/pages','PageController@index')->name('page.index');
-Route::get('/page/create','PageController@create')->name('page.create');
-Route::post('/page/store','PageController@store')->name('page.store');
-Route::get('page/{id}/edit','PageController@edit')->name('page.edit');
-Route::get('page/{id}/delete','PageController@delete')->name('page.delete');
-Route::put('page/{id}/update','PageController@update')->name('page.update');
+Route::middleware('auth')->group(function(){
+    Route::get('pages','PageController@index')->name('pages');
+    Route::resource('page','PageController');
+});
