@@ -103,7 +103,7 @@ Here will be space to show useful examples of how the project can be used. Addit
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/Fenightix/Sonyry/issues) for a list of proposed features (and known issues).
+See the [open issues](https://app.gitkraken.com/glo/board/XxV90j7jvAARX2qH) for a list of proposed features (and known issues).
 
 
 

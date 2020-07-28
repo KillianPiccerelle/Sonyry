@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+
 Auth::routes();
+Route::get('/logout', function() {
+    auth()->logout();
+    Session()->flush();
+
+    return Redirect::to('/');
+});
 
 Route::get('/', function () {
     if(Auth::check()){
