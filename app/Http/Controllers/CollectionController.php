@@ -51,4 +51,12 @@ class CollectionController extends Controller
             'collections'=>$collections
         ]);
     }
+
+    public function edit($id){
+        $collection = Collection::find($id);
+
+        return view('collection.edit', [
+            'collection'=> $collection
+        ]);
+    }
 }

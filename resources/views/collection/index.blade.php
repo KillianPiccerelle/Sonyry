@@ -28,12 +28,15 @@
                                     @endif
                                 </div>
                                 <br>
-                                <div class="text-center">
-
+                                <div class="container text-center">
+                                    <a href="{{ route('collection.edit', $collection->id) }}" class="btn btn-primary">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        Editer
+                                    </a>
                                 </div>
                             </div>
-                            <div class="card-footer">
-
+                            <div class="card-footer text-center">
+                                <p>Nombre de pages dans la collection : </p>
                             </div>
                         </div>
                         <br>
