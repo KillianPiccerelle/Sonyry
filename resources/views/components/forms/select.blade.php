@@ -5,7 +5,7 @@
             @if(isset($value) and $value==$item->id)
                 <option value="{{$item->id}}" selected="">{{$item->title}}</option>
             @else
-                <option value="{{$item->id}}">{{$item->label()}}</option>
+                <option value="{{$item->id}}">{{$item->label}}</option>
             @endif
         @endforeach
     </select>
