@@ -4,23 +4,25 @@
 @section('content')
 
     <div class="container">
+        <x-bootstrap.alert-danger>
+            Le texte de mon alerte
+        </x-bootstrap.alert-danger>
         <div class="d-flex justify-content-center">
             <div class="col-lg-8">
-                <form method="post" action="{{ route('page.store') }}" class="comment-form contact-form" enctype="multipart/form-data">
-                    @csrf
-                        <div class="form-group">
-                            <label for="title">Titre de la page</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Titre de la page">
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Description de la page</label>
-                            <textarea type="textarea" class="form-control" id="description" name="description" placeholder="Description de la page"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="file" name="image"/>
-                        </div>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> Créer la page</button>
-                </form>
+                <x-bootstrap.card>
+                    <x-forms.form route="page.store">
+                        <x-forms.date></x-forms.date>
+                        <x-forms.text name="titre" value="" label="Titre" placeholder="Titre de la page"></x-forms.text>
+                        <x-forms.select label="Type de page" name="type" :items="App\User::all()" value="2"></x-forms.select>
+                            <div class="form-group">
+                                <label for="description">Description de la page</label>
+                                <textarea type="textarea" class="form-control" id="description" name="description" placeholder="Description de la page"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="image"/>
+                            </div>
+                    </x-forms.form>
+                </x-bootstrap.card>
             </div>
         </div>
     </div>
