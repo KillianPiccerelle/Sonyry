@@ -91,7 +91,13 @@
                             <input type="text" name="newFirstname" value="{{ $user->firstName }}"><br>
 
                             <label for="newEmail">Email</label>
-                            <input type="text" name="newEmail" value="{{ $user->email }}"><br>
+                            <input type="email" id="inputEmail"  @error('email') is-invalid @enderror"  name="newEmail" value="{{ $user->email }}" required autocomplete="email" autofocus>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                            <br>
 
                             <label for="newJob">Emploi</label>
                             <input type="text" name="newJob" value="{{ $profil->job }}"><br>
