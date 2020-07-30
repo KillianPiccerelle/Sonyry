@@ -8,10 +8,7 @@
                 <b><h1>Gestion des pages dans la collection :</h1></b>
                 <button class="btn btn-outline-dark" data-toggle="modal" data-target="#helpModal">Aide</button>
             </div>
-
-
         </div>
-
         <br>
         <div class="col-lg-5 float-left" id="divFreePage">
             <div class="text-center">
@@ -19,7 +16,7 @@
                 <hr>
                 @if(count($pagesAvailables) > 0)
                 <div class="text-center">
-                    <input class="form-control" id="myInput" type="text" placeholder="Rechercher une page..">
+                    <input class="form-control" id="pageFreeInput" type="text" placeholder="Rechercher une page..">
                 </div>
                 @endif
             </div>
@@ -64,7 +61,7 @@
                 <hr>
                 @if(count($pagesInCollection) > 0)
                 <div class="text-center">
-                    <input class="form-control" id="myInput" type="text" placeholder="Rechercher une page..">
+                    <input class="form-control" id="pageUsedInput" type="text" placeholder="Rechercher une page..">
                 </div>
                 @endif
             </div>
@@ -129,13 +126,13 @@
             $('#btnDeletePages').click(function () {
                 $('#formDeletePages').submit();
             })
-            $("#myInput").on("keyup", function() {
+            $("#pageFreeInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $("#divFreePage .col-md-4").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
-            $("#myInput").on("keyup", function() {
+            $("#pageUsedInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $("#divUsedPages .col-md-4").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
