@@ -49,5 +49,11 @@ Route::middleware('auth')->group(function(){
 
     Route::get('pages','PageController@index')->name('collections');
     Route::resource('collection','CollectionController');
+
+    Route::get('collection/{id}/addPages','CollectionController@addPages')->name('collection.addPages');
+
+    Route::post('collection/{id}/storePages','CollectionController@storePages')->name('collection.storePages');
+    Route::post('collection/{id}/deletePages','CollectionController@deletePages')->name('collection.deletePages');
+
 });
 

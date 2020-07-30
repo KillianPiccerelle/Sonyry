@@ -51,7 +51,7 @@
                     <p>Voulez-vous vraiment supprimer la page ?</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{route('page.delete', $page->id)}}" type="button" class="btn btn-danger">Supprimer</a>
+                    <a href="{{route('page.destroy', $page->id)}}" type="button" class="btn btn-danger">Supprimer</a>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>

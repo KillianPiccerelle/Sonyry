@@ -51,6 +51,11 @@
 
 <body>
 
+<div class="container">
+    <br>
+    @include('incs.messages')
+</div>
+
     <main class="py-4">
         @yield('content')
     </main>
