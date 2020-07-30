@@ -17,7 +17,14 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        $groups = UserGroup::where('user_id', Auth::user()->id)->get();
+        foreach ($groups as $group){
+            $group->members = count(UserGroup::where('group_id', $group->group_id)->get());
+        }
+
+        return view('group.index', [
+            'groups' =>$groups
+        ]);
     }
 
     /**
@@ -38,7 +45,7 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+
         $group = New Group();
         $group->name = $request->input('name');
         $group->user_id = Auth::user()->id;
@@ -94,6 +101,7 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        return view('group.index');
     }
 }
