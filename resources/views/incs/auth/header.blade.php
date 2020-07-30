@@ -19,6 +19,8 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('collection.create') }}">{{ __('Créer une collection') }}</a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('group.create') }}">{{ __('Créer un groupe') }}</a>
+                        <div class="dropdown-divider"></div>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

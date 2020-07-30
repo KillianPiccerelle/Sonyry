@@ -57,3 +57,10 @@ Route::middleware('auth')->group(function(){
 Route::get('/profil', 'ProfilController@index')->name('profil.index');
 Route::get('/profil/update', 'ProfilController@update')->name('profil.update');
 Route::get('/profil/group/{id}/exit', 'UserGroupController@destroy')->name('userGroup.destroy');
+
+
+/**
+ * Groupe
+ */
+Route::get('/group/create', 'GroupController@create')->name('group.create');
+Route::post('/group/store', 'GroupController@store')->name('group.store');

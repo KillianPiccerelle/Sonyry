@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
+use App\UserGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\New_;
 
 class GroupController extends Controller
 {
@@ -23,7 +27,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        return view('group.create');
     }
 
     /**
@@ -34,7 +38,18 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $group = New Group();
+        $group->name = $request->input('name');
+        $group->user_id = Auth::user()->id;
+        $group->save();
+
+        $userGroup = New UserGroup();
+        $userGroup->user_id = Auth::user()->id;
+        $userGroup->group_id = $group->id;
+        $userGroup->save();
+
+        return redirect()->route('profil.index');
     }
 
     /**
