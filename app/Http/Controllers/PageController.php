@@ -105,7 +105,7 @@ class PageController extends Controller
     /**
      *delete the page in the database
      */
-    public function delete($id){
+    public function destroy($id){
         $page = Page::find($id);
 
         $fileToDelete = 'public/pages/'.Auth::user()->id.'/'.$page->image;

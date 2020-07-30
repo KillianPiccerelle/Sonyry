@@ -51,3 +51,9 @@ Route::middleware('auth')->group(function(){
     Route::resource('collection','CollectionController');
 });
 
+/**
+ * Profil
+ */
+Route::get('/profil', 'ProfilController@index')->name('profil.index');
+Route::get('/profil/update', 'ProfilController@update')->name('profil.update');
+Route::get('/profil/group/{id}/exit', 'UserGroupController@destroy')->name('userGroup.destroy');

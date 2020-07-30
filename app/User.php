@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use App\Page;
 
@@ -48,8 +49,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Collection');
     }
 
-    public function group()
+    public function groups()
     {
         return $this->hasMany('App\Group');
     }
+
 }
