@@ -30,15 +30,15 @@
                             Nom : {{ $user->name }}<br>
                             Prénom : {{ $user->firstName }}<br>
                             Email : {{ $user->email }}<br>
-                            Emploi : {{ $profil->job }}<br>
-                            Secteur d'activité : {{ $profil->businessSegment }}<br>
-                            Rue : {{ $profil->streetAddress }}<br>
-                            Ville : {{ $profil->cityAddress }}<br>
-                            Code Postal : {{ $profil->postCodeAddress }}<br>
-                            Pays : {{ $profil->country }}<br>
-                            Téléphone portable : {{ $profil->mobilePhone }}<br>
-                            Téléphone de travail : {{ $profil->businessPhone }}<br>
-                            Description : {{ $profil->description }}<br>
+                            Emploi : {{ $user->job }}<br>
+                            Secteur d'activité : {{ $user->businessSegment }}<br>
+                            Rue : {{ $user->streetAddress }}<br>
+                            Ville : {{ $user->cityAddress }}<br>
+                            Code Postal : {{ $user->postCodeAddress }}<br>
+                            Pays : {{ $user->country }}<br>
+                            Téléphone portable : {{ $user->mobilePhone }}<br>
+                            Téléphone de travail : {{ $user->businessPhone }}<br>
+                            Description : {{ $user->description }}<br>
 
                         </form>
                     </div>
@@ -82,16 +82,16 @@
                     <div class="tab-pane fade" id="nav-Edit" role="tabpanel" aria-labelledby="nav-Edit-tab">
 
 
-                        <form method="POST" action="">
+                        <form method="POST" action="{{route('profil.update',$user->id)}}">
 
                             <label for="newName">Nom</label>
-                            <input type="text" name="newName" value="{{ $user->name }}"><br>
+                            <input type="text" name="newName" placeholder="{{ $user->name }}"><br>
 
                             <label for="newFirstname">Prénom</label>
-                            <input type="text" name="newFirstname" value="{{ $user->firstName }}"><br>
+                            <input type="text" name="newFirstname" placeholder="{{ $user->firstName }}"><br>
 
                             <label for="newEmail">Email</label>
-                            <input type="email" id="inputEmail"  @error('email') is-invalid @enderror"  name="newEmail" value="{{ $user->email }}" required autocomplete="email" autofocus>
+                            <input type="email" id="inputEmail"  @error('email') is-invalid @enderror"  name="newEmail" placeholder="{{ $user->email }}" required autocomplete="email" autofocus>
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -100,31 +100,31 @@
                             <br>
 
                             <label for="newJob">Emploi</label>
-                            <input type="text" name="newJob" value="{{ $profil->job }}"><br>
+                            <input type="text" name="newJob" placeholder="{{ $user->job }}"><br>
 
                             <label for="newJobSegment">Secteur d'activité</label>
-                            <input type="text" name="newJobSegment" value="{{ $profil->businessSegment }}"><br>
+                            <input type="text" name="newJobSegment" placeholder="{{ $user->businessSegment }}"><br>
 
                             <label for="newStreet">Rue</label>
-                            <input type="text" name="newStreet" value="{{ $profil->streetAddress }}"><br>
+                            <input type="text" name="newStreet" placeholder="{{ $user->streetAddress }}"><br>
 
                             <label for="newCity">Ville</label>
-                            <input type="text" name="newCity" value="{{ $profil->cityAddress }}"><br>
+                            <input type="text" name="newCity" placeholder="{{ $user->cityAddress }}"><br>
 
                             <label for="newPostalCode">Code Postal</label>
-                            <input type="text" name="newPostalCode" value="{{ $profil->postCodeAddress }}"><br>
+                            <input type="text" name="newPostalCode" placeholder="{{ $user->postCodeAddress }}"><br>
 
                             <label for="newCountry">Pays</label>
-                            <input type="text" name="newCountry" value="{{ $profil->country }}"><br>
+                            <input type="text" name="newCountry" placeholder="{{ $user->country }}"><br>
 
                             <label for="newMobilePhone">Téléphone portable</label>
-                            <input type="text" name="newMobilePhone" value="{{ $profil->mobilePhone }}"><br>
+                            <input type="text" name="newMobilePhone" placeholder="{{ $user->mobilePhone }}"><br>
 
                             <label for="newWorkPhone">Téléphone de travail</label>
-                            <input type="text" name="newWorkPhone" value="{{ $profil->businessPhone }}"><br>
+                            <input type="text" name="newWorkPhone" placeholder="{{ $user->businessPhone }}"><br>
 
                             <label for="newDescription">Description</label>
-                            <input type="text" name="newDescription" value="{{ $profil->description }}"><br>
+                            <input type="text" name="newDescription" placeholder="{{ $user->description }}"><br>
 
 
                             <input type="submit" name="submit" value="Mettre à jour mon profil">

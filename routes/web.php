@@ -43,3 +43,4 @@ Route::put('page/{id}/update','PageController@update')->name('page.update');
  * Profil
  */
 Route::get('/profil', 'ProfilController@index')->name('profil.index');
+Route::get('/profil/update', 'ProfilController@update')->name('profil.update');

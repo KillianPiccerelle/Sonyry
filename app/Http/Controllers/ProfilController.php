@@ -15,10 +15,9 @@ class ProfilController extends Controller
      */
     public function index()
     {
-        $profil = Profil::where('user_id',Auth::user()->id)->get();
-        return view('profil.profil',[
-            'profil'=>$profil[0]
-        ]);
+
+
+        return view('profil.profil');
 
     }
 
@@ -32,7 +31,7 @@ class ProfilController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+
     }
 
 }
