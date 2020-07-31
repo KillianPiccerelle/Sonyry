@@ -133,7 +133,7 @@
                     <p>Voulez-vous vraiment supprimer la collection ?</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ route('collection.destroy', $collection->id) }}" type="button" class="btn btn-danger">
+                    <a href="{{ route('collection.destroy.fix', $collection->id) }}" type="button" class="btn btn-danger">
                         Supprimer
                     </a>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>

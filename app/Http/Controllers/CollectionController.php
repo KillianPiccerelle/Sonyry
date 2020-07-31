@@ -114,6 +114,29 @@ class CollectionController extends Controller
         return redirect()->route('collection.edit', $collection->id)->with('success', 'Les informations de la collection ont bien été modifiées');
     }
 
+    public function destroy($id){
+
+        $collection = Collection::find($id);
+
+        $collectionPage = CollectionsPage::where('collection_id',$collection->id)->get();
+
+        if(count($collectionPage)>0){
+            foreach ($collectionPage as $item){
+                $item->delete();
+            }
+        }
+
+        $fileToDelete = 'public/collections/'.Auth::user()->id.'/'.$collection->image;
+
+        if(Storage::exists($fileToDelete)){
+            Storage::delete($fileToDelete);
+        }
+
+        $collection->delete();
+
+        return redirect()->route('collection.index')->with('success','La collection a bien été supprimée');
+    }
+
 
 
 
