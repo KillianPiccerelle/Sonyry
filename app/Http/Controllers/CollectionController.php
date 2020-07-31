@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CollectionController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * return the view to create a collection
+     */
     public function create(){
         $pages = Page::where('user_id', Auth::user()->id)->get();
         return view('collection.create',[
@@ -17,6 +21,11 @@ class CollectionController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * store the collection in the database
+     */
     public function store(Request $request){
         $collection = new Collection();
 
@@ -45,6 +54,10 @@ class CollectionController extends Controller
         return redirect()->route('collection.index');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * return a view with all the collection of the user connected
+     */
     public function index(){
         $collections = Collection::where('user_id', Auth::user()->id)->get();
 
@@ -53,6 +66,12 @@ class CollectionController extends Controller
         ]);
     }
 
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * return a view with all page in the collection
+     */
     public function edit($id){
         $collection = Collection::find($id);
         $pages = CollectionsPage::where('collection_id',$id)->get();
@@ -63,57 +82,9 @@ class CollectionController extends Controller
         ]);
     }
 
-    public function addPages($id){
-        $collection = Collection::find($id);
 
-        $pagesInCollection = CollectionsPage::where('collection_id',$id)->get();
-        $pagesAvailables = Page::where('user_id',Auth::user()->id)->get();
 
-        $count = 0;
 
-        foreach ($pagesAvailables as $page){
-            foreach ($pagesInCollection as $pageChecking){
-                if($pageChecking->page_id === $page->id){
-                    unset($pagesAvailables[$count]);
-                }
-            }
-            $count++;
-        }
 
-        return view('collection.addPages', [
-            'collection'=>$collection,
-            'pagesAvailables'=>$pagesAvailables,
-            'pagesInCollection'=>$pagesInCollection
-        ]);
-    }
 
-    public function storePages(Request $request, $id){
-        if($request->input('checkbox') == null){
-            return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');
-        }
-        foreach ($request->input('checkbox') as $item){
-            $collectionPage = new CollectionsPage();
-
-            $collectionPage->collection_id = $id;
-            $collectionPage->page_id = $item;
-
-            $collectionPage->save();
-        }
-
-        return redirect()->route('collection.addPages', $id)->with('success','Page(s) ajoutée(s) à la collection avec succès !');
-    }
-
-    public function deletePages(Request $request, $id){
-        if($request->input('checkbox') == null){
-            return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');
-        }
-
-        foreach ($request->input('checkbox') as $item){
-
-            $collectionPage = CollectionsPage::where('page_id',$item);
-            $collectionPage->delete();
-        }
-
-        return redirect()->route('collection.addPages', $id)->with('success','Page(s) suprimée(s) de la collection avec succès !');
-    }
 }

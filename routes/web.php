@@ -45,16 +45,24 @@ Route::middleware('auth')->group(function(){
      * Le Route::ressource gère toutes les routes présentes dans un controller
      */
 
+    /**
+     * Page route
+     */
     Route::resource('page','PageController');
     Route::get('page/{id}/destroy','PageController@destroy')->name('page.destroy.fix');
 
+    /**
+     * Collection route
+     */
     Route::get('collections','CollectionController@index')->name('collections');
     Route::resource('collection','CollectionController');
 
-    Route::get('collection/{id}/addPages','CollectionController@addPages')->name('collection.addPages');
-
-    Route::post('collection/{id}/storePages','CollectionController@storePages')->name('collection.storePages');
-    Route::post('collection/{id}/deletePages','CollectionController@deletePages')->name('collection.deletePages');
+    /**
+     * CollectionPage route
+     */
+    Route::get('collection/{id}/addPages','CollectionPageController@add')->name('collection.addPages');
+    Route::post('collection/{id}/storePages','CollectionPageController@store')->name('collection.storePages');
+    Route::post('collection/{id}/deletePages','CollectionPageController@destroy')->name('collection.deletePages');
 
 });
 
