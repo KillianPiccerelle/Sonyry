@@ -7,6 +7,7 @@ use App\CollectionsPage;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CollectionController extends Controller
 {
@@ -80,6 +81,37 @@ class CollectionController extends Controller
             'collection'=> $collection,
             'pages'=>$pages
         ]);
+    }
+
+    public function update(Request $request, $id){
+
+        $collection = Collection::find($id);
+
+        if($request->input('name') != null){
+            $collection->name = $request->input('name');
+        }
+        if($request->input('description') != null){
+            $collection->description = $request->input('description');
+        }
+        if($request->file('image')){
+            //update de l'image
+            //suppression de l'ancienne image
+            $fileToDelete = 'public/collections/'.Auth::user()->id.'/'.$collection->image;
+
+            if(Storage::exists($fileToDelete)){
+                Storage::delete($fileToDelete);
+            }
+            $image = $request->file('image');
+            $imageFullName = $image->getClientOriginalName();
+            $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $file = time(). '_' . $imageName . '.' . $extension;
+            $image->storeAs('public/collections/'.Auth::user()->id, $file);
+            $collection->image = $file;
+        }
+        $collection->save();
+
+        return redirect()->route('collection.edit', $collection->id)->with('success', 'Les informations de la collection ont bien été modifiées');
     }
 
 
