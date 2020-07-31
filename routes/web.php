@@ -44,10 +44,11 @@ Route::middleware('auth')->group(function(){
      * Nécessite l'authentification
      * Le Route::ressource gère toutes les routes présentes dans un controller
      */
-    Route::get('pages','PageController@index')->name('pages');
-    Route::resource('page','PageController');
 
-    Route::get('pages','PageController@index')->name('collections');
+    Route::resource('page','PageController');
+    Route::get('page/{id}/destroy','PageController@destroy')->name('page.destroy.fix');
+
+    Route::get('collections','CollectionController@index')->name('collections');
     Route::resource('collection','CollectionController');
 
     Route::get('collection/{id}/addPages','CollectionController@addPages')->name('collection.addPages');

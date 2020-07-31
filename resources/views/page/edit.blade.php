@@ -51,7 +51,9 @@
                     <p>Voulez-vous vraiment supprimer la page ?</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{route('page.destroy', $page->id)}}" type="button" class="btn btn-danger">Supprimer</a>
+                    <a href="{{ route('page.destroy.fix', $page->id) }}" type="button" class="btn btn-danger">
+                        Supprimer
+                    </a>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
@@ -87,9 +89,12 @@
                             <div class="form-group">
                                 <label for="image"><i>Image actuelle :</i></label>
                                 <br>
-                                <img src="/storage/pages/{{ Auth::user()->id }}/{{ $page->image }}" height="300px">
+                                @if($page->image === 'default_page.png')
+                                    <img src="/storage/default/{{ $page->image }}" height="300px">
+                                @else
+                                    <img src="/storage/pages/{{ $page->user_id }}/{{ $page->image }}" height="300px">
+                                @endif
                             </div>
-
                         </div>
                     </div>
                     <div class="modal-footer">

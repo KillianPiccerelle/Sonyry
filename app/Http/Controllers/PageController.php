@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CollectionsPage;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,7 +59,7 @@ class PageController extends Controller
 
         $page->save();
 
-        return redirect()->route('page.index');
+        return redirect()->route('page.index')->with('success','La page a bien été créée');
     }
 
     public function edit($id){
@@ -97,7 +98,7 @@ class PageController extends Controller
 
         $page->save();
 
-        return redirect()->route('page.edit', $page->id);
+        return redirect()->route('page.edit', $page->id)->with('success','Les informations de la page ont bien été modifiées');
 
 
     }
@@ -108,6 +109,15 @@ class PageController extends Controller
     public function destroy($id){
         $page = Page::find($id);
 
+        $collectionPage = CollectionsPage::where('page_id', $id)->get();
+
+        //delete the page in the collection if they are in any collection
+        if (count($collectionPage) > 0){
+            foreach ($collectionPage as $item) {
+                $item->delete();
+            }
+        }
+
         $fileToDelete = 'public/pages/'.Auth::user()->id.'/'.$page->image;
 
         if(Storage::exists($fileToDelete)){
@@ -116,6 +126,10 @@ class PageController extends Controller
 
         $page->delete();
 
-        return redirect()->route('page.index');
+        return redirect()->route('page.index')->with('success','La page à bien été supprimée');
+    }
+
+    public function show($id){
+
     }
 }

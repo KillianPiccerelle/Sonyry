@@ -31,7 +31,11 @@
                                         <h5 class="card-title">{{ $page->title }}</h5>
                                     </div>
                                     <div class="card-body">
-                                        <img src="/storage/pages/{{ Auth::user()->id }}/{{ $page->image }}" width="150" height="100">
+                                        @if($page->image === 'default_page.png')
+                                            <img src="/storage/default/{{ $page->image }}" height="100px">
+                                        @else
+                                            <img src="/storage/pages/{{ $page->user_id }}/{{ $page->image }}" height="100px">
+                                        @endif
                                     </div>
                                     <div class="card-footer">
                                         <x-forms.input type="checkbox" name="checkbox[]" value="{{$page->id}}"></x-forms.input>
@@ -76,7 +80,11 @@
                                         <h5 class="card-title">{{ $page->page->title }}</h5>
                                     </div>
                                     <div class="card-body">
-                                        <img src="/storage/pages/{{ Auth::user()->id }}/{{ $page->page->image }}" width="150" height="100">
+                                        @if($page->page->image === 'default_page.png')
+                                            <img src="/storage/default/{{ $page->page->image }}" height="100px">
+                                        @else
+                                            <img src="/storage/pages/{{ $page->page->user_id }}/{{ $page->page->image }}" height="100px">
+                                        @endif
                                     </div>
                                     <div class="card-footer">
                                         <x-forms.input type="checkbox" name="checkbox[]" value="{{$page->page->id}}"></x-forms.input>

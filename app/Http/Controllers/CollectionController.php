@@ -10,19 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CollectionController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * Return view to create a collection
-     */
     public function create(){
-        return view('collection.create');
+        $pages = Page::where('user_id', Auth::user()->id)->get();
+        return view('collection.create',[
+            'pages'=>$pages
+        ]);
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * Store the collection database
-     */
     public function store(Request $request){
         $collection = new Collection();
 
@@ -31,7 +25,6 @@ class CollectionController extends Controller
         $collection->user_id = Auth::user()->id;
 
 
-        //Try if there is a file else it put a default picture
         if($request->file('image')) {
 
             $image = $request->file('image');
@@ -52,10 +45,6 @@ class CollectionController extends Controller
         return redirect()->route('collection.index');
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * return the view of all the collections
-     */
     public function index(){
         $collections = Collection::where('user_id', Auth::user()->id)->get();
 
@@ -64,11 +53,6 @@ class CollectionController extends Controller
         ]);
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * return the view to edit a collection
-     */
     public function edit($id){
         $collection = Collection::find($id);
         $pages = CollectionsPage::where('collection_id',$id)->get();
@@ -79,11 +63,6 @@ class CollectionController extends Controller
         ]);
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * return the view to edit the pages of the collection
-     */
     public function addPages($id){
         $collection = Collection::find($id);
 
@@ -92,7 +71,6 @@ class CollectionController extends Controller
 
         $count = 0;
 
-        //this foreach is here to check if the page are already in the collection
         foreach ($pagesAvailables as $page){
             foreach ($pagesInCollection as $pageChecking){
                 if($pageChecking->page_id === $page->id){
@@ -109,12 +87,6 @@ class CollectionController extends Controller
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     * Store the page(s) in the collection
-     */
     public function storePages(Request $request, $id){
         if($request->input('checkbox') == null){
             return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');
@@ -131,12 +103,6 @@ class CollectionController extends Controller
         return redirect()->route('collection.addPages', $id)->with('success','Page(s) ajoutée(s) à la collection avec succès !');
     }
 
-    /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     * delete the page(s) in the collection
-     */
     public function deletePages(Request $request, $id){
         if($request->input('checkbox') == null){
             return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');

@@ -36,7 +36,11 @@
                             </div>
                             <div class="card-body">
                                 <div>
-                                    <img src="/storage/pages/{{ $page->page->user_id }}/{{ $page->page->image }}" height="150px">
+                                    @if($page->image === 'default_page.png')
+                                        <img src="/storage/default/{{ $page->page->image }}" height="150px">
+                                    @else
+                                        <img src="/storage/pages/{{ $page->page->user_id }}/{{ $page->page->image }}" height="150px">
+                                    @endif
                                 </div>
                                 <br>
                                 <div class="text-center">
