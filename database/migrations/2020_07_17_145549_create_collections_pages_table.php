@@ -17,7 +17,6 @@ class CreateCollectionsPagesTable extends Migration
             $table->id();
             $table->integer('collection_id');
             $table->integer('page_id');
-            $table->integer('position');
             $table->timestamps();
         });
     }
