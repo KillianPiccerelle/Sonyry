@@ -65,4 +65,4 @@ Route::get('/profil/group/{id}/exit', 'UserGroupController@destroy')->name('user
 Route::get('group', 'GroupController@index')->name('group.index');
 Route::get('/group/create', 'GroupController@create')->name('group.create');
 Route::post('/group/store', 'GroupController@store')->name('group.store');
-Route::post('/group/destroy', 'GroupController@destroy')->name('group.destroy');
+Route::get('/group/{id}/destroy', 'GroupController@destroy')->name('group.destroy');

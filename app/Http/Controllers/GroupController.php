@@ -101,7 +101,15 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-
-        return view('group.index');
+        $group = Group::find($id);
+        $userGroups = UserGroup::where('group_id',$group->id)->get();
+        //Try if userGroups array is empty
+        if (count($userGroups) > 0){
+            // if isn't empty, delete item
+            foreach ($userGroups as $item)
+            $item->delete();
+        }
+        $group->delete();
+        return redirect()->route('group.index');
     }
 }
