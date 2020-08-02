@@ -3,15 +3,32 @@
 
 @section('content')
     <div>
+
+        <!-- header of this page -->
         <div class="container">
             <div class="text-center">
                 <b><h1>Gestion des pages dans la collection :</h1></b>
-                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#helpModal">Aide</button>
+                <button class="btn btn-outline-dark float-right" data-toggle="modal" data-target="#helpModal">
+                    <i class="fas fa-info-circle"></i>
+                    Aide
+                </button>
+                <a class="btn btn-outline-primary float-left" href="{{ route('collection.edit', $collection->id) }}">
+                    <i class="fas fa-arrow-circle-left"></i>
+                    Revenir à la collection
+                </a>
             </div>
         </div>
-        <br>
-        <div class="col-lg-5 float-left" id="divFreePage">
+        <br><br><hr><br>
+
+
+        <!-- add pages div-->
+        <div class="col-lg-5 float-left ml-5" id="divFreePage">
             <div class="text-center">
+                <div class="float-left">
+                    @if(count($pagesAvailables) > 0)
+                        <x-forms.button text="Ajouter" id="btnAddPages"></x-forms.button>
+                    @endif
+                </div>
                 <i><h3>Pages disponibles pour ajouter dans la collection :</h3></i>
                 <hr>
                 @if(count($pagesAvailables) > 0)
@@ -38,7 +55,7 @@
                                         @endif
                                     </div>
                                     <div class="card-footer">
-                                        <x-forms.input type="checkbox" name="checkbox[]" value="{{$page->id}}"></x-forms.input>
+                                        <x-forms.input type="checkbox" name="checkbox[]" id="checkboxAddPages" value="{{$page->id}}"></x-forms.input>
                                     </div>
                                 </div>
                                 <br>
@@ -53,14 +70,16 @@
                 </div>
             @endif
         </div>
-        @if(count($pagesAvailables) > 0)
-            <x-forms.button text="Ajouter" id="btnAddPages"></x-forms.button>
-        @endif
-        @if(count($pagesInCollection) > 0)
-            <x-forms.button text="Supprimer" id="btnDeletePages" class="danger float-right" classIcon="trash"></x-forms.button>
-        @endif
-        <div class="col-lg-5 float-right" id="divUsedPages">
+
+
+        <!-- delete pages div -->
+        <div class="col-lg-5 float-right mr-5" id="divUsedPages">
             <div class="text-center">
+                <div class="float-left">
+                    @if(count($pagesInCollection) > 0)
+                        <x-forms.button text="Supprimer" id="btnDeletePages" class="danger float-right" classIcon="trash"></x-forms.button>
+                    @endif
+                </div>
                 <i><h3>Pages déjà présentes dans la collection :</h3></i>
                 <hr>
                 @if(count($pagesInCollection) > 0)
@@ -104,8 +123,8 @@
         </div>
     </div>
 
-    <!-- help modal -->
 
+    <!-- help modal -->
     <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -128,7 +147,8 @@
 
     <script>
         $(document).ready(function () {
-            $('#btnAddPages').click(function () {
+
+            $('#btnAddPage').click(function () {
                 $('#formAddPages').submit();
             })
             $('#btnDeletePages').click(function () {
@@ -146,6 +166,14 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+
+
+            $('#btnAddPages').click(function (e) {
+                $('#formAddPages').submit();
+            })
+
+
+
         })
     </script>
 @stop

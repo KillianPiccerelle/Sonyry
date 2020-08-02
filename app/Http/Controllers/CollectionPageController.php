@@ -48,6 +48,7 @@ class CollectionPageController extends Controller
      * store the added page in the collection in the database
      */
     public function store(Request $request, $id){
+
         if($request->input('checkbox') == null){
             return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');
         }

@@ -54,7 +54,6 @@ Route::middleware('auth')->group(function(){
     /**
      * Collection route
      */
-    Route::get('collections','CollectionController@index')->name('collections');
     Route::resource('collection','CollectionController');
     Route::get('collection/{id}/destroy','CollectionController@destroy')->name('collection.destroy.fix');
 
