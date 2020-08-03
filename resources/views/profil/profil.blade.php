@@ -113,7 +113,7 @@
                                                     <p>Voulez-vous vraiment quitter le groupe ?</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="{{route('userGroup.destroy', $group->id)}}" type="button" class="btn btn-danger">Supprimer</a>
+                                                    <a href="{{route('userGroup.destroy', $group->id)}}" type="button" class="btn btn-danger">Quitter</a>
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                                                 </div>
                                             </div>
@@ -188,6 +188,16 @@
 
         </div>
     </div>
+
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../dist/js/demo.js"></script>
 
 
 @endsection
