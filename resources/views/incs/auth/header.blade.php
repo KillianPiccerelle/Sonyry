@@ -19,6 +19,8 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('collection.create') }}">{{ __('Créer une collection') }}</a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('group.create') }}">{{ __('Créer un groupe') }}</a>
+                        <div class="dropdown-divider"></div>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -35,8 +37,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Partager</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Collaborer</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Collaborer
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('group.index') }}">{{ __('Mes groupes')}}</a>
+                        <div class="dropdown-divider"></div>
+                    </div>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->
@@ -66,7 +74,7 @@
 
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('profil.index') }}">
                                 {{__('Profil')}}
                             </a>
                             <a class="dropdown-item" href="#">

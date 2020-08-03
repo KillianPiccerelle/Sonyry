@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <link href="/css/carousel.css" rel="stylesheet">
+
     <div class="background"></div>
 
     <div style="margin-top: 120px;" id="carouselExemple" class="carousel slide" data-ride="carousel" data-interval="5000">

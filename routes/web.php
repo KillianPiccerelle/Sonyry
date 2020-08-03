@@ -51,9 +51,11 @@ Route::middleware('auth')->group(function(){
     Route::resource('page','PageController');
     Route::get('page/{id}/destroy','PageController@destroy')->name('page.destroy.fix');
 
+
     /**
      * Collection route
      */
+
     Route::resource('collection','CollectionController');
     Route::get('collection/{id}/destroy','CollectionController@destroy')->name('collection.destroy.fix');
 
@@ -64,5 +66,26 @@ Route::middleware('auth')->group(function(){
     Route::post('collection/{id}/storePages','CollectionPageController@store')->name('collection.storePages');
     Route::post('collection/{id}/deletePages','CollectionPageController@destroy')->name('collection.deletePages');
 
+    /**
+     * Profil
+     */
+    Route::get('/profil', 'ProfilController@index')->name('profil.index');
+    Route::get('/profil/update', 'ProfilController@update')->name('profil.update');
+    Route::get('/profil/group/{id}/exit', 'UserGroupController@destroy')->name('userGroup.destroy');
+
+
+    /**
+     * Groupe
+     */
+    Route::get('group', 'GroupController@index')->name('group.index');
+    Route::get('/group/create', 'GroupController@create')->name('group.create');
+    Route::post('/group/store', 'GroupController@store')->name('group.store');
+    Route::get('/group/{id}/edit', 'GroupController@edit')->name('group.edit');
+    Route::put('/group/{id}/update', 'GroupController@update')->name('group.update');
+    Route::get('/group/{id}/destroy', 'GroupController@destroy')->name('group.destroy');
+    Route::get('/group/{id}/exit', 'GroupController@exit')->name('group.exit');
+
 });
+
+
 
