@@ -21,6 +21,7 @@
                     Supprimer
                 </button>
             </div>
+            <a class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
         </div>
         <hr>
 
@@ -36,6 +37,7 @@
                     <br>
                     <i class="fas fa-plus" style="size: A3"></i>
                 </div>
+                <br>
             </a>
             @if(count($pages) > 0)
                 @foreach($pages as $page)
