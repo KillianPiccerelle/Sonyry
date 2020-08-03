@@ -19,9 +19,9 @@
                         <td>{{ $group->group->name }}</td>
                         <td>{{ $group->members }}</td>
                         <td>
-                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#settingModal">
+                            <a class="btn btn-primary" href="{{route('group.edit', $group->group->id)}}" type="button">
                                 Paramétrer
-                            </button>
+                            </a>
                             <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#exitModal">
                                 Quitter
                             </button>
@@ -32,17 +32,17 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Supprimer le groupe</h5>
+                                    <h5 class="modal-title">Quitter le groupe</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Voulez-vous vraiment supprimer le groupe ?</p>
+                                    <p>Voulez-vous vraiment quitter le groupe ?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="{{route('group.destroy', $group->id)}}" type="button"
-                                       class="btn btn-danger">Supprimer</a>
+                                    <a href="{{route('group.exit', $group->id)}}" type="button"
+                                       class="btn btn-danger">Quitter</a>
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                                 </div>
                             </div>

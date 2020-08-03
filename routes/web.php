@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function(){
     Route::get('pages','PageController@index')->name('pages');
     Route::resource('page','PageController');
 
-    Route::get('pages','PageController@index')->name('collections');
+    Route::get('collections','CollectionController@index')->name('collections');
     Route::resource('collection','CollectionController');
 });
 
@@ -65,4 +65,8 @@ Route::get('/profil/group/{id}/exit', 'UserGroupController@destroy')->name('user
 Route::get('group', 'GroupController@index')->name('group.index');
 Route::get('/group/create', 'GroupController@create')->name('group.create');
 Route::post('/group/store', 'GroupController@store')->name('group.store');
+Route::get('/group/{id}/edit', 'GroupController@edit')->name('group.edit');
+Route::put('/group/{id}/update', 'GroupController@update')->name('group.update');
 Route::get('/group/{id}/destroy', 'GroupController@destroy')->name('group.destroy');
+Route::get('/group/{id}/exit', 'GroupController@exit')->name('group.exit');
+
