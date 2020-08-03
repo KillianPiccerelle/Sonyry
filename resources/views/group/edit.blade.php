@@ -4,7 +4,7 @@
 @section('content')
 
     <form method="post" action="{{ route('group.update', $group->id) }}" class="comment-form contact-form"
-          enctype="multipart/form-data">
+          enctype="multipart/form-data" id="updateForm">
         @csrf
         @method('PUT')
         <div class="card card-primary">
@@ -19,7 +19,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="inputName">Nom du groupe</label>
-                    <input type="text" id="inputName" class="form-control"
+                    <input name="name" type="text" id="inputName" class="form-control"
                            value="{{ $group->name }}">
                 </div>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirmModal">
@@ -41,16 +41,18 @@
                     @foreach($members as $member)
                         <tr>
                             <td>{{ $member->user->name}} {{$member->user->firstName }}</td>
-                            <td><!--ici liste déroulante l'attribution des rôles/autorisations-->
-                                <div class="form-group">
-                                    <label for="inputStatus">Droits</label>
-                                    <select class="form-control custom-select">
-                                        <option selected="" disabled="">Select one</option>
-                                        <option>Lecture</option>
-                                        <option>Edition</option>
-                                        <option selected="">Edition/Suppression</option>
-                                    </select>
-                                </div>
+                            <td>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <x-forms.input type="checkbox"></x-forms.input>
+                                        <!-- via bdd--></li>
+                                    <li class="list-group-item">
+                                        <x-forms.input type="checkbox"></x-forms.input>
+                                        <!-- via bdd--></li>
+                                    <li class="list-group-item">
+                                        <x-forms.input type="checkbox"></x-forms.input>
+                                        <!-- via bdd--></li>
+                                </ul>
                             </td>
                             <td>
                                 <button class="btn btn-danger" type="button" data-toggle="modal"
@@ -104,8 +106,8 @@
                     <p>Voulez-vous vraiment enregistrer les modifications ?</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" type="button"
-                       class="btn btn-primary">Enregistrer</a>
+                    <button type="button" id="updateButton"
+                       class="btn btn-primary">Enregistrer</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
@@ -133,4 +135,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#updateButton').click(function () {
+                $('#updateForm').submit();
+            })
+        })
+    </script>
 @endsection

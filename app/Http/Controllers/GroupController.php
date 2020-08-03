@@ -109,6 +109,7 @@ class GroupController extends Controller
             $group->name = $request->input('name');
         }
 
+        $group->save();
 
         return redirect()->route('group.edit', $group->id);
     }
