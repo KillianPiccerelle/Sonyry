@@ -54,4 +54,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Group');
     }
 
+    public function notifications()
+    {
+        return $this->hasMany('App\Notification');
+    }
+
+    public function inboxes()
+    {
+        return $this->hasMany('App\Inbox');
+    }
 }

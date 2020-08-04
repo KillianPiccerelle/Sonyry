@@ -143,7 +143,7 @@ class GroupController extends Controller
     public function exit($id)
     {
         $userGroups = UserGroup::find($id);
-
+        dd($userGroups);
         $userGroups->delete();
 
         return redirect()->route('group.index');

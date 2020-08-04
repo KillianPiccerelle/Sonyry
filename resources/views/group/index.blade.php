@@ -52,21 +52,5 @@
                 @else
                     <td>Vous n'appartenez actuellement à aucun groupe.</td>
                 @endif
-
             </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @endsection

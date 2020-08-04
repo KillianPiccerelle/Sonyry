@@ -87,5 +87,8 @@ Route::middleware('auth')->group(function(){
 
 });
 
-
+/**
+ * Inbox
+ */
+Route::get('inbox', 'InboxController@index')->name('inbox.index');
 
