@@ -80,10 +80,14 @@ Route::middleware('auth')->group(function(){
     Route::get('group', 'GroupController@index')->name('group.index');
     Route::get('/group/create', 'GroupController@create')->name('group.create');
     Route::post('/group/store', 'GroupController@store')->name('group.store');
+    Route::get('/group/{id}/exit', 'GroupController@exit')->name('group.exit');
+
     Route::get('/group/{id}/edit', 'GroupController@edit')->name('group.edit');
+    Route::get('/group/{id}/share', 'GroupController@share')->name('group.share');
+    Route::get('/group/{id}/show', 'GroupController@show')->name('group.show');
     Route::put('/group/{id}/update', 'GroupController@update')->name('group.update');
     Route::get('/group/{id}/destroy', 'GroupController@destroy')->name('group.destroy');
-    Route::get('/group/{id}/exit', 'GroupController@exit')->name('group.exit');
+    Route::get('/group/{id}/kick/{user_id}', 'GroupController@kick')->name('group.kick');
 
 });
 

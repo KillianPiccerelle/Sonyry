@@ -62,4 +62,8 @@ class User extends Authenticatable
         return $this->hasMany('App\ShareGroupPolicies');
     }
 
+    public function shareDirectories(){
+        return $this->hasMany('App\ShareDirectory');
+    }
+
 }

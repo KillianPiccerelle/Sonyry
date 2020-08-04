@@ -70,7 +70,12 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        //
+        $group = Group::find($id);
+        $members = UserGroup::where('group_id', $group->id)->get();
+        return view('group.show',[
+            'group'=>$group,
+            'members'=>$members
+        ]);
     }
 
     /**
@@ -111,7 +116,7 @@ class GroupController extends Controller
 
         $group->save();
 
-        return redirect()->route('group.edit', $group->id);
+        return redirect()->route('group.show', $group->id)->with('success','Les informations du groupe ont été modifiées avec succès');
     }
 
     /**
@@ -130,8 +135,9 @@ class GroupController extends Controller
             foreach ($userGroups as $item)
                 $item->delete();
         }
+        //TODO delete files from share
         $group->delete();
-        return redirect()->route('group.index');
+        return redirect()->route('group.index')->with('success','Groupe supprimé avec succès');
     }
 
     /**
@@ -146,6 +152,30 @@ class GroupController extends Controller
 
         $userGroups->delete();
 
-        return redirect()->route('group.index');
+        return redirect()->route('group.index')->with('success','Vous avez bien quitter le groupe.');
     }
+
+    public function kick($id, $user_id)
+    {
+        $group = Group::find($id);
+
+        $member = UserGroup::where('group_id', $id)->where('user_id', $user_id)->get();
+
+        foreach ($member as $item){
+            $item->delete();
+        }
+
+
+        return redirect()->route('group.show', $group->id)->with('success','La personne a bien été exclue !');
+    }
+
+    public function share($id){
+
+        $group = Group::find($id);
+
+        return view('group.share.share',[
+            'group'=>$group
+        ]);
+    }
+
 }
