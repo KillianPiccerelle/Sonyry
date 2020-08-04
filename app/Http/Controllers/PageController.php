@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CollectionsPage;
 use App\Page;
+use App\ShareGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -65,8 +66,29 @@ class PageController extends Controller
     public function edit($id){
         $page = Page::find($id);
 
+        $groups = Auth::user()->groups;
+
+
+        $count = 0;
+        foreach ($groups as $group){
+            foreach (Auth::user()->sharesGroups as $share) {
+                if ($page->id === $share->page_id && $group->id === $share->group_id) {
+                    unset($groups[$count]);
+                }
+
+            }
+            $count++;
+        }
+
+        $sharesGroups = ShareGroup::where('page_id', $page->id)->get();
+
+
+
+
         return view('page.edit',[
-            'page'=>$page
+            'page'=>$page,
+            'groups'=>$groups,
+            'sharesGroups'=>$sharesGroups
         ]);
     }
 

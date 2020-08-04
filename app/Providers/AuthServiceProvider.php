@@ -34,5 +34,9 @@ class AuthServiceProvider extends ServiceProvider
                return false;
            }
         });
+
+        Gate::define('can-access-page', function (User $user, $id){
+
+        });
     }
 }

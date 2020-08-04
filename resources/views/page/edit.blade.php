@@ -3,39 +3,114 @@
 
 @section('content')
 
-    <div class="row">
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        </div>
-        <div class="container border text-center">
-            <div class="text-center">
-                <h5>Titre de la page : <b id="title">{{ $page->title }}</b></h5>
-            </div>
-            <div>
-                <p>Description :</p>
-                <p id="description">{{ $page->description }}</p>
-            </div>
-            <br>
-            <hr>
-            <div class="container text-center">
-                    <button class="btn btn-dark text-left" id="btnEdit">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                        Editer la page
-                    </button>
-                    <button class="btn btn-secondary text-center" onclick="openNav()">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                        Nouveau bloc
-                    </button>
-                <button class="btn btn-danger text-right" id="btnDelete">
-                    <i class="fa fa-ban" aria-hidden="true"></i>
-                    Supprimer la page
-                </button>
-            </div>
-        </div>
-        <div class="col-sm-2 border" hidden>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="page-tab" data-toggle="tab" href="#page" role="tab" aria-controls="home" aria-selected="true">Edition de la page</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="share-tab" data-toggle="tab" href="#share" role="tab" aria-controls="profile" aria-selected="false">Paramètre et partage de la page</a>
+        </li>
+    </ul>
 
+
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="page" role="tabpanel" aria-labelledby="page-tab">
+                <br>
+                <div class="container text-center">
+                    <div class="text-center">
+                        <h5>Titre de la page : <b id="title">{{ $page->title }}</b></h5>
+                    </div>
+                    <div>
+                        <p>Description :</p>
+                        <p id="description">{{ $page->description }}</p>
+                    </div>
+                    <br>
+                    <hr>
+                    <div class="container text-center">
+                        <button class="btn btn-dark text-left" id="btnEdit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                            Editer la page
+                        </button>
+                        <button class="btn btn-secondary text-center" onclick="openNav()">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            Nouveau bloc
+                        </button>
+                        <button class="btn btn-danger text-right" id="btnDelete">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Supprimer la page
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="share" role="tabpanel" aria-labelledby="share-tab">
+                <br>
+                <div class="container-fluid ml-5 mr-5 border">
+                    <br>
+                    <div class="row">
+                        @if(count($groups)> 0)
+                        <div class="col-sm-2">
+                            <br>
+                            <h5>Partager la page :</h5>
+                            <br>
+                            <x-forms.form route="share.page" parameters="{{ $page->id }}" noButton="true">
+                                @foreach($groups as $group)
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <x-forms.input id="checkboxGroups" class="form-check-input" type="Checkbox" name="checkbox[]" value="{{ $group->id }}"></x-forms.input>
+                                            <label class="form-check-label" for="checkboxGroups">
+                                                {{ $group->name }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <button class="btn btn-primary" type="submit">Partager</button>
+                            </x-forms.form>
+                            <br>
+                        </div>
+                        @endif
+                        <div class="col-sm-2 ml-2">
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                @php
+                                    $count = 0;
+                                @endphp
+                                @foreach($sharesGroups as $share)
+                                    <a class="nav-link @if($count === 0) active @endif" id="v-pills-home-tab" data-toggle="pill" href="#{{ $share->id }}" role="tab" aria-controls="v-pills-home" aria-selected="true">{{ $share->group->name }}</a>
+                                    @php
+                                        $count++;
+                                    @endphp
+                                @endforeach
+                            </div>
+                            <br>
+                        </div>
+                        <div>
+                            <div class="container-fluid">
+                                <div class="tab-content" id="v-pills-tabContent">
+                                    @php
+                                        $count = 0;
+                                    @endphp
+                                    @foreach($sharesGroups as $share)
+                                        <div class="tab-pane fade show @if($count === 0) active @endif" id="{{ $share->id }}" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                            {{ $share->group->name }}
+                                        </div>
+                                        @php
+                                            $count++;
+                                        @endphp
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
+
+
+
+
+
 
     <!-- Suppression modal -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal">
@@ -109,13 +184,6 @@
 
 
     <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "350px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
         $(document).ready(function () {
             $("#btnDelete").click(function () {
                 $('#modal').modal('show');
@@ -124,50 +192,10 @@
                 $('#modalUpdate').modal('show');
             });
         });
+
+        $('#v-pills-tab a').on('click', function (e) {
+            e.preventDefault();
+            $(this).tab('show')
+        })
     </script>
-    <style>
-        body {
-            font-family: "Lato", sans-serif;
-        }
-
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            top: auto;
-            left: 0;
-            background-color: lightgrey;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
-
-        .sidenav a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .sidenav a:hover {
-            color: #f1f1f1;
-        }
-
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-
-        @media screen and (max-height: 450px) {
-            .sidenav {padding-top: 15px;}
-            .sidenav a {font-size: 18px;}
-        }
-    </style>
-
 @stop

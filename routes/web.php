@@ -89,6 +89,11 @@ Route::middleware('auth')->group(function(){
     Route::get('/group/{id}/destroy', 'GroupController@destroy')->name('group.destroy');
     Route::get('/group/{id}/kick/{user_id}', 'GroupController@kick')->name('group.kick');
 
+    /**
+     * Share
+     */
+
+    Route::post('/share/{id}/page','ShareGroupController@sharePage')->name('share.page');
 });
 
 

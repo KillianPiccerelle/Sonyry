@@ -10,14 +10,44 @@
             <h1>Documents partagés avec le groupe</h1>
             <hr>
             <div class="container-fluid">
-                <button class="btn btn-light text-left h-100 container-fluid" type="button" data-toggle="collapse" data-target="#collapseExample">
-                    Issou
+                @foreach($group->directories as $directory)
+                <button class="btn btn-light text-left h-100 container-fluid border-dark" type="button" data-toggle="collapse" data-target="#{{ $directory->id }}">
+                    {{ $directory->name }}
                 </button>
-                <div class="collapse" id="collapseExample">
+                <div class="collapse" id="{{ $directory->id }}">
                     <div class="card card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        <div class="row">
+                            @foreach($directory->user->sharesGroups as $page)
+                                @if($page->group_id === $group->id)
+                                <div class="col-md-3">
+                                    <div class="card text-center">
+                                        <div class="card-header">
+                                            <h5 class="card-title">{{ $page->page->title }}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            @if($page->page->image === 'default_page.png')
+                                                <img src="/storage/default/{{ $page->page->image }}" height="100px">
+                                            @else
+                                                <img src="/storage/pages/{{ $page->page->user_id }}/{{ $page->page->image }}" height="100px">
+                                            @endif
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="#" class="btn btn-dark">
+                                                Consulter
+                                            </a> -
+                                            <a class="btn btn-primary" href="{{ route('page.edit', $page->page->id) }}">
+                                                Editer
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                @endif
+                            @endforeach
+                        </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </div>

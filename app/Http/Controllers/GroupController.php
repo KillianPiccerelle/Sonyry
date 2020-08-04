@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\ShareDirectory;
+use App\ShareGroup;
 use App\User;
 use App\UserGroup;
 use Illuminate\Http\Request;
@@ -172,6 +174,7 @@ class GroupController extends Controller
     public function share($id){
 
         $group = Group::find($id);
+
 
         return view('group.share.share',[
             'group'=>$group
