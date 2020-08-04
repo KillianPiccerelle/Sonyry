@@ -11,4 +11,10 @@ class Page extends Model
     public function user(){
         return $this->belongsTo('App\User.php');
     }
+
+    public function sharesGroup(){
+        return $this->hasMany('App\ShareGroup');
+    }
+
+
 }
