@@ -9,41 +9,50 @@ use Illuminate\Support\Facades\Auth;
 
 class ShareGroupController extends Controller
 {
+    public function indexPage(){
+        $pages = Auth::user()->pages;
+
+        $groups = Auth::user()->groups;
+
+        foreach ($pages as $page){
+            $page->groups = $groups;
+
+        }
+
+        return view('group.share.indexPage',[
+            'pages'=>$pages
+        ]);
+    }
+
+
     public function sharePage(Request $request, $id){
-        if ($request->input('checkbox') == null){
-            return redirect()->route('page.edit', $id)->with('danger','Veuillez séléctionnez au moins un groupe pour partager cette page');
+
+        if (count(ShareGroup::where('group_id', $request->input('group'))->where('page_id', $id)->get()) > 0){
+            return redirect()->route('share.indexPage')->with('danger','La page que vous essayer de partager est déjà présente dans le groupe');
         }
+        $shareGroup = new ShareGroup();
 
-        foreach ($request->input('checkbox') as $share){
+        $shareGroup->user_id = Auth::user()->id;
 
-            $shareGroup = new ShareGroup();
+        $shareGroup->page_id = $id;
 
-            $shareGroup->user_id = Auth::user()->id;
+        $shareGroup->group_id = $request->input('group');
 
-            $shareGroup->page_id = $id;
+        $shareDirectory = new ShareDirectory();
 
-            $shareGroup->group_id = $share;
-
-            $shareDirectory = new ShareDirectory();
-
-            if($shareDirectory->haveDirectory(Auth::user()->id,$share)){
-
-            }
-            else{
-                $shareDirectory->name = Auth::user()->name;
-                $shareDirectory->user_id = Auth::user()->id;
-                $shareDirectory->group_id = $share;
-
-                $shareDirectory->save();
-            }
-
-            $shareGroup->save();
-
-
-
+        if($shareDirectory->haveDirectory(Auth::user()->id,$request->input('group'))){
 
         }
+        else{
+            $shareDirectory->name = Auth::user()->name;
+            $shareDirectory->user_id = Auth::user()->id;
+            $shareDirectory->group_id = $request->input('group');
 
-        return redirect()->route('page.edit',$id)->with('success','Les pages ont bien été partagées');
+            $shareDirectory->save();
+        }
+
+        $shareGroup->save();
+
+        return redirect()->route('share.indexPage')->with('success','La pages a bien été partagée avec succès');
     }
 }

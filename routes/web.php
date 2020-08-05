@@ -93,6 +93,7 @@ Route::middleware('auth')->group(function(){
      * Share
      */
 
+    Route::get('/share/indexPage','ShareGroupController@indexPage')->name('share.indexPage');
     Route::post('/share/{id}/page','ShareGroupController@sharePage')->name('share.page');
 });
 

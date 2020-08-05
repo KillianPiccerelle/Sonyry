@@ -3,113 +3,32 @@
 
 @section('content')
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="page-tab" data-toggle="tab" href="#page" role="tab" aria-controls="home" aria-selected="true">Edition de la page</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="share-tab" data-toggle="tab" href="#share" role="tab" aria-controls="profile" aria-selected="false">Paramètre et partage de la page</a>
-        </li>
-    </ul>
-
-
-
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="page" role="tabpanel" aria-labelledby="page-tab">
-                <br>
-                <div class="container text-center">
-                    <div class="text-center">
-                        <h5>Titre de la page : <b id="title">{{ $page->title }}</b></h5>
-                    </div>
-                    <div>
-                        <p>Description :</p>
-                        <p id="description">{{ $page->description }}</p>
-                    </div>
-                    <br>
-                    <hr>
-                    <div class="container text-center">
-                        <button class="btn btn-dark text-left" id="btnEdit">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                            Editer la page
-                        </button>
-                        <button class="btn btn-secondary text-center" onclick="openNav()">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                            Nouveau bloc
-                        </button>
-                        <button class="btn btn-danger text-right" id="btnDelete">
-                            <i class="fa fa-ban" aria-hidden="true"></i>
-                            Supprimer la page
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="share" role="tabpanel" aria-labelledby="share-tab">
-                <br>
-                <div class="container-fluid ml-5 mr-5 border">
-                    <br>
-                    <div class="row">
-                        @if(count($groups)> 0)
-                        <div class="col-sm-2">
-                            <br>
-                            <h5>Partager la page :</h5>
-                            <br>
-                            <x-forms.form route="share.page" parameters="{{ $page->id }}" noButton="true">
-                                @foreach($groups as $group)
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            <x-forms.input id="checkboxGroups" class="form-check-input" type="Checkbox" name="checkbox[]" value="{{ $group->id }}"></x-forms.input>
-                                            <label class="form-check-label" for="checkboxGroups">
-                                                {{ $group->name }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                @endforeach
-                                <button class="btn btn-primary" type="submit">Partager</button>
-                            </x-forms.form>
-                            <br>
-                        </div>
-                        @endif
-                        <div class="col-sm-2 ml-2">
-                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                @php
-                                    $count = 0;
-                                @endphp
-                                @foreach($sharesGroups as $share)
-                                    <a class="nav-link @if($count === 0) active @endif" id="v-pills-home-tab" data-toggle="pill" href="#{{ $share->id }}" role="tab" aria-controls="v-pills-home" aria-selected="true">{{ $share->group->name }}</a>
-                                    @php
-                                        $count++;
-                                    @endphp
-                                @endforeach
-                            </div>
-                            <br>
-                        </div>
-                        <div>
-                            <div class="container-fluid">
-                                <div class="tab-content" id="v-pills-tabContent">
-                                    @php
-                                        $count = 0;
-                                    @endphp
-                                    @foreach($sharesGroups as $share)
-                                        <div class="tab-pane fade show @if($count === 0) active @endif" id="{{ $share->id }}" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                            {{ $share->group->name }}
-                                        </div>
-                                        @php
-                                            $count++;
-                                        @endphp
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+    <br>
+    <div class="container text-center">
+        <div class="text-center">
+            <h5>Titre de la page : <b id="title">{{ $page->title }}</b></h5>
         </div>
-
-
-
-
+        <div>
+            <p>Description :</p>
+            <p id="description">{{ $page->description }}</p>
+        </div>
+        <br>
+        <hr>
+        <div class="container text-center">
+            <button class="btn btn-dark text-left" id="btnEdit">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                Editer la page
+            </button>
+            <button class="btn btn-secondary text-center" onclick="openNav()">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Nouveau bloc
+            </button>
+            <button class="btn btn-danger text-right" id="btnDelete">
+                <i class="fa fa-ban" aria-hidden="true"></i>
+                Supprimer la page
+            </button>
+        </div>
+    </div>
 
 
     <!-- Suppression modal -->
