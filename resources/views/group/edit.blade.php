@@ -33,7 +33,6 @@
                     <thead>
                     <tr>
                         <th scope="col">Membres</th>
-                        <th scope="col">Autorisation</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -41,19 +40,6 @@
                     @foreach($members as $member)
                         <tr>
                             <td>{{ $member->user->name}} {{$member->user->firstName }}</td>
-                            <td>
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <x-forms.input type="checkbox"></x-forms.input>
-                                        <!-- via bdd--></li>
-                                    <li class="list-group-item">
-                                        <x-forms.input type="checkbox"></x-forms.input>
-                                        <!-- via bdd--></li>
-                                    <li class="list-group-item">
-                                        <x-forms.input type="checkbox"></x-forms.input>
-                                        <!-- via bdd--></li>
-                                </ul>
-                            </td>
                             <td>
                                 <button class="btn btn-danger" type="button" data-toggle="modal"
                                         data-target="#kickModal">
