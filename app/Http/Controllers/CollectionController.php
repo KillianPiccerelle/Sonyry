@@ -7,6 +7,7 @@ use App\CollectionsPage;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class CollectionController extends Controller
@@ -75,6 +76,11 @@ class CollectionController extends Controller
      */
     public function edit($id){
         $collection = Collection::find($id);
+
+        if (Gate::denies('can-access-collection', $collection)){
+            return redirect()->route('home')->with('danger','Vous ne pouvez pas gérer les pages de cette collection collection');
+        }
+
         $pages = CollectionsPage::where('collection_id',$id)->get();
 
         return view('collection.edit', [
@@ -83,9 +89,19 @@ class CollectionController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * update the collection informations
+     */
     public function update(Request $request, $id){
 
         $collection = Collection::find($id);
+
+        if (Gate::denies('can-access-collection', $collection)){
+            return redirect()->route('home')->with('danger','Vous ne pouvez pas modifier cette collection');
+        }
 
         if($request->input('name') != null){
             $collection->name = $request->input('name');
@@ -94,8 +110,8 @@ class CollectionController extends Controller
             $collection->description = $request->input('description');
         }
         if($request->file('image')){
-            //update de l'image
-            //suppression de l'ancienne image
+            //image update
+            //delete old image
             $fileToDelete = 'public/collections/'.Auth::user()->id.'/'.$collection->image;
 
             if(Storage::exists($fileToDelete)){
@@ -114,12 +130,21 @@ class CollectionController extends Controller
         return redirect()->route('collection.edit', $collection->id)->with('success', 'Les informations de la collection ont bien été modifiées');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * delete the collection of the database
+     */
     public function destroy($id){
 
         $collection = Collection::find($id);
 
-        $collectionPage = CollectionsPage::where('collection_id',$collection->id)->get();
+        if (Gate::denies('can-access-collection', $collection)){
+            return redirect()->route('home')->with('danger','Vous ne pouvez pas supprimer cette collection');
+        }
 
+        // delete all the link between the page in the collection and the colletion
+        $collectionPage = CollectionsPage::where('collection_id',$collection->id)->get();
         if(count($collectionPage)>0){
             foreach ($collectionPage as $item){
                 $item->delete();

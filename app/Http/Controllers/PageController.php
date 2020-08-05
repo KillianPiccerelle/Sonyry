@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\CollectionsPage;
 use App\Page;
-use App\ShareGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
@@ -66,34 +66,21 @@ class PageController extends Controller
     public function edit($id){
         $page = Page::find($id);
 
-        $groups = Auth::user()->groups;
-
-
-        $count = 0;
-        foreach ($groups as $group){
-            foreach (Auth::user()->sharesGroups as $share) {
-                if ($page->id === $share->page_id && $group->id === $share->group_id) {
-                    unset($groups[$count]);
-                }
-
-            }
-            $count++;
+        if(Gate::denies('can-access-page', $page)){
+            return redirect()->route('home')->with('danger','Vous n\'avez pas accès à cette page');
         }
-
-        $sharesGroups = ShareGroup::where('page_id', $page->id)->get();
-
-
-
 
         return view('page.edit',[
             'page'=>$page,
-            'groups'=>$groups,
-            'sharesGroups'=>$sharesGroups
         ]);
     }
 
     public function update(Request $request, $id){
         $page = Page::find($id);
+
+        if(Gate::denies('can-access-page', $page)){
+            return redirect()->route('home')->with('danger','Vous ne pouvez pas modifier cette page');
+        }
 
         if($request->input('title') != null){
             $page->title = $request->input('title');
@@ -130,6 +117,10 @@ class PageController extends Controller
      */
     public function destroy($id){
         $page = Page::find($id);
+
+        if(Gate::denies('can-access-page', $page)){
+            return redirect()->route('home')->with('danger','Vous ne pouvez pas supprimer cette page');
+        }
 
         $collectionPage = CollectionsPage::where('page_id', $id)->get();
 
