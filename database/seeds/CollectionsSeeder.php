@@ -5,7 +5,7 @@ use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class CollectionSeeder extends Seeder
+class CollectionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

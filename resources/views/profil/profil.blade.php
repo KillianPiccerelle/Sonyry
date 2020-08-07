@@ -43,7 +43,10 @@
                             Pays : {{ $user->country }}<br>
                             Téléphone portable : {{ $user->mobilePhone }}<br>
                             Téléphone de travail : {{ $user->businessPhone }}<br>
-                            Description : {{ $user->description }}<br>
+                            <div class="form-group">
+                                <label for="newDescription">Description : <br></label>
+                                <textarea disabled class="form-control" id="exampleFormControlTextarea1" name="newDescription" rows="3" placeholder="{{ $user->description }}"  ></textarea>
+                            </div>
 
                         </form>
                     </div>
@@ -126,23 +129,24 @@
 
                             </table>
                     </div>
-                </div>
+
 
 
                 <div class="tab-pane fade" id="nav-Edit" role="tabpanel" aria-labelledby="nav-Edit-tab">
 
 
                     <form method="POST" action="{{route('profil.update',$user->id)}}">
-
+                        @csrf
+                        @method('PUT')
                         <label for="newName">Nom</label>
-                        <input type="text" name="newName" placeholder="{{ $user->name }}"><br>
+                        <input type="text" name="newName" value="{{ $user->name }}"><br>
 
                         <label for="newFirstname">Prénom</label>
-                        <input type="text" name="newFirstname" placeholder="{{ $user->firstName }}"><br>
+                        <input type="text" name="newFirstname" value="{{ $user->firstName }}"><br>
 
                         <label for="newEmail">Email</label>
                         <input type="email" id="inputEmail" @error('email') is-invalid @enderror" name="newEmail"
-                        placeholder="{{ $user->email }}" required autocomplete="email" autofocus>
+                        value="{{ $user->email }}"  autocomplete="email" autofocus>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -151,31 +155,34 @@
                         <br>
 
                         <label for="newJob">Emploi</label>
-                        <input type="text" name="newJob" placeholder="{{ $user->job }}"><br>
+                        <input type="text" name="newJob" value="{{ $user->job }}"><br>
 
                         <label for="newJobSegment">Secteur d'activité</label>
-                        <input type="text" name="newJobSegment" placeholder="{{ $user->businessSegment }}"><br>
+                        <input type="text" name="newJobSegment" value="{{ $user->businessSegment }}"><br>
 
                         <label for="newStreet">Rue</label>
-                        <input type="text" name="newStreet" placeholder="{{ $user->streetAddress }}"><br>
+                        <input type="text" name="newStreet" value="{{ $user->streetAddress }}"><br>
 
                         <label for="newCity">Ville</label>
-                        <input type="text" name="newCity" placeholder="{{ $user->cityAddress }}"><br>
+                        <input type="text" name="newCity" value="{{ $user->cityAddress }}"><br>
 
                         <label for="newPostalCode">Code Postal</label>
-                        <input type="text" name="newPostalCode" placeholder="{{ $user->postCodeAddress }}"><br>
+                        <input type="text" name="newPostalCode" value="{{ $user->postCodeAddress }}"><br>
 
                         <label for="newCountry">Pays</label>
-                        <input type="text" name="newCountry" placeholder="{{ $user->country }}"><br>
+                        <input type="text" name="newCountry" value="{{ $user->country }}"><br>
 
                         <label for="newMobilePhone">Téléphone portable</label>
-                        <input type="text" name="newMobilePhone" placeholder="{{ $user->mobilePhone }}"><br>
+                        <input type="text" name="newMobilePhone" value="{{ $user->mobilePhone }}"><br>
 
                         <label for="newWorkPhone">Téléphone de travail</label>
-                        <input type="text" name="newWorkPhone" placeholder="{{ $user->businessPhone }}"><br>
+                        <input type="text" name="newWorkPhone" value="{{ $user->businessPhone }}"><br>
 
-                        <label for="newDescription">Description</label>
-                        <input type="text" name="newDescription" placeholder="{{ $user->description }}"><br>
+
+                        <div class="form-group">
+                            <label for="newDescription">Description (255 caractères maximum) :</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" name="newDescription" rows="3" >{{ $user->description }}</textarea>
+                        </div>
 
 
                         <input type="submit" name="submit" value="Mettre à jour mon profil">
