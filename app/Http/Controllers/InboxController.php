@@ -17,7 +17,6 @@ class InboxController extends Controller
     public function index()
     {
         $inboxes = Inbox::where('user_id', Auth::user()->id)->get();
-        //dd($inboxes);
 
         return view('inbox.index', [
             'inboxes' => $inboxes

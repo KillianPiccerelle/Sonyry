@@ -41,11 +41,6 @@
                                             <p class="sender-name">Système</p> Bienvenue
                                         </a>
                                     </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" id="welcome2-tab" data-toggle="tab" href="#welcome2" role="tab" aria-controls="welcome2" aria-selected="true">
-                                            <p class="sender-name">Système</p> Bienvenue2
-                                        </a>
-                                    </li>
                                     @php $id = 0 @endphp
                                     @foreach($inboxes as $inbox)
                                     <li class="nav-item" role="presentation">
@@ -96,21 +91,6 @@
                                     </div>
                                     <div class="message-content">
                                         <p>Bonjour, merci à vous de nous avoir rejoins</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="welcome2" role="tabpanel" aria-labelledby="welcome2-tab">
-                                <div class="notification-body">
-                                    <div class="sender-details">
-                                        <img class="img-sm rounded-circle mr-3" width="100" height="100"
-                                             src="/img/avatar.default.jpg" alt="">
-                                        <div class="details">
-                                            <p class="msg-subject">Bienvenue2</p>
-                                            <p class="sender-notification">Système2</p>
-                                        </div>
-                                    </div>
-                                    <div class="message-content">
-                                        <p>Bonjour, merci à vous de nous avoir rejoins2</p>
                                     </div>
                                 </div>
                             </div>

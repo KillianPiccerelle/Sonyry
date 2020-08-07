@@ -85,10 +85,15 @@ Route::middleware('auth')->group(function(){
     Route::get('/group/{id}/destroy', 'GroupController@destroy')->name('group.destroy');
     Route::get('/group/{id}/exit', 'GroupController@exit')->name('group.exit');
 
+
+    /**
+     * Inbox
+     */
+    Route::get('inbox', 'InboxController@index')->name('inbox.index');
+
 });
 
-/**
- * Inbox
- */
-Route::get('inbox', 'InboxController@index')->name('inbox.index');
+
+
+
 

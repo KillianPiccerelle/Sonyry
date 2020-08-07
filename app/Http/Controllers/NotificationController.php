@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
+use App\Notification;
+use App\UserGroup;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
@@ -80,5 +83,19 @@ class NotificationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function joinGroup()
+    {
+
+
+    }
+
+    public function exitGroup($userGroup)
+    {
+        /*$exitNotification = New Notification();
+        $exitNotification->title = "Vous venez de quitter le group ".$userGroup->group_id->name;
+        $exitNotification->save();*/
+
     }
 }
