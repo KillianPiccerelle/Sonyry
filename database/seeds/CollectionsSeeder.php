@@ -35,4 +35,5 @@ class CollectionsSeeder extends Seeder
         $collection->image = "1594739711_index.jpg";
         $collection->save();
     }
+
 }
