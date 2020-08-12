@@ -95,7 +95,7 @@ class GroupController extends Controller
     {
         $group = Group::find($id);
 
-        if (Gate::denies('can-edit-group', $group)){
+        if (Gate::denies('can-access-group', $group)){
             return redirect()->route('home')->with('danger','Vous n\'êtes pas propriétaire du groupe, vous n\'avez pas accès à cette page');
         }
 
@@ -168,13 +168,13 @@ class GroupController extends Controller
      */
     public function exit($id)
     {
-        $userGroups = UserGroup::find($id);
+        $userGroups = UserGroup::where('user_id',Auth::user()->id)->get();
 
-        if (Gate::denies('is-member-group', $userGroups->group)){
+        if (Gate::denies('is-member-group', $userGroups[0]->group)){
             return redirect()->route('home')->with('danger','Vous ne pouvez pas quitter ce groupe');
         }
 
-        $userGroups->delete();
+        $userGroups[0]->delete();
 
         return redirect()->route('group.index')->with('success','Vous avez bien quitter le groupe.');
     }
@@ -212,6 +212,8 @@ class GroupController extends Controller
     public function share($id){
 
         $group = Group::find($id);
+
+
 
         if (Gate::denies('can-access-group', $group)){
             return redirect()->route('home')->with('danger','Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');

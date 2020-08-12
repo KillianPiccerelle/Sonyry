@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     public function user(){
-        return $this->belongsTo('App\Group');
+        return $this->belongsTo('App\User');
     }
 
     public function share(){
@@ -16,5 +16,9 @@ class Group extends Model
 
     public function directories(){
         return $this->hasMany('App\ShareDirectory');
+    }
+
+    public function members(){
+        return $this->hasMany('App\UserGroup');
     }
 }

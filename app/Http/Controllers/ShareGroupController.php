@@ -14,12 +14,14 @@ class ShareGroupController extends Controller
 
         $groups = Auth::user()->groups;
 
+        dd($groups);
+
         foreach ($pages as $page){
             $page->groups = $groups;
 
         }
 
-        return view('group.share.indexPage',[
+        return view('share.indexPage',[
             'pages'=>$pages
         ]);
     }

@@ -37,13 +37,13 @@
                 @can('can-edit-group',$group->user_id)
                     <td>
                         @if($member->user->id !== $group->user_id)
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#modalKick">
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#kick-{{ $member->user->id }}">
                                 Exclure
                             </button>
 
 
                             <!-- kick group modal -->
-                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalKick">
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="kick-{{ $member->user->id }}">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">

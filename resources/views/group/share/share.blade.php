@@ -31,13 +31,45 @@
                                                 <img src="/storage/pages/{{ $page->page->user_id }}/{{ $page->page->image }}" height="100px">
                                             @endif
                                         </div>
-                                        <div class="card-footer">
-                                            <a href="#" class="btn btn-dark">
-                                                Consulter
-                                            </a> -
-                                            <a class="btn btn-primary" href="{{ route('page.edit', $page->page->id) }}">
-                                                Editer
-                                            </a>
+                                        <div class="card-footer text-center">
+
+                                            <div class="btn-group dropup">
+                                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    @can('is-page-owner', $page->page )
+                                                    <a class="dropdown-item" href="#">
+                                                        Consulter
+                                                    </a>
+
+                                                    @elsecan('can-read-page-policy', $page)
+                                                        <a class="dropdown-item" href="#">
+                                                            Consulter
+                                                        </a>
+                                                    @endcan
+
+                                                    @can('is-page-owner', $page->page)
+                                                            <a class="dropdown-item" href="{{ route('page.edit', $page->page->id) }}">
+                                                                Editer
+                                                            </a>
+                                                    @elsecan('can-edit-page-policy', $page)
+                                                            <a class="dropdown-item" href="{{ route('page.edit', $page->page->id) }}">
+                                                                Editer
+                                                            </a>
+                                                    @endcan
+
+                                                    @can('is-page-owner', $page->page)
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="{{ route('policies.edit', [
+                                                        'page'=>$page->page,
+                                                        'id'=>$group->id
+                                                         ]) }}" >
+                                                                Autorisations de la page
+                                                            </a>
+                                                    @endcan
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <br>

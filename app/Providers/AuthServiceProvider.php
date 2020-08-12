@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\ShareGroup;
+use App\ShareGroupPolicies;
 use App\User;
 use App\UserGroup;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -47,6 +49,62 @@ class AuthServiceProvider extends ServiceProvider
                 return false;
             }
         });
+
+
+        Gate::define('can-read-page-policy', function (User $user, $share){
+            $policy = ShareGroupPolicies::where('member_id', $user->id)->where('shareGroup_id', $share->id)->get();
+            if(count($policy) > 0){
+                if ($policy[0]->read === 1){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        });
+
+        Gate::define('can-edit-page-policy', function (User $user, $share){
+            $policy = ShareGroupPolicies::where('member_id', $user->id)->where('shareGroup_id', $share->id)->get();
+            if(count($policy) > 0){
+                if ($policy[0]->write === 1){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        });
+
+        Gate::define('can-execute-page-policy', function (User $user, $share){
+            $policy = ShareGroupPolicies::where('member_id', $user->id)->where('shareGroup_id', $share->id)->get();
+            if(count($policy) > 0){
+                if ($policy[0]->execute === 1){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        });
+
+        Gate::define('is-page-owner', function (User $user, $page){
+            if($user->id === $page->user_id){
+                return true;
+            }
+            else{
+                return false;
+            }
+        });
+
 
         /**
          * check if user can access to a collection

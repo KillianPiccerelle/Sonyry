@@ -11,5 +11,12 @@
         <a class="nav-link" href="{{ route('group.edit', $group->id) }}">Paramètres</a>
     </li>
     @endcan
+    @if($group->user_id !== Auth::user()->id)
+        <li class="nav-item ml-3">
+            <br>
+            <a href=" {{ route('group.exit', $group->id) }}" class="btn btn-danger">Quitter</a>
+        </li>
+    @endif
+
 </ul>
 
