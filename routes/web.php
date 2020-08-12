@@ -72,6 +72,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/profil', 'ProfilController@index')->name('profil.index');
     Route::put('/profil/{id}/update', 'ProfilController@update')->name('profil.update');
     Route::get('/profil/group/{id}/exit', 'UserGroupController@destroy')->name('userGroup.destroy');
+    Route::get('/profil/friend/{id}/destroy', 'FriendController@destroy')->name('friend.destroy');
+    Route::get('/profil/friend/{id}/add', 'FriendController@add')->name('friend.add');
+    Route::get('/profil/friend/{id}/request', 'FriendController@request')->name('friend.request');
 
 
     /**

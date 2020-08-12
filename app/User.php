@@ -54,4 +54,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Group');
     }
 
+    public function friends()
+    {
+        return $this->hasMany('App\Friend');
+    }
+
+
+
+
 }
