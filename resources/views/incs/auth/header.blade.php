@@ -86,6 +86,9 @@
                             <a class="dropdown-item" href="#">
                                 {{__('Documents partagés avec moi')}}
                             </a>
+                            <a class="dropdown-item" href="{{ route('inbox.index') }}">
+                                {{__('Boîte de réception')}}
+                            </a>
                             <a class="dropdown-item" href="#">
                                 {{__('Préférence')}}
                             </a>

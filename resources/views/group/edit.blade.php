@@ -63,7 +63,7 @@
                                     <p>Voulez-vous vraiment l'expulser du groupe ?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="#" type="button"
+                                    <a href="{{ route('group.exit', $group->id) }}" type="button"
                                        class="btn btn-danger">Confirmer</a>
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                                 </div>

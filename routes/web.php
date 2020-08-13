@@ -85,7 +85,18 @@ Route::middleware('auth')->group(function(){
     Route::get('/group/{id}/destroy', 'GroupController@destroy')->name('group.destroy');
     Route::get('/group/{id}/exit', 'GroupController@exit')->name('group.exit');
 
+
+    /**
+     * Inbox
+     */
+    Route::get('inbox', 'InboxController@index')->name('inbox.index');
+    Route::get('/inbox/{id}/toTrash', 'InboxController@toTrash')->name('inbox.toTrash');
+
+    Route::get('/inbox/{id}/destroy', 'NotificationController@destroy')->name('notification.destroy');
+
 });
+
+
 
 
 

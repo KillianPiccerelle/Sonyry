@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Inbox;
+use App\Notification;
 use App\User;
 use App\UserGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\New_;
+use App\Http\Controllers\NotificationController;
 
 class GroupController extends Controller
 {
@@ -142,7 +145,11 @@ class GroupController extends Controller
      */
     public function exit($id)
     {
+
         $userGroups = UserGroup::find($id);
+
+        NotificationController::notificationAuto("Vous venez de quitter le groupe ".$userGroups->group->name,"Bonjour, vous venez de quitter le groupe ".$userGroups->group->name.".");
+
 
         $userGroups->delete();
 

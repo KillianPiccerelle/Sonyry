@@ -13,4 +13,5 @@ class UserGroup extends Model
     public function Group(){
         return $this->belongsTo('App\Group');
     }
+
 }
