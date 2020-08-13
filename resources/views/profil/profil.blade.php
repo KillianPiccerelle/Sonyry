@@ -342,7 +342,6 @@
                                 <tr>
                                     <th scope="col">Nom du groupe</th>
                                     <th scope="col">Nombre de personnes dans le groupe</th>
-                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -351,11 +350,6 @@
                                     <tr>
                                         <td>{{ $group->group->name }}</td>
                                         <td>{{ $group->members }}</td>
-                                        <td>
-                                            <button class="btn btn-danger" type="button" data-toggle="modal"
-                                                    data-target="#exitModal">Quitter
-                                            </button>
-                                        </td>
                                     </tr>
                                 @endforeach
                                 @else
