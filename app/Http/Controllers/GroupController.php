@@ -157,6 +157,7 @@ class GroupController extends Controller
                 $member->delete();
         }
 
+        //delete the share directories from the group
         $directories = ShareDirectory::where('group_id', $group->id)->get();
 
         if (count($directories) > 0){
@@ -165,6 +166,7 @@ class GroupController extends Controller
             }
         }
 
+        // delete the shares and the policies of the shares
         if (count($group->shares) >0){
             foreach ($group->shares as $share){
                 $policies = ShareGroupPolicies::where('shareGroup_id', $share->id)->get();
@@ -177,6 +179,7 @@ class GroupController extends Controller
             }
         }
 
+        // and delete the group
         $group->delete();
         return redirect()->route('group.index')->with('success','Groupe supprimé avec succès');
     }

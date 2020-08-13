@@ -77,7 +77,7 @@ class CollectionController extends Controller
     public function edit($id){
         $collection = Collection::find($id);
 
-        if (Gate::denies('can-access-collection', $collection)){
+        if (Gate::denies('is-collection-owner', $collection)){
             return redirect()->route('home')->with('danger','Vous ne pouvez pas gérer les pages de cette collection collection');
         }
 
@@ -99,7 +99,7 @@ class CollectionController extends Controller
 
         $collection = Collection::find($id);
 
-        if (Gate::denies('can-access-collection', $collection)){
+        if (Gate::denies('is-collection-owner', $collection)){
             return redirect()->route('home')->with('danger','Vous ne pouvez pas modifier cette collection');
         }
 
@@ -139,7 +139,7 @@ class CollectionController extends Controller
 
         $collection = Collection::find($id);
 
-        if (Gate::denies('can-access-collection', $collection)){
+        if (Gate::denies('is-collection-owner', $collection)){
             return redirect()->route('home')->with('danger','Vous ne pouvez pas supprimer cette collection');
         }
 
