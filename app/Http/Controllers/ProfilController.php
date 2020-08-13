@@ -25,7 +25,7 @@ class ProfilController extends Controller
         }
 
 
-        /** query that retrieves the row from the friend table if the user matches either the sender or the target */
+        /** query that retrieves all rows of the friend table if the user matches the sender or the target */
 
         $friends = Friend::where('sender', Auth::user()->id)->orWhere('target', Auth::user()->id)->get();
 
@@ -43,7 +43,7 @@ class ProfilController extends Controller
                     $friend->user = User::find($friend->target);
                 }
 
-                /** otherwise, he has no friend  */
+                /** otherwise if it's a request, delete the row from the table.  */
             } else {
                 unset($friends[$count]);
 
@@ -65,21 +65,22 @@ class ProfilController extends Controller
                 /** if the target is the logged in user */
                 if ($friendRequest->target === Auth::user()->id) {
 
-                    /** if the sender is different from the logged in user, the logged in user receives a friend request*/
+                    /** if the sender is different from the connected user then we will look for the sender*/
                     if ($friendRequest->sender !== Auth::user()->id) {
                         $friendRequest->user = User::find($friendRequest->sender);
 
-                        /** otherwise not the target which is different from the logged in user then he receives a friend request */
+                        /** otherwise the target is different from the connected user then we will search for the target  */
                     } elseif ($friendRequest->target !== Auth::user()->id) {
                         $friendRequest->user = User::find($friendRequest->target);
                     }
 
+                    /** othewise if the person is the sender then the line is deleted.  */
                 } else {
                     unset($friendRequests[$count]);
 
                 }
 
-                /** there is no friend request */
+                /** otherwise the person is already friends with  */
             } else {
                 unset($friendRequests[$count]);
 
@@ -98,15 +99,16 @@ class ProfilController extends Controller
 
             if ($request->is_pending === 1) {
 
-                /** if the sender is different from the logged in user, the logged in user receives a friend request*/
+                /** if the sender is different from the connected user then we will look for the sender*/
                 if ($request->sender !== Auth::user()->id) {
                     $request->user = User::find($request->sender);
 
-                    /** otherwise not the target which is different from the logged in user then he receives a friend request */
+                    /** otherwise the target is different from the connected user then we will search for the target  */
                 } elseif ($request->target !== Auth::user()->id) {
                     $request->user = User::find($request->target);
                 }
 
+                /** otherwise he's already a friend so the line is deleted. */
             } else {
 
                 unset($requests[$count]);
@@ -125,14 +127,14 @@ class ProfilController extends Controller
             }
             foreach ($friends as $friend) {
 
-                /** if the identifier is that of the connected user, then it is deleted from valid users */
+                /** if in the list the user is already friends with then he is removed from the list */
                 if ($friend->user->id === $valableUser->id) {
                     unset($valableUsers[$count]);
                 }
             }
             foreach ($requests as $request) {
 
-                /** if the identifier is that of a valid user then he can receive a friend request */
+                /** the user already has a pending request */
                 if ($request->user->id === $valableUser->id) {
                     $valableUser->state = true;
 
