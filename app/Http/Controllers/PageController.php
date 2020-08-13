@@ -80,8 +80,8 @@ class PageController extends Controller
             $page->description = $request->input('description');
         }
         if($request->file('image')){
-            //update de l'image
-            //suppression de l'ancienne image
+            /** update de l'image */
+            /**  suppression de l'ancienne image */
             $fileToDelete = 'public/pages/'.Auth::user()->id.'/'.$page->image;
 
             if(Storage::exists($fileToDelete)){
@@ -111,7 +111,7 @@ class PageController extends Controller
 
         $collectionPage = CollectionsPage::where('page_id', $id)->get();
 
-        //delete the page in the collection if they are in any collection
+        /** delete the page in the collection if they are in any collection */
         if (count($collectionPage) > 0){
             foreach ($collectionPage as $item) {
                 $item->delete();

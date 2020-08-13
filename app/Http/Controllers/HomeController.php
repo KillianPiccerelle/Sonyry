@@ -25,7 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //dd(Auth::user()->pages);
         return view('main.auth.home');
     }
 }

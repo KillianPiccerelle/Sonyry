@@ -53,7 +53,6 @@
                                         @php $id++ @endphp
                                     @endforeach
                                 </ul>
-
                             </div>
 
                             <!--Nav TRASH-->
@@ -141,7 +140,6 @@
                                 @php $id++ @endphp
                             @endforeach
                         </div>
-
                     </div>
                 </div>
             </div>
