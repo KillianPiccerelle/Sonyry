@@ -148,17 +148,8 @@ class GroupController extends Controller
 
         $userGroups = UserGroup::find($id);
 
-        //Génération du contenu de la notification
-        $exitNotification = New Notification();
-        $exitNotification->title = "Vous venez de quitter le groupe ".$userGroups->group->name;
-        $exitNotification->paragraph = "Bonjour, vous venez de quitter le groupe ".$userGroups->group->name.".";
-        $exitNotification->save();
+        NotificationController::notificationAuto("Vous venez de quitter le groupe ".$userGroups->group->name,"Bonjour, vous venez de quitter le groupe ".$userGroups->group->name.".");
 
-        //Génération de la liaison de la notification avec le user en question
-        $inbox = New Inbox();
-        $inbox->notification_id = $exitNotification->id;
-        $inbox->user_id = Auth::user()->id;
-        $inbox->save();
 
         $userGroups->delete();
 

@@ -90,6 +90,9 @@ Route::middleware('auth')->group(function(){
      * Inbox
      */
     Route::get('inbox', 'InboxController@index')->name('inbox.index');
+    Route::get('/inbox/{id}/toTrash', 'InboxController@toTrash')->name('inbox.toTrash');
+
+    Route::get('/inbox/{id}/destroy', 'NotificationController@destroy')->name('notification.destroy');
 
 });
 

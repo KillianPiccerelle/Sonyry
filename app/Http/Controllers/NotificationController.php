@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Inbox;
 use App\Notification;
 use App\UserGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
@@ -82,20 +84,34 @@ class NotificationController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $notification = Notification::find($id);
+
+        $inbox = Inbox::where('notification_id', $notification->id)->get();
+
+        $notification->delete();
+        $inbox[0]->delete();
+
+        return redirect()->route('inbox.index');
     }
 
-    public function joinGroup()
-    {
+    /**
+     * Auto-generation of notification
+     */
+    public static function notificationAuto($title, $paragraph) {
 
+        //Génération du contenu de la notification
+        $notification = new Notification();
+        $notification->title = $title;
+        $notification->paragraph = $paragraph;
+        $notification->save();
+
+        //Génération de la liaison de la notification avec le user en question
+        $inbox = New Inbox();
+        $inbox->notification_id = $notification->id;
+        $inbox->user_id = Auth::user()->id;
+        $inbox->save();
 
     }
 
-    public function exitGroup($userGroup)
-    {
-        /*$exitNotification = New Notification();
-        $exitNotification->title = "Vous venez de quitter le group ".$userGroup->group_id->name;
-        $exitNotification->save();*/
-
-    }
 }

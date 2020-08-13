@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Inbox;
+use App\Notification;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,5 +88,14 @@ class InboxController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function toTrash($id)
+    {
+        $notification = Notification::find($id);
+        $notification->trash = 1;
+        $notification->save();
+
+        return redirect()->route('inbox.index');
     }
 }

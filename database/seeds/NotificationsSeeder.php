@@ -16,26 +16,31 @@ class NotificationsSeeder extends Seeder
         $notification = new Notification();
         $notification->title = str::random(10);
         $notification->paragraph = str::random(50);
+        $notification->trash = 0;
         $notification->save();
 
         $notification = new Notification();
         $notification->title = str::random(10);
         $notification->paragraph = str::random(50);
+        $notification->trash = 0;
         $notification->save();
 
         $notification = new Notification();
         $notification->title = str::random(10);
         $notification->paragraph = str::random(50);
+        $notification->trash = 0;
         $notification->save();
 
         $notification = new Notification();
         $notification->title = str::random(10);
         $notification->paragraph = str::random(50);
+        $notification->trash = 1;
         $notification->save();
 
         $notification = new Notification();
         $notification->title = str::random(10);
         $notification->paragraph = str::random(50);
+        $notification->trash = 1;
         $notification->save();
     }
 }
