@@ -1,9 +1,32 @@
+@php
+
+/** Récup les notif */
+    $inboxes = \App\Inbox::where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->get();
+    $count = 0;
+
+    /** si y'a des notifs */
+if (count($inboxes) >0)
+{
+        /** je test si la notif est à la corbeille, si c'est le cas je l'enlève de la liste */
+    foreach ($inboxes as $inbox)
+    {
+        if ($inbox->notification->trash === 1){
+            unset($inboxes[$count]);
+        }
+        $count++;
+    }
+}
+
+
+@endphp
+
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
             {{ config('app.name', 'Laravel') }}
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -11,31 +34,36 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Créer
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('page.create') }}">{{ __('Créer une page')}}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('collection.create') }}">{{ __('Créer une collection') }}</a>
+                        <a class="dropdown-item"
+                           href="{{ route('collection.create') }}">{{ __('Créer une collection') }}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('group.create') }}">{{ __('Créer un groupe') }}</a>
                         <div class="dropdown-divider"></div>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Modifier
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('page.index') }}">{{ __('Modifier mes pages')}}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('collection.index') }}">{{ __('Modifier mes collection') }}</a>
+                        <a class="dropdown-item"
+                           href="{{ route('collection.index') }}">{{ __('Modifier mes collection') }}</a>
                         <div class="dropdown-divider"></div>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Partager
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -43,7 +71,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Collaborer
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -56,9 +85,9 @@
             <ul class="navbar-nav ml-auto">
 
                 <li class="nav-item">
-                    <button type="button" class="btn btn-primary">
-                        Notifications <span class="badge badge-light">4</span>
-                    </button>
+                    <a type="button" href="{{ route('inbox.index') }}" class="btn btn-primary">
+                        Notifications <span class="badge badge-light">@if(count($inboxes) < 10) {{ count($inboxes) }} @else 9+ @endif</span>
+                    </a>
                 </li>
 
                 <!-- Authentication Links -->
@@ -73,7 +102,8 @@
                     @endif
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
