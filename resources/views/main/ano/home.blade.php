@@ -6,7 +6,7 @@
 
     <div class="background"></div>
 
-    <div style="margin-top: 120px;" id="carouselExemple" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <div style="margin-top: 120px;" id="carouselExemple" class="carousel slide" data-ride="carousel" data-interval="3500">
 
         <ol class="carousel-indicators">
             <li data-target="#carouselExemple" data-slide-to="0" class="active"></li>

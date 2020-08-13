@@ -5,7 +5,7 @@ use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class CollectionSeeder extends Seeder
+class CollectionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -35,4 +35,5 @@ class CollectionSeeder extends Seeder
         $collection->image = "1594739711_index.jpg";
         $collection->save();
     }
+
 }
