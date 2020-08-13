@@ -6,6 +6,7 @@ use App\CollectionsPage;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
@@ -65,13 +66,21 @@ class PageController extends Controller
     public function edit($id){
         $page = Page::find($id);
 
+        if(Gate::denies('can-access-page', $page)){
+            return redirect()->route('home')->with('danger','Vous n\'avez pas accès à cette page');
+        }
+
         return view('page.edit',[
-            'page'=>$page
+            'page'=>$page,
         ]);
     }
 
     public function update(Request $request, $id){
         $page = Page::find($id);
+
+        if(Gate::denies('can-access-page', $page)){
+            return redirect()->route('home')->with('danger','Vous ne pouvez pas modifier cette page');
+        }
 
         if($request->input('title') != null){
             $page->title = $request->input('title');
@@ -108,6 +117,10 @@ class PageController extends Controller
      */
     public function destroy($id){
         $page = Page::find($id);
+
+        if(Gate::denies('can-access-page', $page)){
+            return redirect()->route('home')->with('danger','Vous ne pouvez pas supprimer cette page');
+        }
 
         $collectionPage = CollectionsPage::where('page_id', $id)->get();
 

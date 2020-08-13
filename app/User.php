@@ -63,4 +63,20 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Inbox');
     }
+
+    public function groupsMember(){
+        return $this->hasMany('App\UserGroup');
+    }
+
+    public function sharesGroups(){
+        return $this->hasMany('App\ShareGroup');
+    }
+
+    public function authGroupShares(){
+        return $this->hasMany('App\ShareGroupPolicies');
+    }
+
+    public function shareDirectories(){
+        return $this->hasMany('App\ShareDirectory');
+    }
 }

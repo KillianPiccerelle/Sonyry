@@ -9,4 +9,16 @@ class Group extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
+
+    public function shares(){
+        return $this->hasMany('App\ShareGroup');
+    }
+
+    public function directories(){
+        return $this->hasMany('App\ShareDirectory');
+    }
+
+    public function members(){
+        return $this->hasMany('App\UserGroup');
+    }
 }

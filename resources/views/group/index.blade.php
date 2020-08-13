@@ -3,6 +3,7 @@
 
 @section('content')
 
+    <div class="container">
         @if(count($groups) > 0)
             <table class="table">
                 <thead>
@@ -14,17 +15,11 @@
                 </thead>
                 <tbody>
                 @foreach($groups as $group)
-
                     <tr>
                         <td>{{ $group->group->name }}</td>
                         <td>{{ $group->members }}</td>
                         <td>
-                            <a class="btn btn-primary" href="{{route('group.edit', $group->group->id)}}" type="button">
-                                Paramétrer
-                            </a>
-                            <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#exitModal">
-                                Quitter
-                            </button>
+                            <a href="{{ route('group.show', $group->group->id) }}" class="btn btn-primary">Voir</a>
                         </td>
                     </tr>
                     <!-- modal exit group  -->
@@ -49,8 +44,32 @@
                         </div>
                     </div>
                 @endforeach
-                @else
-                    <td>Vous n'appartenez actuellement à aucun groupe.</td>
-                @endif
             </table>
+        @else
+            <h5 class="text-center">Vous n'appartenez actuellement à aucun groupe. Pour en créer un cliquez sur le bouton ci-dessous :</h5>
+            <br>
+            <div class="text-center">
+                <a href="{{ route('group.create') }}" class="btn btn-outline-dark text-center">Créer un groupe</a>
+            </div>
+        @endif
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> policiesGroups
 @endsection

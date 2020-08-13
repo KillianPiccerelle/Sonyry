@@ -7,6 +7,7 @@ use App\CollectionsPage;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CollectionPageController extends Controller
 {
@@ -18,6 +19,10 @@ class CollectionPageController extends Controller
      */
     public function add($id){
         $collection = Collection::find($id);
+
+        if (Gate::denies('can-access-collection', $collection)){
+            return redirect()->route('home')->with('danger','Vous n\'avez pas accès à cette collection');
+        }
 
         $pagesInCollection = CollectionsPage::where('collection_id',$id)->get();
         $pagesAvailables = Page::where('user_id',Auth::user()->id)->get();
