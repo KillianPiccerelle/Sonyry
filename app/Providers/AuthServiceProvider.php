@@ -29,8 +29,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('can-edit-group', function (User $user, $id){
-           if ($user->id === $id){
+        Gate::define('can-edit-group', function (User $user, $group){
+           if ($user->id === $group->user_id){
                return true;
            }
            else {

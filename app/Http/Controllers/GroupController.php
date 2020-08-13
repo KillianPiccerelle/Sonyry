@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\ShareDirectory;
 use App\ShareGroup;
+use App\ShareGroupPolicies;
 use App\User;
 use App\UserGroup;
 use Illuminate\Http\Request;
@@ -148,14 +149,34 @@ class GroupController extends Controller
             return redirect()->route('home')->with('danger','Vous n\'êtes pas propriétaire du groupe, vous ne pouvez pas supprimer le groupe');
         }
 
-        $userGroups = UserGroup::where('group_id', $group->id)->get();
+        $members = UserGroup::where('group_id', $group->id)->get();
         //Try if userGroups array is empty
-        if (count($userGroups) > 0) {
+        if (count($members) > 0) {
             // if isn't empty, delete item
-            foreach ($userGroups as $item)
-                $item->delete();
+            foreach ($members as $member)
+                $member->delete();
         }
-        //TODO delete files from share
+
+        $directories = ShareDirectory::where('group_id', $group->id)->get();
+
+        if (count($directories) > 0){
+            foreach ($directories as $directory) {
+                $directory->delete();
+            }
+        }
+
+        if (count($group->shares) >0){
+            foreach ($group->shares as $share){
+                $policies = ShareGroupPolicies::where('shareGroup_id', $share->id)->get();
+                if (count($policies) > 0){
+                    foreach ($policies as $policy){
+                        $policy->delete();
+                    }
+                }
+                $share->delete();
+            }
+        }
+
         $group->delete();
         return redirect()->route('group.index')->with('success','Groupe supprimé avec succès');
     }
@@ -168,11 +189,36 @@ class GroupController extends Controller
      */
     public function exit($id)
     {
-        $userGroups = UserGroup::where('user_id',Auth::user()->id)->get();
+        $userGroups = UserGroup::where('user_id',Auth::user()->id)->where('group_id', $id)->get();
 
         if (Gate::denies('is-member-group', $userGroups[0]->group)){
             return redirect()->route('home')->with('danger','Vous ne pouvez pas quitter ce groupe');
         }
+
+        $shares = $userGroups[0]->user->sharesGroups;
+
+        foreach ($shares as $share){
+            if ($share->group_id == $id){
+                $policies = ShareGroupPolicies::where('shareGroup_id', $share->id)->get();
+
+                if (count($policies) > 0){
+                    foreach ($policies as $policy) {
+                        $policy->delete();
+                    }
+                }
+
+                $share->delete();
+            }
+        }
+
+        $directory = ShareDirectory::where('user_id', Auth::user()->id)->where('group_id', $id)->get();
+
+        if (count($directory) > 0){
+            $directory[0]->delete();
+        }
+
+
+
 
         $userGroups[0]->delete();
 
@@ -195,9 +241,30 @@ class GroupController extends Controller
 
         $member = UserGroup::where('group_id', $id)->where('user_id', $user_id)->get();
 
-        foreach ($member as $item){
-            $item->delete();
+        $shares = $member[0]->user->sharesGroups;
+
+        foreach ($shares as $share){
+            if ($share->group_id == $group->id){
+                $policies = ShareGroupPolicies::where('shareGroup_id', $share->id)->get();
+
+                if (count($policies) > 0){
+                    foreach ($policies as $policy) {
+                        $policy->delete();
+                    }
+                }
+
+                $share->delete();
+            }
         }
+
+        $directory = ShareDirectory::where('user_id', $user_id )->where('group_id', $group->id)->get();
+
+        if (count($directory) > 0){
+            $directory[0]->delete();
+        }
+
+
+        $member[0]->delete();
 
 
         return redirect()->route('group.show', $group->id)->with('success','La personne a bien été exclue !');

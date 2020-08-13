@@ -10,7 +10,7 @@ class Group extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function share(){
+    public function shares(){
         return $this->hasMany('App\ShareGroup');
     }
 

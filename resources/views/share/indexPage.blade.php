@@ -56,14 +56,14 @@
                                     @csrf
                                     <div class="modal-body">
                                         <h5>Séléctionnez le groupe auquel vous voulez partager la page :</h5>
-                                        <select class="form-control" name="group">
+                                        <select class="selectpicker" name="group[]" multiple title="Choose one of the following...">
                                             @foreach($page->groups as $group)
-
-                                                <option value="{{ $group->id }}">
-                                                    {{ $group->name }}
-                                                </option>
+                                                <option value="@if($group->status) 0 @else{{ $group->group->id }}@endif" @if($group->status) disabled @endif>{{ $group->group->name }} @if($group->status) <i>(Déjà partagée)</i> @endif</option>
                                             @endforeach
                                         </select>
+
+
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary float-left">Partager !</button>
@@ -85,12 +85,15 @@
 
     <script>
         $(document).ready(function(){
+            $('.selectpicker').selectpicker();
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $(".col-md-4").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+
+
         });
     </script>
 
