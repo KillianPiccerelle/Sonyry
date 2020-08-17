@@ -5,10 +5,30 @@
 
     <style>
         p {
-
+            text-align: center;
             font-size: 110%;
         }
 
+        form {
+            /* Uniquement centrer le formulaire sur la page */
+            margin: 0 auto;
+            width: 1000px;
+            /* Encadré pour voir les limites du formulaire */
+            padding: 2em;
+            border: 2px solid #E74C3C;
+            border-radius: 2em;
+        }
+
+        label {
+            display: block;
+            width: 150px;
+            float: left;
+        }
+
+        input {
+
+            font-weight: bold;
+        }
 
     </style>
 
@@ -16,9 +36,9 @@
 
     <!------ Include the above in your HEAD tag ---------->
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12 ">
+            <div class="col-xs-12 ml-lg-5 mr-lg-5" style="width: 100%">
                 <nav>
                     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
@@ -45,23 +65,41 @@
                                 $user = Auth::user();
                             @endphp
 
-                            Nom : {{ $user->name }}<br>
-                            Prénom : {{ $user->firstName }}<br>
-                            Email : {{ $user->email }}<br>
-                            Emploi : {{ $user->job }}<br>
-                            Secteur d'activité : {{ $user->businessSegment }}<br>
-                            Rue : {{ $user->streetAddress }}<br>
-                            Ville : {{ $user->cityAddress }}<br>
-                            Code Postal : {{ $user->postCodeAddress }}<br>
-                            Pays : {{ $user->country }}<br>
-                            Téléphone portable : {{ $user->mobilePhone }}<br>
-                            Téléphone de travail : {{ $user->businessPhone }}<br>
-                            <div class="form-group">
-                                <label for="newDescription">Description : <br></label>
-                                <textarea disabled class="form-control" id="exampleFormControlTextarea1"
-                                          name="newDescription" rows="3"
-                                          placeholder="{{ $user->description }}"></textarea>
+                            <div class="row">
+                                <div class="col-md-4 pt-3 ">
+                                    Nom :<br>
+                                    Prénom :<br>
+                                    Email :<br>
+                                    Emploi :<br>
+                                    Secteur d'activité :<br>
+                                    Rue :<br>
+                                    Ville :<br>
+                                    Code Postal :<br>
+                                    Pays :<br>
+                                    Téléphone portable :<br>
+                                    Téléphone de travail :<br><br>
+                                </div>
+                                <div class="col-md-4  " style="padding-top: 1rem; font-weight: bold;" >
+
+                                    {{ $user->name }}<br>
+                                    {{ $user->firstName }}<br>
+                                    {{ $user->email }}<br>
+                                    {{ $user->job }}<br>
+                                    {{ $user->businessSegment }}<br>
+                                    {{ $user->streetAddress }}<br>
+                                    {{ $user->cityAddress }}<br>
+                                    {{ $user->postCodeAddress }}<br>
+                                    {{ $user->country }}<br>
+                                    {{ $user->mobilePhone }}<br>
+                                    {{ $user->businessPhone }}<br>
+                                </div>
                             </div>
+                                <div class="form-group">
+                                    <label for="newDescription">Description : <br></label>
+                                    <textarea disabled class="form-control" id="exampleFormControlTextarea1"
+                                              name="newDescription" rows="3"
+                                              placeholder="{{ $user->description }}"></textarea>
+                                </div>
 
                         </form>
                     </div>
@@ -299,12 +337,12 @@
 
                         <div style="border-bottom: none" class="tab-content" id="nav-tabContent">
 
-                            <div class="tab-pane fade show active " id="nav-pages" role="tabpanel"
+                            <div class="tab-pane fade show active " id="nav-pages" role="tabpanel "
                                  aria-labelledby="nav-collections-tab">
 
                                 @if(count(Auth::user()->pages) > 0)
                                     @foreach(Auth::user()->pages as $page)
-                                        <div class="list-group">
+                                        <div class="list-group" style="margin-left: -900px" >
                                             <div class="post">
                                                 <p> {{ ucfirst($page->title) }}<p>
                                             </div>
@@ -321,7 +359,7 @@
                                 @if(count(Auth::user()->collections) > 0)
                                     @foreach(Auth::user()->collections as $collection)
 
-                                        <div class="post">
+                                        <div class="post" style="margin-left: 900px">
                                             <p> {{ ucfirst($collection->name) }}<p>
                                         </div>
 
@@ -353,7 +391,7 @@
                                     </tr>
                                 @endforeach
                                 @else
-                                    <td>Vous n'appartenez actuellement à aucun groupe.</td>
+                                    <p>Vous n'appartenez actuellement à aucun groupe.</p>
                                 @endif
                             </table>
                     </div>
@@ -368,53 +406,65 @@
                         <form method="POST" action="{{route('profil.update',$user->id)}}">
                             @csrf
                             @method('PUT')
-                            <label for="newName">Nom</label>
-                            <input type="text" name="newName" value="{{ $user->name }}"><br>
 
-                            <label for="newFirstname">Prénom</label>
-                            <input type="text" name="newFirstname" value="{{ $user->firstName }}"><br>
+                            <div class="row" >
+                                <div class="col-md-4 pt-3 ">
+                                    <label for="newName">Nom</label>
+                                    <input type="text" name="newName" value="{{ $user->name }}">
 
-                            <label for="newEmail">Email</label>
-                            <input type="email" id="inputEmail" @error('email') is-invalid @enderror" name="newEmail"
-                            value="{{ $user->email }}" autocomplete="email" autofocus>
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
+                                    <label for="newFirstname">Prénom</label>
+                                    <input type="text" name="newFirstname" value="{{ $user->firstName }}"><br>
+
+                                    <label for="newEmail">Email</label>
+                                    <input type="email" id="inputEmail" @error('email') is-invalid @enderror"
+                                    name="newEmail"
+                                    value="{{ $user->email }}" autocomplete="email" autofocus>
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
-                            <br>
-
-                            <label for="newJob">Emploi</label>
-                            <input type="text" name="newJob" value="{{ $user->job }}"><br>
-
-                            <label for="newJobSegment">Secteur d'activité</label>
-                            <input type="text" name="newJobSegment" value="{{ $user->businessSegment }}"><br>
-
-                            <label for="newStreet">Rue</label>
-                            <input type="text" name="newStreet" value="{{ $user->streetAddress }}"><br>
-
-                            <label for="newCity">Ville</label>
-                            <input type="text" name="newCity" value="{{ $user->cityAddress }}"><br>
-
-                            <label for="newPostalCode">Code Postal</label>
-                            <input maxlength="5" type="text" name="newPostalCode"
-                                   value="{{ $user->postCodeAddress }}"><br>
-
-                            <label for="newCountry">Pays</label>
-                            <input type="text" name="newCountry" value="{{ $user->country }}"><br>
-
-                            <label for="newMobilePhone">Téléphone portable</label>
-                            <input maxlength="10" type="text" name="newMobilePhone"
-                                   value="{{ $user->mobilePhone }}"><br>
-
-                            <label for="newWorkPhone">Téléphone de travail</label>
-                            <input maxlength="10" type="text" name="newWorkPhone"
-                                   value="{{ $user->businessPhone }}"><br>
+                                    @enderror<br>
 
 
+                                    <label for="newJob">Emploi</label>
+                                    <input type="text" name="newJob" value="{{ $user->job }}"><br>
+
+                                    <label for="newJobSegment">Secteur d'activité</label>
+                                    <input type="text" name="newJobSegment" value="{{ $user->businessSegment }}"><br>
+
+                                    <label for="newStreet">Rue</label>
+                                    <input type="text" name="newStreet" value="{{ $user->streetAddress }}"><br><br>
+
+                                </div>
+
+
+                                <div class="col-md-4  " style="padding-top: 1rem">
+                                    <label for="newCity">Ville</label>
+                                    <input type="text" name="newCity" value="{{ $user->cityAddress }}"><br>
+
+                                    <label for="newPostalCode">Code Postal</label>
+                                    <input maxlength="5" type="text" name="newPostalCode"
+                                           value="{{ $user->postCodeAddress }}"><br>
+
+                                    <label for="newCountry">Pays</label>
+                                    <input type="text" name="newCountry" value="{{ $user->country }}"><br>
+
+                                    <label for="newMobilePhone">Téléphone portable</label>
+                                    <input maxlength="10" type="text" name="newMobilePhone"
+                                           value="{{ $user->mobilePhone }}"><br>
+
+                                    <label for="newWorkPhone">Téléphone de travail</label>
+                                    <input maxlength="10" type="text" name="newWorkPhone"
+                                           value="{{ $user->businessPhone }}"><br>
+
+
+                                </div>
+                            </div>
                             <div class="form-group">
-                                <label for="newDescription">Description (255 caractères maximum) :</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" name="newDescription"
+                                <label style="width: 300px" for="newDescription">Description (255 caractères maximum)
+                                    :</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1"
+                                          name="newDescription"
                                           rows="3">{{ $user->description }}</textarea>
                             </div>
 
