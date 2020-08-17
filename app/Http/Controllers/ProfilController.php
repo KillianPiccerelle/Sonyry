@@ -33,13 +33,13 @@ class ProfilController extends Controller
         $count = 0;
         foreach ($friends as $friend) {
 
-            if ($friend->is_pending === 0) {
+            if ($friend->is_pending == 0) {
                 /** if the sender is different from the connected user then we will look for the sender*/
-                if ($friend->sender !== Auth::user()->id) {
+                if ($friend->sender != Auth::user()->id) {
                     $friend->user = User::find($friend->sender);
 
                     /** otherwise the target is different from the connected user then we will search for the target */
-                } elseif ($friend->target !== Auth::user()->id) {
+                } elseif ($friend->target != Auth::user()->id) {
                     $friend->user = User::find($friend->target);
                 }
 
@@ -60,17 +60,17 @@ class ProfilController extends Controller
 
         $count = 0;
         foreach ($friendRequests as $friendRequest) {
-            if ($friendRequest->is_pending === 1) {
+            if ($friendRequest->is_pending == 1) {
 
                 /** if the target is the logged in user */
-                if ($friendRequest->target === Auth::user()->id) {
+                if ($friendRequest->target == Auth::user()->id) {
 
                     /** if the sender is different from the connected user then we will look for the sender*/
-                    if ($friendRequest->sender !== Auth::user()->id) {
+                    if ($friendRequest->sender != Auth::user()->id) {
                         $friendRequest->user = User::find($friendRequest->sender);
 
                         /** otherwise the target is different from the connected user then we will search for the target  */
-                    } elseif ($friendRequest->target !== Auth::user()->id) {
+                    } elseif ($friendRequest->target != Auth::user()->id) {
                         $friendRequest->user = User::find($friendRequest->target);
                     }
 
@@ -97,14 +97,14 @@ class ProfilController extends Controller
 
         foreach ($requests as $request) {
 
-            if ($request->is_pending === 1) {
+            if ($request->is_pending == 1) {
 
                 /** if the sender is different from the connected user then we will look for the sender*/
-                if ($request->sender !== Auth::user()->id) {
+                if ($request->sender != Auth::user()->id) {
                     $request->user = User::find($request->sender);
 
                     /** otherwise the target is different from the connected user then we will search for the target  */
-                } elseif ($request->target !== Auth::user()->id) {
+                } elseif ($request->target != Auth::user()->id) {
                     $request->user = User::find($request->target);
                 }
 
@@ -122,20 +122,20 @@ class ProfilController extends Controller
             $valableUser->state = false;
 
             /** if the identifier is that of the connected user, then it is deleted from valid users */
-            if ($valableUser->id === Auth::user()->id) {
+            if ($valableUser->id == Auth::user()->id) {
                 unset($valableUsers[$count]);
             }
             foreach ($friends as $friend) {
 
                 /** if in the list the user is already friends with then he is removed from the list */
-                if ($friend->user->id === $valableUser->id) {
+                if ($friend->user->id == $valableUser->id) {
                     unset($valableUsers[$count]);
                 }
             }
             foreach ($requests as $request) {
 
                 /** the user already has a pending request */
-                if ($request->user->id === $valableUser->id) {
+                if ($request->user->id == $valableUser->id) {
                     $valableUser->state = true;
 
                 }

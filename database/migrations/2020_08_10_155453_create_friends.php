@@ -17,7 +17,7 @@ class CreateFriends extends Migration
             $table->id();
             $table->text('sender');
             $table->text('target');
-            $table->boolean('is_Pending');
+            $table->boolean('is_pending');
             $table->timestamps();
         });
     }

@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.1",
-        "bootstrap-autocomplete": "^2.3.5"
+        "bootstrap-autocomplete": "^2.3.5",
+        "gridstack": "^2.0.0-rc"
     }
 }
