@@ -51,6 +51,12 @@ Route::middleware('auth')->group(function(){
     Route::resource('page','PageController');
     Route::get('page/{id}/destroy','PageController@destroy')->name('page.destroy.fix');
 
+    /**
+     * Bloc
+     */
+
+    Route::get('page/{id}/bloc/index','BlocController@index')->name('bloc.index');
+    Route::get('page/{id}/bloc/create','BlocController@create')->name('bloc.create');
 
     /**
      * Collection route
