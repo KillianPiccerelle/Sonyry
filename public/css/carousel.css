@@ -1,19 +1,15 @@
-body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
 
+.carousel {
+
+    width: 100%;
+    margin-top: 70px;
 }
 
-#carouselExemple {
-    width: 60%;
-    margin: 0 auto;
-
-}
 
 .carousel-inner img {
 
-    height:700px;
+    max-height:750px;
+    width: 100%;
     filter: blur(0px);
     object-fit: contain;
 
@@ -21,14 +17,25 @@ body {
 
 
 
-.background {
-    background-image:url('/img/carousel.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    filter: blur(5px);
-    position: absolute;
-    height: 90%;
-    top: 80px;
-    left: 0;
-    width: 100%;
+body {
+    background-color: #292b2c;
 }
+
+.carousel-slide {
+    margin: auto;
+}
+
+.item {
+    height: 100vh;
+}
+
+.item img {
+    max-height: 100%!important;
+    margin: auto;
+}
+
+.carousel-control {
+    background : none!important;
+}
+
+
