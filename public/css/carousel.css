@@ -1,41 +1,137 @@
-
-.carousel {
-
-    width: 100%;
-    margin-top: 70px;
+body, html {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    overflow-x: hidden;
 }
-
-
-.carousel-inner img {
-
-    max-height:750px;
-    width: 100%;
-    filter: blur(0px);
-    object-fit: contain;
-
-}
-
-
 
 body {
-    background-color: #292b2c;
+    font-family: sans-serif;
+    padding: 50px;
+    background: linear-gradient(45deg,#f6993f, #ffed4a) center center no-repeat;
+    line-height: 1.4;
 }
 
-.carousel-slide {
-    margin: auto;
+
+.title {
+    font-size: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: left;
 }
 
 .item {
-    height: 100vh;
+    margin: 40px 10px;
+    background-color: #ffffff;
+    box-shadow: 0 15px 35px #3232321a, 0 5px 15px #0000001a;
+    transition: transform 0.3s;
+    transform: translate3d(0,-1px,0);
+}
+
+.item:hover {
+    transform: translate3d(0,-10px,0);
 }
 
 .item img {
-    max-height: 100%!important;
-    margin: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+
 }
 
-.carousel-control {
-    background : none!important;
+.item__body {
+    padding: 25px;
+}
+
+.item__title {
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #232323;
+}
+
+.item__description {
+    color: #585858;
+}
+
+.items {
+    position: relative;
 }
 
 
+/**
+CAROUSEL
+*/
+
+.carousel {
+    position: relative;
+
+}
+
+.carousel__container {
+    transition: transform 0.3s;
+    transform: translate3d(0,0,0);
+}
+
+.carousel__container::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+
+.carousel__item {
+    float: left;
+}
+
+.carousel__next, .carousel__prev {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #ffffff fas fa-arrow-right center center no-repeat;
+    background-size: 20px 20px;
+    border-radius: 50%;
+    top: 50%;
+    margin-top: -20px;
+    right: 0;
+    box-shadow: 0 15px 35px #3232321a, 0 5px 15px #0000001a;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+
+
+
+}
+
+
+
+.carousel__next:hover, .carousel__prev:hover{
+    transform: scale(1.2);
+
+
+}
+.carousel__prev {
+    background-image: fas fa-arrow-left ;
+    right: auto;
+    left: -20px;
+}
+
+.carousel__next--hidden, .carousel__prev--hidden{
+    opacity: 0;
+
+
+}
+
+.footerCopyright {
+    font-weight: bold;
+    text-shadow: #232323;
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+
+    height:50px;
+
+}
