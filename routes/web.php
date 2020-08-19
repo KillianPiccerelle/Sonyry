@@ -56,7 +56,15 @@ Route::middleware('auth')->group(function(){
      */
 
     Route::get('page/{id}/bloc/index','BlocController@index')->name('bloc.index');
-    Route::get('page/{id}/bloc/create','BlocController@create')->name('bloc.create');
+    Route::post('page/{id}/bloc/create','BlocController@create')->name('bloc.create');
+
+    /**
+     * Bloc Type
+     */
+    Route::get('page/{id}/bloc/text','BlocController@text')->name('bloc.text');
+    Route::get('page/{id}/bloc/image','BlocController@image')->name('bloc.image');
+    Route::get('page/{id}/bloc/video','BlocController@video')->name('bloc.video');
+    Route::get('page/{id}/bloc/script','BlocController@script')->name('bloc.script');
 
     /**
      * Collection route

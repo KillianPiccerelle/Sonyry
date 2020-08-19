@@ -4,7 +4,7 @@
     <div class="row">
         @foreach($page->blocs as $bloc)
 
-            <div class="col-sm-5 border" >
+            <div class="col-sm-5 border mt-1" >
                 <p>{{ $bloc->id }}</p>
             </div>
         @endforeach

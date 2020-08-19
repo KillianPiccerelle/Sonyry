@@ -20,7 +20,9 @@ class BlocController extends Controller
     }
 
 
-    public function create($id){
+    public function create(Request $request, $id){
+
+        dd($request);
 
         $page= Page::find($id);
 
@@ -33,5 +35,33 @@ class BlocController extends Controller
         $bloc->save();
 
         return redirect()->route('bloc.index',$page->id);
+    }
+
+    public function text($id){
+        $page = Page::find($id);
+        return view('page.bloc.text',[
+            'page'=>$page
+        ]);
+    }
+
+    public function image($id){
+        $page = Page::find($id);
+        return view('page.bloc.image',[
+            'page'=>$page
+        ]);
+    }
+
+    public function video($id){
+        $page = Page::find($id);
+        return view('page.bloc.video',[
+            'page'=>$page
+        ]);
+    }
+
+    public function script($id){
+        $page = Page::find($id);
+        return view('page.bloc.script',[
+            'page'=>$page
+        ]);
     }
 }
