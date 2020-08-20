@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="title">Bienvenue dans Sonyry</div>
+    <div class="container-fluid">
+        <div class="title ml-2">Bienvenue dans Sonyry</div>
 
         <div id="carousel1">
 
@@ -17,6 +17,62 @@
                     </div>
                     <div class="item__description">
                         <p>Créez votre portefolio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item__image">
+                    <img src="/img/carousel1.jpg" alt="">
+                </div>
+                <div class="item__body">
+                    <div class="item__title">
+                        <h1>Créez</h1>
+                    </div>
+                    <div class="item__description">
+                        <p>Créez votre portefolio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item__image">
+                    <img src="/img/carousel1.jpg" alt="">
+                </div>
+                <div class="item__body">
+                    <div class="item__title">
+                        <h1>Créez</h1>
+                    </div>
+                    <div class="item__description">
+                        <p>Créez votre portefolio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item__image">
+                    <img src="/img/carousel2.jpg" alt="">
+                </div>
+                <div class="item__body">
+                    <div class="item__title">
+                        <h1>Collaborez</h1>
+                    </div>
+                    <div class="item__description">
+                        <p>Collaborez avec vos pairs sur des projets.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item__image">
+                    <img src="/img/carousel2.jpg" alt="">
+                </div>
+                <div class="item__body">
+                    <div class="item__title">
+                        <h1>Collaborez</h1>
+                    </div>
+                    <div class="item__description">
+                        <p>Collaborez avec vos pairs sur des projets.</p>
                     </div>
                 </div>
             </div>
@@ -159,7 +215,7 @@
                     if (index === 0) {
                         prevButton.classList.add('carousel__prev--hidden')
                     } else {
-                        prevButton.classList.remove('carousel__prev--hideen')
+                        prevButton.classList.remove('carousel__prev--hidden')
                     }
                     if (this.items[this.currentItem + this.options.slidesVisible] === undefined) {
                         nextButton.classList.add('carousel__next--hidden')
@@ -189,6 +245,7 @@
              */
 
             gotoItem(index) {
+
                 if (index < 0) {
                     index = this.items.length - this.options.slidesVisible
                 } else if (index >= this.items.length || (this.items[this.currentItem + this.options.slidesVisible] === undefined && index > this.currentItem)) {
@@ -229,7 +286,7 @@
 
             new Carousel(document.querySelector('#carousel1'), {
                 slidesVisible: 3,
-                slidesToScroll: 1,
+                slidesToScroll: 3,
                 loop: true
 
             })

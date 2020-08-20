@@ -1,3 +1,5 @@
+
+
 body, html {
     margin: 0;
     padding: 0;
@@ -8,7 +10,7 @@ body, html {
 body {
     font-family: sans-serif;
     padding: 50px;
-    background: linear-gradient(45deg,#f6993f, #ffed4a) center center no-repeat;
+    background: linear-gradient(45deg,pink  , black) center center no-repeat;
     line-height: 1.4;
 }
 
@@ -24,7 +26,7 @@ body {
 .item {
     margin: 40px 10px;
     background-color: #ffffff;
-    box-shadow: 0 15px 35px #3232321a, 0 5px 15px #0000001a;
+
     transition: transform 0.3s;
     transform: translate3d(0,-1px,0);
 }
@@ -36,7 +38,7 @@ body {
 .item img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 400px;
 
 }
 
@@ -66,6 +68,7 @@ CAROUSEL
 
 .carousel {
     position: relative;
+    overflow: hidden;
 
 }
 
@@ -89,13 +92,13 @@ CAROUSEL
     position: absolute;
     width: 40px;
     height: 40px;
-    background: #ffffff fas fa-arrow-right center center no-repeat;
+    background: #ffffff url(right.svg) center center no-repeat;
     background-size: 20px 20px;
     border-radius: 50%;
     top: 50%;
     margin-top: -20px;
-    right: 0;
-    box-shadow: 0 15px 35px #3232321a, 0 5px 15px #0000001a;
+    right: 20px;
+
     cursor: pointer;
     transition: transform 0.3s, opacity 0.3s;
 
@@ -111,9 +114,9 @@ CAROUSEL
 
 }
 .carousel__prev {
-    background-image: fas fa-arrow-left ;
+    background-image: url(left.svg) ;
     right: auto;
-    left: -20px;
+    left: 20px;
 }
 
 .carousel__next--hidden, .carousel__prev--hidden{
