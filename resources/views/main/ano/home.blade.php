@@ -141,10 +141,7 @@
 
 
 
-    <footer class="footerCopyright">
-        <div class="container text-center"><small style="color: white; padding-bottom: -0.5rem">Copyright 2020 ©
-                Sonyry</small></div>
-    </footer>
+
 
 
     <script async>
@@ -164,7 +161,6 @@
              * @param {Object} [options.slidesVisible=1] éléments visibles dans un slide
              * @param {Boolean} [options.loop=false] Doit-t-on boucler en fin de carousel ?
              * @param {Boolean} [options.pagination=false]
-             * @param {Boolean} [options.navigation=true]
              */
 
             constructor(element, options = {}) {
