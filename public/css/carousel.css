@@ -138,3 +138,27 @@ CAROUSEL
     height:50px;
 
 }
+
+.carousel__pagination {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.carousel__pagination__button {
+    background-color: #ffffff;
+    width: 10px;
+    height: 10px;
+    margin: 0 3px;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.carousel__pagination__button--active, .carousel__pagination__button:hover{
+    transform: scale(1.4);
+
+}
