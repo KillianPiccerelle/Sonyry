@@ -30,7 +30,7 @@
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/signin.css" rel="stylesheet">
+
 
 
     <!-- gridstack -->

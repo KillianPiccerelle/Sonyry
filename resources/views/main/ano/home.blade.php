@@ -2,6 +2,9 @@
 
 @section('content')
     <link href="/css/carousel.css" rel="stylesheet">
+    <link href="/css/signin.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+
 
     <div class="container-fluid">
         <div class="title ml-2">Bienvenue dans Sonyry</div>

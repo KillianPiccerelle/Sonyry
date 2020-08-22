@@ -10,8 +10,9 @@ body, html {
 body {
     font-family: sans-serif;
     padding-block: 50px;
+    backdrop-filter: blur(5px);
 
-    background: linear-gradient(45deg,pink  , black) center center no-repeat;
+
     line-height: 1.4;
 }
 

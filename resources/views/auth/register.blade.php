@@ -2,6 +2,8 @@
 
 @section('content')
     <link href="/css/register.css" rel="stylesheet">
+    <link href="/css/signin.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
