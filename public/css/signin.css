@@ -1,6 +1,36 @@
-html,
-.login-sonyry {
-    height: 100%;
+body, html {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: sans-serif;
+    padding-block: 50px;
+    background: linear-gradient(0.50turn, #3f87a6, #ebf8e1, #f69d3c);
+    line-height: 1.4;
+
+}
+
+
+.title {
+    font-size: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.header__text {
+    text-align: center;
+    font-size: 25px;
+
+}
+
+.justify-content-center{
+    padding-top: 200px
+
 }
 
 .login-sonyry {
@@ -13,9 +43,8 @@ html,
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #ffffff;
+    padding-top: 150px;
+
 }
 
 .form-signin {
@@ -47,3 +76,5 @@ html,
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+

@@ -2,7 +2,9 @@
 
 @section('content')
 
+    <link href="/css/login.css" rel="stylesheet">
     <link href="/css/signin.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
 
     <div class="login-sonyry" style="text-align: center">
         <div class="col-md-3">
@@ -12,7 +14,7 @@
                     @csrf
 
                     <img class="mb-4" src="https://media.discordapp.net/attachments/718040099618685009/718041074169413775/unknown.png" alt="" width="72" height="72">
-                    <h1 class="h3 mb-3 font-weight-normal">{{ __('Connexion') }}</h1>
+                    <h1 class="h3 mb-3 font-weight-normal">{{ __('Connectez-vous') }}</h1>
                     <label for="inputEmail" class="sr-only">{{ __('Adresse E-Mail') }}</label>
                     <input type="email" id="inputEmail" class="form-control @error('email') is-invalid @enderror" placeholder="Adresse Email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                     @error('email')
