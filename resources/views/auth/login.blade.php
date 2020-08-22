@@ -4,7 +4,7 @@
 
     <link href="/css/login.css" rel="stylesheet">
     <link href="/css/signin.css" rel="stylesheet">
-    <link href="/css/footer.css" rel="stylesheet">
+
 
     <div class="login-sonyry" style="text-align: center">
         <div class="col-md-3">
