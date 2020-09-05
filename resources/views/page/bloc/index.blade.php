@@ -15,7 +15,6 @@
                         @endif
                     </div>
                 </div>
-
             @else
                 <div class="col-sm-5">
                     <button class="container">
