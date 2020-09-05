@@ -130,6 +130,5 @@
             xhttp.send();
         });
 
-
     </script>
 @stop

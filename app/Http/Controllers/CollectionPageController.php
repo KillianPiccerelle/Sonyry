@@ -20,7 +20,7 @@ class CollectionPageController extends Controller
     public function add($id){
         $collection = Collection::find($id);
 
-        if (Gate::denies('can-access-collection', $collection)){
+        if (Gate::denies('is-collection-owner', $collection)){
             return redirect()->route('home')->with('danger','Vous n\'avez pas accès à cette collection');
         }
 

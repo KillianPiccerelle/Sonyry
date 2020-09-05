@@ -28,6 +28,8 @@ class BlocController extends Controller
 
         $bloc->page_id = $page->id;
 
+        $bloc->type = "";
+
         $bloc->content = "";
 
         $bloc->save();
