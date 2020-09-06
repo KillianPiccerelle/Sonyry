@@ -5,6 +5,7 @@
         <input id="title" name="title" class="form-control" type="text">
     </div>
     <div class="form-group">
-        <textarea class="form-control" name="text" placeholder="Saisissez votre texte"></textarea>
+        <textarea class="form-control" name="content" placeholder="Saisissez votre texte"></textarea>
     </div>
+    <input type="hidden" name="type" value="text"/>
 </form>

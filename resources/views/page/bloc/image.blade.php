@@ -4,5 +4,6 @@
     <div class="form-group">
         <input id="title" name="title" class="form-control" type="text">
     </div>
-    <input type="file" name="image"/>
+    <input type="file" name="content" accept="image/x-png,image/gif,image/jpeg"/>
+    <input type="hidden" name="type" value="image"/>
 </form>

@@ -5,6 +5,7 @@
         <input id="title" name="title" class="form-control" type="text">
     </div>
     <div class="form-group">
-        <textarea class="form-control" name="script" placeholder="Saisissez votre code"></textarea>
+        <textarea class="form-control" name="content" placeholder="Saisissez votre code"></textarea>
     </div>
+    <input type="hidden" name="type" value="script"/>
 </form>

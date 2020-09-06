@@ -3,26 +3,28 @@
     <br>
     <div class="row">
         @foreach($page->blocs as $bloc)
-
-            @if($bloc->type != null)
-                <div class="col-sm-5" >
-                    <div class="container border">
-                        @if($bloc->type == 'text')
-
-                        @endif
-                        @if($bloc->type == 'image')
-                            <img src="" />
-                        @endif
-                    </div>
+            <div class="col-sm-5" >
+                <div class="container border">
+                    @if($bloc->type == 'text')
+                        <textarea class="form-control">
+                            {{ $bloc->content }}
+                        </textarea>
+                    @endif
+                    @if($bloc->type == 'script')
+                            <textarea class="form-control">
+                            {{ $bloc->content }}
+                        </textarea>
+                    @endif
+                    @if($bloc->type == 'image')
+                        <img class="text-center" src="/storage/bloc/{{ $bloc->page_id }}/image/{{ $bloc->content }}" width="300" height="180" />
+                    @endif
+                    @if($bloc->type == 'video')
+                            <video height="180" width="300" controls>
+                                <source src="/storage/bloc/{{ $bloc->page_id }}/video/{{ $bloc->content }}">
+                            </video>
+                    @endif
                 </div>
-            @else
-                <div class="col-sm-5">
-                    <button class="container">
-                        <p>Configurer le bloc</p>
-                    </button>
-                </div>
-
-            @endif
+            </div>
         @endforeach
     </div>
 @else

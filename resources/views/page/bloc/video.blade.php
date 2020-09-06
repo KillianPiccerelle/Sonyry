@@ -4,5 +4,6 @@
     <div class="form-group">
         <input id="title" name="title" class="form-control" type="text">
     </div>
-    <input type="file" name="video"/>
+    <input type="file" name="content" accept="video/*"/>
+    <input type="hidden" name="type" value="video"/>
 </form>

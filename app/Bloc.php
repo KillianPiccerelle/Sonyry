@@ -11,10 +11,18 @@ class Bloc extends Model
     }
 
     public function text(){
-        $this->type = 'text';
+        return $this->type = 'text';
+    }
+
+    public function script(){
+        return $this->type = 'script';
     }
 
     public function image(){
-        $this->type = 'image';
+        return $this->type = 'image';
+    }
+
+    public function video(){
+        return $this->type = 'video';
     }
 }

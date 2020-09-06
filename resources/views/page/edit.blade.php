@@ -31,7 +31,7 @@
         </div>
     </div>
     <div id="bloc" class="container">
-
+        @include('page.bloc.index')
     </div>
 
     <!-- bloc create modal -->
@@ -196,17 +196,4 @@
     </script>
 
 
-    <script>
-        $(window).on("load", function () {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("bloc").innerHTML = this.responseText;
-                }
-            };
-            xhttp.open("GET", '{{ route('bloc.index', $page->id) }}', true);
-            xhttp.send();
-        });
-
-    </script>
 @stop
