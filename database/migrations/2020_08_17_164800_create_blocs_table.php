@@ -15,8 +15,9 @@ class CreateBlocsTable extends Migration
     {
         Schema::create('blocs', function (Blueprint $table) {
             $table->id();
-            $table->text('type');
             $table->integer('page_id');
+            $table->text('type');
+            $table->text('title');
             $table->longText('content');
             $table->timestamps();
         });
