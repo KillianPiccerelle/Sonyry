@@ -58,4 +58,21 @@ class NotificationController extends Controller
         $inbox->save();
     }
 
+    /**
+     * Auto-generation of notification
+     */
+    public static function notificationAutoKick($title, $paragraph, $member) {
+
+        /** Generating the content of the notification */
+        $notification = new Notification();
+        $notification->title = $title;
+        $notification->paragraph = $paragraph;
+        $notification->save();
+
+        /** Generation of the notification link with the user in question */
+        $inbox = New Inbox();
+        $inbox->notification_id = $notification->id;
+        $inbox->user_id = $member;
+        $inbox->save();
+    }
 }
