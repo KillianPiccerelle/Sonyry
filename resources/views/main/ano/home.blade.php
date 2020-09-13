@@ -118,7 +118,7 @@
                         <h1>Partagez</h1>
                     </div>
                     <div class="item__description">
-                        <p>vos collections avec les utilisateurs de Sonyry </p>
+                        <p>votre expérience avec les utilisateurs de Sonyry </p>
                     </div>
                 </div>
             </div>
