@@ -8,7 +8,7 @@ body, html {
 body {
     font-family: sans-serif;
     padding-block: 50px;
-    background: linear-gradient(0.50turn, #3f87a6, #ebf8e1, #f69d3c);
+    background: linear-gradient(0.50turn, #3f87a6 , #ebf8e1 , #f69d3c);
     line-height: 1.4;
 
 }

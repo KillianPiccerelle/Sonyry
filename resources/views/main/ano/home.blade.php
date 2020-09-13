@@ -20,7 +20,7 @@
                         <h1>Créez</h1>
                     </div>
                     <div class="item__description">
-                        <p>Créez votre portefolio.</p>
+                        <p>des pages et entreposez des informations</p>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                         <h1>Créez</h1>
                     </div>
                     <div class="item__description">
-                        <p>Créez votre portefolio.</p>
+                        <p>des collections en regroupant vos pages</p>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                         <h1>Créez</h1>
                     </div>
                     <div class="item__description">
-                        <p>Créez votre portefolio.</p>
+                        <p>vos propres groupes</p>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         <h1>Collaborez</h1>
                     </div>
                     <div class="item__description">
-                        <p>Collaborez avec vos pairs sur des projets.</p>
+                        <p>avec vos pairs sur des projets</p>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                         <h1>Collaborez</h1>
                     </div>
                     <div class="item__description">
-                        <p>Collaborez avec vos pairs sur des projets.</p>
+                        <p>au sein de vos groupes</p>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                         <h1>Collaborez</h1>
                     </div>
                     <div class="item__description">
-                        <p>Collaborez avec vos pairs sur des projets.</p>
+                        <p>sur notre forum</p>
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                         <h1>Partagez</h1>
                     </div>
                     <div class="item__description">
-                        <p>Partagez vos créations.</p>
+                        <p>vos pages avec les utilisateurs de Sonyry</p>
                     </div>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                         <h1>Partagez</h1>
                     </div>
                     <div class="item__description">
-                        <p>Partagez vos créations.</p>
+                        <p>vos collections avec les utilisateurs de Sonyry </p>
                     </div>
                 </div>
             </div>
@@ -132,7 +132,7 @@
                         <h1>Partagez</h1>
                     </div>
                     <div class="item__description">
-                        <p>Partagez vos créations.</p>
+                        <p>vos connaissances et vos compétences</p>
                     </div>
                 </div>
             </div>
