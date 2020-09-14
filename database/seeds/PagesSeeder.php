@@ -17,21 +17,21 @@ class PagesSeeder extends Seeder
         $page = new Page();
         $page->title = Str::random(10);
         $page->description = Str::random(10);
-        $page->image = "1594739711_index.jpg";
+        $page->image = "default_page.png";
         $page->user_id = User::all()->random(1)->first()->id;
         $page->save();
 
         $page = new Page();
         $page->title = Str::random(10);
         $page->description = Str::random(10);
-        $page->image = "1594739711_index.jpg";
+        $page->image = "default_page.png";
         $page->user_id = User::all()->random(1)->first()->id;
         $page->save();
 
         $page = new Page();
         $page->title = Str::random(10);
         $page->description = Str::random(10);
-        $page->image = "1594739711_index.jpg";
+        $page->image = "default_page.png";
         $page->user_id = User::all()->random(1)->first()->id;
         $page->save();
     }
