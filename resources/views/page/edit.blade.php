@@ -15,7 +15,7 @@
         <br>
         <hr>
         <div class="container text-center">
-            <button class="btn btn-dark text-left" id="btnEdit">
+            <button class="btn btn-dark text-left" data-toggle="modal" data-target="#modalUpdate">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
                 Editer la page
             </button>
@@ -23,7 +23,7 @@
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Nouveau bloc
             </button>
-            <button class="btn btn-danger text-right" id="btnDelete">
+            <button class="btn btn-danger text-right" data-toggle="modal" data-target="#modalDelete">
                 <i class="fa fa-ban" aria-hidden="true"></i>
                 Supprimer la page
             </button>
@@ -32,7 +32,7 @@
 
 
     <!-- Suppression modal -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal">
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalDelete">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -100,18 +100,7 @@
         </div>
     </div>
 
-
-
     <script>
-        $(document).ready(function () {
-            $("#btnDelete").click(function () {
-                $('#modal').modal('show');
-            });
-            $("#btnEdit").click( function () {
-                $('#modalUpdate').modal('show');
-            });
-        });
-
         $('#v-pills-tab a').on('click', function (e) {
             e.preventDefault();
             $(this).tab('show')
