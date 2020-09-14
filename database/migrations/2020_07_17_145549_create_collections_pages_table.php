@@ -15,8 +15,10 @@ class CreateCollectionsPagesTable extends Migration
     {
         Schema::create('collections_pages', function (Blueprint $table) {
             $table->id();
-            $table->integer('collection_id');
-            $table->integer('page_id');
+            $table->unsignedBigInteger('collection_id');
+            $table->foreign('collection_id')->references('id')->on('collections');
+            $table->unsignedBigInteger('page_id');
+            $table->foreign('page_id')->references('id')->on('pages');
             $table->timestamps();
         });
     }
