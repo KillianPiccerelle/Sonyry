@@ -1,6 +1,5 @@
 <?php
 
-use App\Group;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +12,8 @@ class UsersSeeder extends Seeder
      *
      * @return void
      */
-    public function run(){
+    public function run()
+    {
         $user = new User();
         $user->firstName = Str::random(10);
         $user->name = Str::random(10);
