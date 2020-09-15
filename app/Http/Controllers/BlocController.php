@@ -29,11 +29,7 @@ class BlocController extends Controller
 
         if ($type == 'text'){
 
-            $bloc->page_id = $page->id;
-
             $bloc->text();
-
-            $bloc->title = $request->input('title');
 
             $bloc->content = $request->input('content');
 
@@ -41,22 +37,14 @@ class BlocController extends Controller
 
         elseif ($type == 'script'){
 
-            $bloc->page_id = $page->id;
-
             $bloc->script();
-
-            $bloc->title = $request->input('title');
 
             $bloc->content = $request->input('content');
         }
 
         elseif ($type == 'image'){
 
-            $bloc->page_id = $page->id;
-
             $bloc->image();
-
-            $bloc->title = $request->input('title');
 
             if($request->file('content')) {
 
@@ -86,11 +74,7 @@ class BlocController extends Controller
 
         elseif ($type == 'video') {
 
-            $bloc->page_id = $page->id;
-
             $bloc->video();
-
-            $bloc->title = $request->input('title');
 
             if ($request->file('content')) {
 
@@ -117,10 +101,17 @@ class BlocController extends Controller
         else{
             return redirect()->route('page.edit')->with('danger','Le type de bloc que vous essayer de créer est introuvable');
         }
+        $bloc->page_id = $page->id;
+
+        $bloc->title = $request->input('title');
 
         $bloc->save();
 
         return redirect()->route('page.edit',$page->id);
+    }
+
+    public function update($id){
+        dd($id);
     }
 
     public function text($id){

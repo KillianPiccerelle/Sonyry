@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('page/{id}/bloc/index','BlocController@index')->name('bloc.index');
     Route::post('page/{id}/bloc/create','BlocController@create')->name('bloc.create');
+    Route::get('page/{id}/bloc/{bloc}/update','BlocController@update')->name('bloc.update');
 
     /**
      * Bloc Type

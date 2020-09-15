@@ -33,13 +33,13 @@ class ProfilController extends Controller
         $count = 0;
         foreach ($friends as $friend) {
 
-            if ($friend->is_pending === 0) {
+            if ($friend->is_pending == 0) {
                 /** if the sender is different from the connected user then we will look for the sender*/
-                if ($friend->sender !== Auth::user()->id) {
+                if ($friend->sender != Auth::user()->id) {
                     $friend->user = User::find($friend->sender);
 
                     /** otherwise the target is different from the connected user then we will search for the target */
-                } elseif ($friend->target !== Auth::user()->id) {
+                } elseif ($friend->target != Auth::user()->id) {
                     $friend->user = User::find($friend->target);
                 }
 
@@ -52,7 +52,6 @@ class ProfilController extends Controller
             $count++;
 
         }
-
 
         /** query that retrieves the row from the friend table if the user matches either the sender or the target */
         $friendRequests = Friend::where('sender', Auth::user()->id)->orWhere('target', Auth::user()->id)->get();
