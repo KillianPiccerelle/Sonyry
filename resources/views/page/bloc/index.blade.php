@@ -7,7 +7,7 @@
                 <div class="container border" style="margin-bottom: 15px">
                     @if($bloc->type == 'text')
                         <h5>{{ $bloc->title }} :</h5>
-                        <textarea class="form-control">
+                        <textarea class="form-control" onchange="updateBlockText($(this),{{ $bloc->id }})">
                             {{ $bloc->content }}
                         </textarea>
                     @endif
@@ -38,3 +38,17 @@
     </div>
 @endif
 
+<script>
+    function updateBlockText($textarea,id){
+        /*
+        $.ajax({
+            type: "POST",
+            url: {{route(\'bloc.update\')}}/id,
+            data: data,
+            success: success,
+            dataType: dataType
+        });
+        */
+        alert('{{route(\'bloc.update\')}}/id')
+    }
+</script>
