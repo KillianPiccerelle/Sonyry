@@ -9,7 +9,7 @@ class Bloc extends Model
     public function page(){
         return $this->belongsTo('App\Page');
     }
-
+    //type text function
     public function text(){
         return $this->type = 'text';
     }

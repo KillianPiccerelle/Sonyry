@@ -110,8 +110,14 @@ class BlocController extends Controller
         return redirect()->route('page.edit',$page->id);
     }
 
-    public function update($id){
-        dd($id);
+    public function update(Request $request, $id){
+
+        $bloc = Bloc::find($id);
+
+        $bloc->content = $request->input('content');
+
+        $bloc->save();
+
     }
 
     public function text($id){
