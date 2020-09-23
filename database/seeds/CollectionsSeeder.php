@@ -1,8 +1,8 @@
 <?php
 
 use App\Collection;
-use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Str;
 
 class CollectionsSeeder extends Seeder
@@ -35,5 +35,4 @@ class CollectionsSeeder extends Seeder
         $collection->image = "1594739711_index.jpg";
         $collection->save();
     }
-
 }

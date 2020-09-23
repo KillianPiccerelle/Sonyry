@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bloc;
 use App\CollectionsPage;
 use App\Page;
 use Illuminate\Http\Request;
@@ -65,6 +66,7 @@ class PageController extends Controller
 
     public function edit($id){
         $page = Page::find($id);
+
 
         if(Gate::denies('can-access-page', $page)){
             return redirect()->route('home')->with('danger','Vous n\'avez pas accès à cette page');

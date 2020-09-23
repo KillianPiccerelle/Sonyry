@@ -53,7 +53,6 @@ class ProfilController extends Controller
 
         }
 
-
         /** query that retrieves the row from the friend table if the user matches either the sender or the target */
         $friendRequests = Friend::where('sender', Auth::user()->id)->orWhere('target', Auth::user()->id)->get();
 
