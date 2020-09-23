@@ -16,7 +16,8 @@ class CreateShareGroupPoliciesTable extends Migration
         Schema::create('share_group_policies', function (Blueprint $table) {
             $table->id();
             $table->integer('member_id');
-            $table->integer('shareGroup_id');
+            $table->unsignedBigInteger('shareGroup_id');
+            $table->foreign('shareGroup_id')->references('id')->on('share_groups');
             $table->boolean('read');
             $table->boolean('write');
             $table->boolean('execute');

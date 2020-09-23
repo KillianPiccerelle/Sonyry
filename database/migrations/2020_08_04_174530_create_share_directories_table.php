@@ -16,8 +16,10 @@ class CreateShareDirectoriesTable extends Migration
         Schema::create('share_directories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('user_id');
-            $table->integer('group_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('group_id');
+            $table->foreign('group_id')->references('id')->on('groups');
             $table->timestamps();
         });
     }

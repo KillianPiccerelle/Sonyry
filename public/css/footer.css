@@ -1,0 +1,14 @@
+.footerCopyright {
+    font-weight: bold;
+    text-shadow: #232323;
+    position: fixed;
+    color: white;
+    bottom:0;
+    text-align: center;
+    width:100%;
+    background-color: #232323;
+    height:25px;
+
+
+
+}

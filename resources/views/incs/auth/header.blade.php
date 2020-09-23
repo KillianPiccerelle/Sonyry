@@ -20,7 +20,7 @@ if (count($inboxes) >0)
 
 @endphp
 
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm container-fluid" >
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
             {{ config('app.name', 'Laravel') }}
@@ -45,7 +45,7 @@ if (count($inboxes) >0)
                            href="{{ route('collection.create') }}">{{ __('Créer une collection') }}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('group.create') }}">{{ __('Créer un groupe') }}</a>
-                        <div class="dropdown-divider"></div>
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -58,7 +58,7 @@ if (count($inboxes) >0)
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
                            href="{{ route('collection.index') }}">{{ __('Modifier mes collection') }}</a>
-                        <div class="dropdown-divider"></div>
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -77,7 +77,7 @@ if (count($inboxes) >0)
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('group.index') }}">{{ __('Mes groupes')}}</a>
-                        <div class="dropdown-divider"></div>
+
                     </div>
                 </li>
             </ul>
@@ -112,10 +112,10 @@ if (count($inboxes) >0)
                             <a class="dropdown-item" href="{{ route('profil.index') }}">
                                 {{__('Profil')}}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('page.index') }}">
                                 {{__('Mes pages')}}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('collection.index') }}">
                                 {{__('Mes collections')}}
                             </a>
                             <a class="dropdown-item" href="#">

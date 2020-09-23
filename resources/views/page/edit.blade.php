@@ -76,7 +76,7 @@
     </div>
 
     <!-- Suppression modal -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="deleteModal">
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalDelete">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -192,5 +192,6 @@
                 $('#blocForm').submit();
             })
         });
+
     </script>
 @stop

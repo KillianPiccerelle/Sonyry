@@ -1,34 +1,154 @@
-body {
+
+
+body, html {
     margin: 0;
     padding: 0;
-    height: 100vh;
-
+    min-height: 100%;
+    overflow-x: hidden;
 }
 
-#carouselExemple {
-    width: 60%;
-    margin: 0 auto;
+body {
+    font-family: sans-serif;
+    padding-block: 50px;
+    backdrop-filter: blur(5px);
 
-}
 
-.carousel-inner img {
-
-    height:700px;
-    filter: blur(0px);
-    object-fit: contain;
-
+    line-height: 1.4;
 }
 
 
+.title {
+    font-size: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: left;
+}
 
-.background {
-    background-image:url('/img/carousel.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    filter: blur(5px);
-    position: absolute;
-    height: 90%;
-    top: 80px;
-    left: 0;
+.item {
+    margin: 40px 10px;
+    background-color: #ffffff;
+
+    transition: transform 0.3s;
+    transform: translate3d(0,-1px,0);
+}
+
+.item:hover {
+    transform: translate3d(0,-10px,0);
+}
+
+.item img {
+    display: block;
     width: 100%;
+    height: 400px;
+
+}
+
+.item__body {
+    padding: 25px;
+}
+
+.item__title {
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #232323;
+}
+
+.item__description {
+    color: #585858;
+}
+
+.items {
+    position: relative;
+}
+
+
+/**
+CAROUSEL
+*/
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+
+}
+
+.carousel__container {
+    transition: transform 0.3s;
+    transform: translate3d(0,0,0);
+}
+
+.carousel__container::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+
+.carousel__item {
+    float: left;
+}
+
+.carousel__next, .carousel__prev {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #ffffff url(right.svg) center center no-repeat;
+    background-size: 20px 20px;
+    border-radius: 50%;
+    top: 50%;
+    margin-top: -20px;
+    right: 20px;
+
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+
+
+
+}
+
+
+
+.carousel__next:hover, .carousel__prev:hover{
+    transform: scale(1.2);
+
+
+}
+.carousel__prev {
+    background-image: url(left.svg) ;
+    right: auto;
+    left: 20px;
+}
+
+.carousel__next--hidden, .carousel__prev--hidden{
+    opacity: 0;
+
+
+}
+
+
+
+.carousel__pagination {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.carousel__pagination__button {
+    background-color: #ffffff;
+    width: 10px;
+    height: 10px;
+    margin: 0 3px;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.carousel__pagination__button--active, .carousel__pagination__button:hover{
+    transform: scale(1.4);
+
 }

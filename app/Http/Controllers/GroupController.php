@@ -224,7 +224,7 @@ class GroupController extends Controller
         }
 
 
-        NotificationController::notificationAuto("Vous venez de quitter le groupe ".$userGroups->group->name,"Bonjour, vous venez de quitter le groupe ".$userGroups->group->name.".");
+        NotificationController::notificationAuto("Vous venez de quitter le groupe ".$userGroups[0]->group->name,"Bonjour, voici un mail vous informant que vous venez de quitter le groupe ".$userGroups[0]->group->name.".");
 
         $userGroups[0]->delete();
 
@@ -269,6 +269,8 @@ class GroupController extends Controller
             $directory[0]->delete();
         }
 
+
+        NotificationController::notificationAutoKick("Vous venez d'être exclue du groupe ".$group->name,"Bonjour, voici un mail vous informant que vous venez d'être exclue du groupe ".$group->name.".",$member[0]->user->id);
 
         $member[0]->delete();
 
