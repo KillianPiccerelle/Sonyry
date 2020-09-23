@@ -21,6 +21,7 @@ class CollectionPageController extends Controller
     public function add($id){
         $collection = Collection::find($id);
 
+
         if (Auth::user()->can('update', $collection)){
             $pagesInCollection = CollectionsPage::where('collection_id',$id)->get();
             $pagesAvailables = Page::where('user_id',Auth::user()->id)->get();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bloc;
 use App\CollectionsPage;
 use App\Page;
 use App\User;
@@ -75,8 +76,8 @@ class PageController extends Controller
             return view('page.edit', [
                 'page' => $page,
             ]);
+            return redirect()->route('home')->with('danger', 'Vous n\'avez pas accès à cette page');
         }
-        return redirect()->route('home')->with('danger', 'Vous n\'avez pas accès à cette page');
     }
 
     public function update(Request $request, $id)
