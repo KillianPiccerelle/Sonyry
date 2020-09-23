@@ -170,7 +170,7 @@ class GroupController extends Controller
             // delete the shares and the policies of the shares
             if (count($group->shares) > 0) {
                 foreach ($group->shares as $share) {
-                    $policies = ShareGroupPolicies::where('shareGroup_id', $share->id)->get();
+                    $policies = ShareGroupPolicies::where('share_group_id', $share->id)->get();
                     if (count($policies) > 0) {
                         foreach ($policies as $policy) {
                             $policy->delete();
@@ -196,35 +196,26 @@ class GroupController extends Controller
      */
     public function exit($id)
     {
+
         $userGroups = UserGroup::where('user_id', Auth::user()->id)->where('group_id', $id)->get();
 
-        //@TODO à voir la policy ici
-        if (Gate::denies('is-member-group', $userGroups[0]->group)) {
+        $group = Group::find($id);
+
+
+        if (Auth::user()->can('delete', $group)) {
             return redirect()->route('home')->with('danger', 'Vous ne pouvez pas quitter ce groupe');
         }
 
         $shares = $userGroups[0]->user->sharesGroups;
 
-        foreach ($shares as $share) {
-            if ($share->group_id == $id) {
-                $policies = ShareGroupPolicies::where('shareGroup_id', $share->id)->get();
+        //delete share and policies of the share
+        $sharesGroup = new ShareGroup();
+        $sharesGroup->deleteShares($shares, $group);
 
-                if (count($policies) > 0) {
-                    foreach ($policies as $policy) {
-                        $policy->delete();
-                    }
-                }
-
-                $share->delete();
-            }
-        }
-
+        //delete the directory
+        $shareDirectory = new ShareDirectory();
         $directory = ShareDirectory::where('user_id', Auth::user()->id)->where('group_id', $id)->get();
-
-        if (count($directory) > 0) {
-            $directory[0]->delete();
-        }
-
+        $shareDirectory->deleteDirectory($directory[0]);
 
         NotificationController::notificationAuto("Vous venez de quitter le groupe " . $userGroups[0]->group->name, "Bonjour, voici un mail vous informant que vous venez de quitter le groupe " . $userGroups[0]->group->name . ".");
 
@@ -243,33 +234,22 @@ class GroupController extends Controller
     {
         $group = Group::find($id);
 
-        if (Gate::denies('can-edit-group', $group)) {
-            return redirect()->route('home')->with('danger', 'Vous ne pouvez pas exclure cette personne');
+        if (Auth::user()->can('delete', $group)) {
+            return redirect()->route('home')->with('danger', 'Vous ne pouvez pas quitter ce groupe');
         }
 
         $member = UserGroup::where('group_id', $id)->where('user_id', $user_id)->get();
 
         $shares = $member[0]->user->sharesGroups;
 
-        foreach ($shares as $share) {
-            if ($share->group_id == $group->id) {
-                $policies = ShareGroupPolicies::where('shareGroup_id', $share->id)->get();
+        //delete share and policies of the share
+        $sharesGroup = new ShareGroup();
+        $sharesGroup->deleteShares($shares, $group);
 
-                if (count($policies) > 0) {
-                    foreach ($policies as $policy) {
-                        $policy->delete();
-                    }
-                }
-
-                $share->delete();
-            }
-        }
-
+        //delete the directory for the shares
+        $shareDirectory = new ShareDirectory();
         $directory = ShareDirectory::where('user_id', $user_id)->where('group_id', $group->id)->get();
-
-        if (count($directory) > 0) {
-            $directory[0]->delete();
-        }
+        $shareDirectory->deleteDirectory($directory[0]);
 
 
         NotificationController::notificationAutoKick("Vous venez d'être exclue du groupe " . $group->name, "Bonjour, voici un mail vous informant que vous venez d'être exclue du groupe " . $group->name . ".", $member[0]->user->id);

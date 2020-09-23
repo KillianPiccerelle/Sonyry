@@ -13,4 +13,13 @@ class ShareGroupPolicies extends Model
     public function share(){
         return $this->belongsTo('App\ShareGroup');
     }
+
+    public function deletePolicies($policies){
+
+        if (count($policies) > 0) {
+            foreach ($policies as $policy) {
+                $policy->delete();
+            }
+        }
+    }
 }

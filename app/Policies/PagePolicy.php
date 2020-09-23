@@ -37,7 +37,21 @@ class PagePolicy
      */
     public function view(User $user, Page $page)
     {
-        return $user->id == $page->user_id;
+        if ($user->id == $page->user_id){
+            return true;
+        }
+        else{
+            foreach ($page->sharesGroup as $share){
+                if (count($share->sharesAuth) > 0){
+                    foreach ($share->sharesAuth as $policy){
+                        if ($user->id == $policy->member_id && $policy->read == 1){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -60,7 +74,21 @@ class PagePolicy
      */
     public function update(User $user, Page $page)
     {
-        return $user->id == $page->user_id;
+        if ($user->id == $page->user_id){
+            return true;
+        }
+        else{
+            foreach ($page->sharesGroup as $share){
+                if (count($share->sharesAuth) > 0){
+                    foreach ($share->sharesAuth as $policy){
+                        if ($user->id == $policy->member_id && $policy->write == 1){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen;
 
 class CollectionPageController extends Controller
 {
@@ -56,16 +57,20 @@ class CollectionPageController extends Controller
         if($request->input('checkbox') == null){
             return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');
         }
-        foreach ($request->input('checkbox') as $item){
-            $collectionPage = new CollectionsPage();
+        $collection = Collection::find($id);
+        if (Auth::user()->can('update', $collection)){
+            foreach ($request->input('checkbox') as $item){
+                $collectionPage = new CollectionsPage();
 
-            $collectionPage->collection_id = $id;
-            $collectionPage->page_id = $item;
+                $collectionPage->collection_id = $id;
+                $collectionPage->page_id = $item;
 
-            $collectionPage->save();
+                $collectionPage->save();
+            }
+            return redirect()->route('collection.addPages', $id)->with('success','Page(s) ajoutée(s) à la collection avec succès !');
         }
+        return redirect()->route('home')->with('danger','Vous ne pouvez pas modifier les apges des collections');
 
-        return redirect()->route('collection.addPages', $id)->with('success','Page(s) ajoutée(s) à la collection avec succès !');
     }
 
     /**
@@ -79,13 +84,20 @@ class CollectionPageController extends Controller
             return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');
         }
 
-        //@TODO Problème du foreach pour ajouter les policies
-        foreach ($request->input('checkbox') as $item){
+        $collection = Collection::find($id);
 
-            $collectionPage = CollectionsPage::where('page_id',$item);
-            $collectionPage->delete();
+        if (Auth::user()->can('delete', $collection)){
+            foreach ($request->input('checkbox') as $item){
+
+                $collectionPage = CollectionsPage::where('page_id',$item);
+                $collectionPage->delete();
+            }
+            return redirect()->route('collection.addPages', $id)->with('success','Page(s) suprimée(s) de la collection avec succès !');
+
         }
+        return redirect()->route('home')->with('danger','Vous ne pouvez pas supprimer les pages de cette collection');
 
-        return redirect()->route('collection.addPages', $id)->with('success','Page(s) suprimée(s) de la collection avec succès !');
+
+
     }
 }

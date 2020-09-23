@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Collection;
 use App\CollectionsPage;
+use App\ImageAction;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,12 +43,12 @@ class CollectionController extends Controller
 
         if ($request->file('image')) {
 
+            $imageAction = new ImageAction();
+
             $image = $request->file('image');
-            $imageFullName = $image->getClientOriginalName();
-            $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
-            $extension = $image->getClientOriginalExtension();
-            $file = time() . '_' . $imageName . '.' . $extension;
-            $image->storeAs('public/collections/' . Auth::user()->id, $file);
+
+            $imageAction->store($image);
+
 
         } else {
             $file = 'default_collection.jpg';
@@ -113,20 +114,19 @@ class CollectionController extends Controller
                 $collection->description = $request->input('description');
             }
             if ($request->file('image')) {
-                //image update
                 //delete old image
                 $fileToDelete = 'public/collections/' . Auth::user()->id . '/' . $collection->image;
 
-                if (Storage::exists($fileToDelete)) {
-                    Storage::delete($fileToDelete);
-                }
                 $image = $request->file('image');
-                $imageFullName = $image->getClientOriginalName();
-                $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
-                $extension = $image->getClientOriginalExtension();
-                $file = time() . '_' . $imageName . '.' . $extension;
-                $image->storeAs('public/collections/' . Auth::user()->id, $file);
-                $collection->image = $file;
+
+                $imageAction = new ImageAction();
+
+                //Delete the old image
+                $imageAction->deleteImage($fileToDelete);
+
+                //Add the new image
+
+                $collection->image = $imageAction->store($image);
             }
             $collection->save();
 
@@ -155,11 +155,11 @@ class CollectionController extends Controller
                 }
             }
 
+            $imageAction = new ImageAction();
+
             $fileToDelete = 'public/collections/' . Auth::user()->id . '/' . $collection->image;
 
-            if (Storage::exists($fileToDelete)) {
-                Storage::delete($fileToDelete);
-            }
+            $imageAction->deleteImage($fileToDelete);
 
             $collection->delete();
 

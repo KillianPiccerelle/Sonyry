@@ -38,28 +38,19 @@
                                                     Actions
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    @can('is-page-owner', $page->page )
+                                                    @if(Auth::user()->can('view',$page->page))
                                                     <a class="dropdown-item" href="#">
                                                         Consulter
                                                     </a>
+                                                    @endif
 
-                                                    @elsecan('can-read-page-policy', $page)
-                                                        <a class="dropdown-item" href="#">
-                                                            Consulter
-                                                        </a>
-                                                    @endcan
-
-                                                    @can('is-page-owner', $page->page)
+                                                    @if(Auth::user()->can('update',$page->page))
                                                             <a class="dropdown-item" href="{{ route('page.edit', $page->page->id) }}">
                                                                 Editer
                                                             </a>
-                                                    @elsecan('can-edit-page-policy', $page)
-                                                            <a class="dropdown-item" href="{{ route('page.edit', $page->page->id) }}">
-                                                                Editer
-                                                            </a>
-                                                    @endcan
+                                                    @endif
 
-                                                    @can('is-page-owner', $page->page)
+                                                        @if(Auth::user()->can('access',$page->page))
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item" href="{{ route('policies.edit', [
                                                         'page'=>$page->page,
@@ -67,7 +58,7 @@
                                                          ]) }}" >
                                                                 Autorisations de la page
                                                             </a>
-                                                    @endcan
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

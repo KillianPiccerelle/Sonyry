@@ -30,7 +30,17 @@ class GroupPolicy
      */
     public function view(User $user, Group $group)
     {
-        return $user->id == $group->user_id;
+        if($user->id == $group->user_id){
+            return true;
+        }
+        else{
+            foreach ($group->members as $member) {
+                if ($member->user_id == $user->id){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
