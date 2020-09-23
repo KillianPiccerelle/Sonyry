@@ -6,6 +6,7 @@ use App\Bloc;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BlocController extends Controller
 {
@@ -118,6 +119,29 @@ class BlocController extends Controller
 
         $bloc->save();
 
+    }
+
+    public function delete($id){
+        $bloc = Bloc::find($id);
+
+        if ($bloc->type == 'video'){
+            $fileToDelete = 'public/bloc/'.$bloc->page_id.'/video/'.$bloc->content;
+
+            if(Storage::exists($fileToDelete)){
+                Storage::delete($fileToDelete);
+            }
+        }
+        elseif ($bloc->type == 'image'){
+            $fileToDelete = 'public/bloc/'.$bloc->id.'/image/'.$bloc->content;
+
+            if(Storage::exists($fileToDelete)){
+                Storage::delete($fileToDelete);
+            }
+        }
+
+        $bloc->delete();
+
+        return redirect()->route('page.edit',$bloc->page_id)->with('success','Bloc supprimé avec succès');
     }
 
     public function text($id){

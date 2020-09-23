@@ -6,6 +6,7 @@
             <div class="col-sm-5 border">
                 <div class="card-header text-center w-100">
                     {{ $bloc->title }}
+                    <a class="btn btn-danger float-right" href="{{ route('bloc.destroy',$bloc->id) }}"><i class="fas fa-trash"></i></a>
                 </div>
                 <div class="w-100 grid-stack-item">
 
@@ -45,7 +46,6 @@
         <h5><i>Vous n'avez pas de bloc dans cette page veuillez en créer un !</i></h5>
     </div>
 @endif
-<p id="issou"></p>
 <script>
 
     function updateBlockText(textarea,id){
@@ -71,7 +71,4 @@
             }
         });
     }
-</script>
-<script type="text/javascript">
-    var grid = GridStack.init();
 </script>

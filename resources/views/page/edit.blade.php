@@ -146,7 +146,6 @@
             </div>
         </div>
     </div>
-
     <script>
         $(document).ready(function () {
             $('#btnBlocText').click(function () {
