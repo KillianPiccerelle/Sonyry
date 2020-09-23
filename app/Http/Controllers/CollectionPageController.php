@@ -20,29 +20,28 @@ class CollectionPageController extends Controller
     public function add($id){
         $collection = Collection::find($id);
 
-        if (Gate::denies('can-access-collection', $collection)){
-            return redirect()->route('home')->with('danger','Vous n\'avez pas accès à cette collection');
-        }
+        if (Auth::user()->can('update', $collection)){
+            $pagesInCollection = CollectionsPage::where('collection_id',$id)->get();
+            $pagesAvailables = Page::where('user_id',Auth::user()->id)->get();
 
-        $pagesInCollection = CollectionsPage::where('collection_id',$id)->get();
-        $pagesAvailables = Page::where('user_id',Auth::user()->id)->get();
+            $count = 0;
 
-        $count = 0;
-
-        foreach ($pagesAvailables as $page){
-            foreach ($pagesInCollection as $pageChecking){
-                if($pageChecking->page_id === $page->id){
-                    unset($pagesAvailables[$count]);
+            foreach ($pagesAvailables as $page){
+                foreach ($pagesInCollection as $pageChecking){
+                    if($pageChecking->page_id === $page->id){
+                        unset($pagesAvailables[$count]);
+                    }
                 }
+                $count++;
             }
-            $count++;
-        }
 
-        return view('collection.addPages', [
-            'collection'=>$collection,
-            'pagesAvailables'=>$pagesAvailables,
-            'pagesInCollection'=>$pagesInCollection
-        ]);
+            return view('collection.addPages', [
+                'collection'=>$collection,
+                'pagesAvailables'=>$pagesAvailables,
+                'pagesInCollection'=>$pagesInCollection
+            ]);
+        }
+        return redirect()->route('home')->with('danger','Vous n\'avez pas accès à cette collection');
     }
 
 
@@ -80,6 +79,7 @@ class CollectionPageController extends Controller
             return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');
         }
 
+        //@TODO Problème du foreach pour ajouter les policies
         foreach ($request->input('checkbox') as $item){
 
             $collectionPage = CollectionsPage::where('page_id',$item);
