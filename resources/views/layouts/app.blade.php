@@ -37,7 +37,6 @@
     <link href="/css/footer.css" rel="stylesheet">
 
 
-
     <!-- gridstack -->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@1.1.2/dist/gridstack.min.css" />
