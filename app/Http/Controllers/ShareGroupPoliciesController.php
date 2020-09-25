@@ -44,7 +44,7 @@ class ShareGroupPoliciesController extends Controller
 
         $page = Page::find($page);
 
-        if(Gate::denies('is-page-owner', $page)){
+        if(Auth::user()->cannot('access', $page)) {
             return redirect()->route('home')->with('danger','Vous ne pouvez pas modifier les autorisations de cette page');
         }
 

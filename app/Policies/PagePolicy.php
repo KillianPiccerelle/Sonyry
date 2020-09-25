@@ -28,6 +28,10 @@ class PagePolicy
         return false;
     }
 
+    public function access(User $user, Page $page){
+        return $user->id == $page->user_id;
+    }
+
     /**
      * Determine whether the user can view the model.
      *
@@ -100,7 +104,21 @@ class PagePolicy
      */
     public function delete(User $user, Page $page)
     {
-        return $user->id == $page->user_id;
+        if ($user->id == $page->user_id){
+            return true;
+        }
+        else{
+            foreach ($page->sharesGroup as $share){
+                if (count($share->sharesAuth) > 0){
+                    foreach ($share->sharesAuth as $policy){
+                        if ($user->id == $policy->member_id && $policy->execute == 1){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**

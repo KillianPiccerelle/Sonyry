@@ -47,7 +47,7 @@ class CollectionController extends Controller
 
             $image = $request->file('image');
 
-            $imageAction->store($image);
+            $imageAction->store($image, 'collections');
 
 
         } else {
@@ -126,7 +126,7 @@ class CollectionController extends Controller
 
                 //Add the new image
 
-                $collection->image = $imageAction->store($image);
+                $collection->image = $imageAction->store($image,'collections');
             }
             $collection->save();
 

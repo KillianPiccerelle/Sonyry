@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bloc;
 use App\CollectionsPage;
+use App\ImageAction;
 use App\Page;
 use App\User;
 use Illuminate\Http\Request;
@@ -51,11 +52,11 @@ class PageController extends Controller
 
         if ($request->file('image')) {
             $image = $request->file('image');
-            $imageFullName = $image->getClientOriginalName();
-            $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
-            $extension = $image->getClientOriginalExtension();
-            $file = time() . '_' . $imageName . '.' . $extension;
-            $image->storeAs('public/pages/' . Auth::user()->id, $file);
+
+            $imageAction = new ImageAction();
+
+            $file = $imageAction->store($image, 'pages');
+
 
         } else {
             $file = 'default_page.png';
@@ -97,15 +98,14 @@ class PageController extends Controller
                 /**  suppression de l'ancienne image */
                 $fileToDelete = 'public/pages/' . Auth::user()->id . '/' . $page->image;
 
-                if (Storage::exists($fileToDelete)) {
-                    Storage::delete($fileToDelete);
-                }
+                $imageAction = new ImageAction();
+
+                $imageAction->deleteImage($fileToDelete);
+
                 $image = $request->file('image');
-                $imageFullName = $image->getClientOriginalName();
-                $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
-                $extension = $image->getClientOriginalExtension();
-                $file = time() . '_' . $imageName . '.' . $extension;
-                $image->storeAs('public/pages/' . Auth::user()->id, $file);
+
+                $file = $imageAction->store($image, 'pages');
+
                 $page->image = $file;
             }
 
@@ -139,9 +139,9 @@ class PageController extends Controller
 
             $fileToDelete = 'public/pages/' . Auth::user()->id . '/' . $page->image;
 
-            if (Storage::exists($fileToDelete)) {
-                Storage::delete($fileToDelete);
-            }
+            $imageAction = new ImageAction();
+
+            $imageAction->deleteImage($fileToDelete);
 
             $page->delete();
 
