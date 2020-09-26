@@ -27,7 +27,7 @@ class ShareGroupPoliciesController extends Controller
         $share = ShareGroup::where('user_id', Auth::user()->id)->where('page_id', $page->id)->where('group_id',$group->id)->get();
 
         foreach ($members as $member){
-            $policy = ShareGroupPolicies::where('shareGroup_id', $share[0]->id)->where('member_id', $member->user_id)->get();
+            $policy = ShareGroupPolicies::where('share_group_id', $share[0]->id)->where('member_id', $member->user_id)->get();
             $member->policy = $policy;
         }
 
@@ -44,7 +44,7 @@ class ShareGroupPoliciesController extends Controller
 
         $page = Page::find($page);
 
-        if(Gate::denies('is-page-owner', $page)){
+        if(Auth::user()->cannot('access', $page)) {
             return redirect()->route('home')->with('danger','Vous ne pouvez pas modifier les autorisations de cette page');
         }
 
@@ -53,7 +53,7 @@ class ShareGroupPoliciesController extends Controller
         $share = ShareGroup::where('user_id', Auth::user()->id)->where('page_id', $page->id)->where('group_id',$group->id)->get();
 
 
-        $policy = ShareGroupPolicies::where('shareGroup_id', $share[0]->id)->where('member_id', $member->id)->get();
+        $policy = ShareGroupPolicies::where('share_group_id', $share[0]->id)->where('member_id', $member->id)->get();
 
         if(count($policy) > 0){
             $policy = ShareGroupPolicies::find($policy[0]->id);
@@ -83,7 +83,7 @@ class ShareGroupPoliciesController extends Controller
 
             $policy->member_id = $member->id;
 
-            $policy->shareGroup_id = $share[0]->id;
+            $policy->share_group_id = $share[0]->id;
 
             if ($request->input('read') != null){
                 $policy->read = $request->input('read');

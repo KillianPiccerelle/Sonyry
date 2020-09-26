@@ -130,12 +130,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/inbox/{id}/destroy', 'NotificationController@destroy')->name('notification.destroy');
 
 
-    /**
-     * gridstack
-     */
-    Route::get('/gridstack', function (){
-        return view('page.gridstack');
-    });
 
 });
 

@@ -43,13 +43,13 @@ class ShareGroupController extends Controller
 
     public function sharePage(Request $request, $id){
 
-        if ($request->input('group') === null){
+        if ($request->input('group') == null){
             return redirect()->route('share.indexPage')->with('danger','Veuillez séléctionner au moins un groupe');
         }
 
         foreach ($request->input('group') as $group){
             $group = Group::find($group);
-            if (Gate::allows('is-member-group', $group )){
+            if (Auth::user()->can('view', $group )){
                 if (count(ShareGroup::where('group_id',$group->id)->where('page_id',$id)->get()) > 0){
 
                 }

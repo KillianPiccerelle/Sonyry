@@ -8,6 +8,7 @@ use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen;
 
 class CollectionPageController extends Controller
 {
@@ -20,29 +21,29 @@ class CollectionPageController extends Controller
     public function add($id){
         $collection = Collection::find($id);
 
-        if (Gate::denies('is-collection-owner', $collection)){
-            return redirect()->route('home')->with('danger','Vous n\'avez pas accès à cette collection');
-        }
 
-        $pagesInCollection = CollectionsPage::where('collection_id',$id)->get();
-        $pagesAvailables = Page::where('user_id',Auth::user()->id)->get();
+        if (Auth::user()->can('update', $collection)){
+            $pagesInCollection = CollectionsPage::where('collection_id',$id)->get();
+            $pagesAvailables = Page::where('user_id',Auth::user()->id)->get();
 
-        $count = 0;
+            $count = 0;
 
-        foreach ($pagesAvailables as $page){
-            foreach ($pagesInCollection as $pageChecking){
-                if($pageChecking->page_id === $page->id){
-                    unset($pagesAvailables[$count]);
+            foreach ($pagesAvailables as $page){
+                foreach ($pagesInCollection as $pageChecking){
+                    if($pageChecking->page_id === $page->id){
+                        unset($pagesAvailables[$count]);
+                    }
                 }
+                $count++;
             }
-            $count++;
-        }
 
-        return view('collection.addPages', [
-            'collection'=>$collection,
-            'pagesAvailables'=>$pagesAvailables,
-            'pagesInCollection'=>$pagesInCollection
-        ]);
+            return view('collection.addPages', [
+                'collection'=>$collection,
+                'pagesAvailables'=>$pagesAvailables,
+                'pagesInCollection'=>$pagesInCollection
+            ]);
+        }
+        return redirect()->route('home')->with('danger','Vous n\'avez pas accès à cette collection');
     }
 
 
@@ -57,16 +58,20 @@ class CollectionPageController extends Controller
         if($request->input('checkbox') == null){
             return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');
         }
-        foreach ($request->input('checkbox') as $item){
-            $collectionPage = new CollectionsPage();
+        $collection = Collection::find($id);
+        if (Auth::user()->can('update', $collection)){
+            foreach ($request->input('checkbox') as $item){
+                $collectionPage = new CollectionsPage();
 
-            $collectionPage->collection_id = $id;
-            $collectionPage->page_id = $item;
+                $collectionPage->collection_id = $id;
+                $collectionPage->page_id = $item;
 
-            $collectionPage->save();
+                $collectionPage->save();
+            }
+            return redirect()->route('collection.addPages', $id)->with('success','Page(s) ajoutée(s) à la collection avec succès !');
         }
+        return redirect()->route('home')->with('danger','Vous ne pouvez pas modifier les apges des collections');
 
-        return redirect()->route('collection.addPages', $id)->with('success','Page(s) ajoutée(s) à la collection avec succès !');
     }
 
     /**
@@ -80,12 +85,20 @@ class CollectionPageController extends Controller
             return redirect()->route('collection.addPages', $id)->with('danger','Veuillez séléctionner au minimum une page !');
         }
 
-        foreach ($request->input('checkbox') as $item){
+        $collection = Collection::find($id);
 
-            $collectionPage = CollectionsPage::where('page_id',$item);
-            $collectionPage->delete();
+        if (Auth::user()->can('delete', $collection)){
+            foreach ($request->input('checkbox') as $item){
+
+                $collectionPage = CollectionsPage::where('page_id',$item);
+                $collectionPage->delete();
+            }
+            return redirect()->route('collection.addPages', $id)->with('success','Page(s) suprimée(s) de la collection avec succès !');
+
         }
+        return redirect()->route('home')->with('danger','Vous ne pouvez pas supprimer les pages de cette collection');
 
-        return redirect()->route('collection.addPages', $id)->with('success','Page(s) suprimée(s) de la collection avec succès !');
+
+
     }
 }

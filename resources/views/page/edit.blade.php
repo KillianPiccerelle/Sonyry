@@ -24,10 +24,12 @@
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Nouveau bloc
             </button>
-            <button class="btn btn-danger text-right" id="btnDelete" data-toggle="modal" data-target="#deleteModal">
+            @if(Auth::user()->can('delete',$page))
+            <button class="btn btn-danger text-right" id="btnDelete" data-toggle="modal" data-target="#modalDelete">
                 <i class="fa fa-ban" aria-hidden="true"></i>
                 Supprimer la page
             </button>
+            @endif
         </div>
     </div>
     <div id="bloc" class="container">
@@ -192,6 +194,5 @@
                 $('#blocForm').submit();
             })
         });
-
     </script>
 @stop
