@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class=" text-center">
-            <h1>Liste de mes collections :</h1>
+            <h1 style="color: white">Liste de mes collections :</h1>
         </div>
         <div class="text-center">
             <input class="form-control" id="myInput" type="text" placeholder="Rechercher une collection..">

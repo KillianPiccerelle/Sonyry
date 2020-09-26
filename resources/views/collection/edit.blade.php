@@ -5,7 +5,7 @@
 
     <div class="container text-center">
         <div class="text-center">
-            <h5>Titre de la collection : <b>{{ $collection->name }}</b></h5>
+            <h5 style="color: white;">Titre de la collection : <b>{{ $collection->name }}</b></h5>
         </div>
         <div>
             <p>Description :</p>
@@ -23,9 +23,9 @@
             </div>
             <a class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
         </div>
-        <hr>
 
-        <div class="form-row">
+
+        <div class="form-row" style="padding-top: 15px;">
             <input class="form-control" id="myInput" type="text" placeholder="Rechercher une page..">
         </div>
         <br>

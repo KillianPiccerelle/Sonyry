@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class="text-center">
-            <h1>Liste de mes pages :</h1>
+            <h1 style="color: white">Liste de mes pages :</h1>
         </div>
         <br>
         <div class="text-center">

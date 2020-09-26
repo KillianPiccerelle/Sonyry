@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+
     <div class="container col-10">
         <div class="row">
             <div class="col-lg-9 main">
                 <div>
-                    <h1>Bienvenue</h1>
+                    <h1 style="color: white">Bienvenue</h1>
                     <p></p>
                     <hr style="size: 10px">
                     <div class="row row-cols-2">

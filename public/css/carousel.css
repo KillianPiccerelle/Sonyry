@@ -11,8 +11,6 @@ body {
     font-family: sans-serif;
     padding-block: 50px;
     backdrop-filter: blur(5px);
-
-
     line-height: 1.4;
 }
 
@@ -94,7 +92,7 @@ CAROUSEL
     position: absolute;
     width: 40px;
     height: 40px;
-    background: #ffffff url(right.svg) center center no-repeat;
+    background: #ffffff url(svg/right.svg) center center no-repeat;
     background-size: 20px 20px;
     border-radius: 50%;
     top: 50%;
@@ -116,7 +114,7 @@ CAROUSEL
 
 }
 .carousel__prev {
-    background-image: url(left.svg) ;
+    background-image: url(svg/left.svg) ;
     right: auto;
     left: 20px;
 }

@@ -6,14 +6,14 @@
     <br>
     <div class="container text-center">
         <div class="text-center">
-            <h5>Titre de la page : <b id="title">{{ $page->title }}</b></h5>
+            <h5 style="color: white;">Titre de la page : <b id="title">{{ $page->title }}</b></h5>
         </div>
         <div>
             <p>Description :</p>
             <p id="description">{{ $page->description }}</p>
         </div>
         <br>
-        <hr>
+
         <div class="container text-center">
             <button class="btn btn-dark text-left" id="btnEdit">
                 <i class="fa fa-pencil" aria-hidden="true"></i>

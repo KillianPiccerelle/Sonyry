@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class="text-center">
-            <h1>Liste de mes pages :</h1>
+            <h1 style="color: white">Liste de mes pages :</h1>
         </div>
         <br>
         <div class="text-center">
@@ -55,8 +55,8 @@
                                 <form method="post" action="{{ route('share.page', $page->id) }}" class="comment-form contact-form" enctype="multipart/form-data" >
                                     @csrf
                                     <div class="modal-body">
-                                        <h5>Séléctionnez le groupe auquel vous voulez partager la page :</h5>
-                                        <select class="selectpicker" name="group[]" multiple title="Choose one of the following...">
+                                        <h5>Sélectionnez le grupe dans lequel vous voulez partager la page :</h5>
+                                        <select class="selectpicker" name="group[]" multiple title="Choisir un groupe">
                                             @foreach($page->groups as $group)
                                                 <option value="@if($group->status) 0 @else{{ $group->group->id }}@endif" @if($group->status) disabled @endif>{{ $group->group->name }} @if($group->status) <i>(Déjà partagée)</i> @endif</option>
                                             @endforeach
