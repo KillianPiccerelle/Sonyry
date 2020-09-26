@@ -23,4 +23,10 @@ class ShareDirectory extends Model
             return false;
         }
     }
+
+    public function deleteDirectory($directory){
+        if (count($directory) > 0) {
+            $directory[0]->delete();
+        }
+    }
 }

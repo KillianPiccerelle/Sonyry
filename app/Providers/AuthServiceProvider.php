@@ -69,7 +69,7 @@ class AuthServiceProvider extends ServiceProvider
          */
         //check if the user can read the page
         Gate::define('can-read-page-policy', function (User $user, $share){
-            $policy = ShareGroupPolicies::where('member_id', $user->id)->where('shareGroup_id', $share->id)->get();
+            $policy = ShareGroupPolicies::where('member_id', $user->id)->where('share_group_id', $share->id)->get();
             if(count($policy) > 0){
                 if ($policy[0]->read === 1){
                     return true;
@@ -85,7 +85,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //check if the user can edit/update the page
         Gate::define('can-edit-page-policy', function (User $user, $share){
-            $policy = ShareGroupPolicies::where('member_id', $user->id)->where('shareGroup_id', $share->id)->get();
+            $policy = ShareGroupPolicies::where('member_id', $user->id)->where('share_group_id', $share->id)->get();
             if(count($policy) > 0){
                 if ($policy[0]->write === 1){
                     return true;
@@ -101,7 +101,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //check if the user can execute/delete the page
         Gate::define('can-execute-page-policy', function (User $user, $share){
-            $policy = ShareGroupPolicies::where('member_id', $user->id)->where('shareGroup_id', $share->id)->get();
+            $policy = ShareGroupPolicies::where('member_id', $user->id)->where('share_group_id', $share->id)->get();
             if(count($policy) > 0){
                 if ($policy[0]->execute === 1){
                     return true;

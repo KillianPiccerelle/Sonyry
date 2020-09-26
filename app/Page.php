@@ -16,5 +16,9 @@ class Page extends Model
         return $this->hasMany('App\ShareGroup');
     }
 
+    public function blocs(){
+        return $this->hasMany('App\Bloc');
+    }
+
 
 }

@@ -15,8 +15,10 @@ class CreateInboxesTable extends Migration
     {
         Schema::create('inboxes', function (Blueprint $table) {
             $table->id();
-            $table->integer('notification_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('notification_id');
+            $table->foreign('notification_id')->references('id')->on('notifications');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

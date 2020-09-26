@@ -112,10 +112,10 @@ if (count($inboxes) >0)
                             <a class="dropdown-item" href="{{ route('profil.index') }}">
                                 {{__('Profil')}}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('page.index') }}">
                                 {{__('Mes pages')}}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('collection.index') }}">
                                 {{__('Mes collections')}}
                             </a>
                             <a class="dropdown-item" href="#">
