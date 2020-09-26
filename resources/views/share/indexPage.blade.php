@@ -55,7 +55,7 @@
                                 <form method="post" action="{{ route('share.page', $page->id) }}" class="comment-form contact-form" enctype="multipart/form-data" >
                                     @csrf
                                     <div class="modal-body">
-                                        <h5>Sélectionnez le grupe dans lequel vous voulez partager la page :</h5>
+                                        <h5>Sélectionnez le groupe dans lequel vous voulez partager la page :</h5>
                                         <select class="selectpicker" name="group[]" multiple title="Choisir un groupe">
                                             @foreach($page->groups as $group)
                                                 <option value="@if($group->status) 0 @else{{ $group->group->id }}@endif" @if($group->status) disabled @endif>{{ $group->group->name }} @if($group->status) <i>(Déjà partagée)</i> @endif</option>

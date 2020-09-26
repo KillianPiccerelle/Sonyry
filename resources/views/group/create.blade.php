@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="padding-top: 100px">
         <x-forms.form route="group.store">
             <x-forms.text name="name" label="Saisissez le nom du groupe que vous voulez créer">
 

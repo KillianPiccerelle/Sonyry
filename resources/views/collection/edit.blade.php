@@ -13,15 +13,15 @@
         </div>
         <br>
         <div class="text-center">
-            <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalUpdate">
+            <button style="width: 200px" class="btn btn-outline-info" data-toggle="modal" data-target="#modalUpdate">
                 Modifier
             </button>
             <div class="float-right">
-                <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDelete">
+                <button class="btn btn-outline-danger" style="width: 200px"  data-toggle="modal" data-target="#modalDelete">
                     Supprimer
                 </button>
             </div>
-            <a class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
+            <a style="width: 200px" class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
         </div>
 
 
@@ -33,7 +33,7 @@
             <a href="{{ route('collection.addPages', $collection->id) }}" class="card bg-light mb-3 border" style="max-width: 18rem;" id="btnAddPage">
                 <div class="card-header">Gerer les pages dans la collection</div>
                 <div class="card-body">
-                    <p>Ajoutez ou supprimez des pages</p>
+                    <p style="color:black">Ajoutez ou supprimez des pages</p>
                     <br>
                     <i class="fas fa-plus" style="size: A3"></i>
                 </div>

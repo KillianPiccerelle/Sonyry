@@ -78,3 +78,6 @@ body {
 }
 
 
+label, ::placeholder{
+    color: black;
+}

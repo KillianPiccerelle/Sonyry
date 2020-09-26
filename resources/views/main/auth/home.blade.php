@@ -183,32 +183,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 sidebar">
-                <div class="sideblock-2">
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <h4 class="card-title">
-                                Utilisateurs en ligne
-                            </h4>
-                            <p class="" style="font-size: smaller">(10 dernières minutes)</p>
-                        </div>
-                        <div class="list-group">
-                            <div class="post">
-                                <a href="#" class="list-group-item list-group-item-action">Utilisateur 1</a>
-                            </div>
-                            <div class="post">
-                                <a href="#" class="list-group-item list-group-item-action">Utilisateur 2</a>
-                            </div>
-                            <div class="post">
-                                <a href="#" class="list-group-item list-group-item-action">Utilisateur 3</a>
-                            </div>
-                            <div class="post">
-                                <a href="#" class="list-group-item list-group-item-action">Utilisateur 4</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
