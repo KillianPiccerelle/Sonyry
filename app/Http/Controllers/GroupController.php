@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\Http\Controllers\NotificationController;
 use App\Inbox;
+use App\InvitationGroup;
 use App\Notification;
 use App\ShareDirectory;
 use App\ShareGroup;
@@ -79,11 +80,26 @@ class GroupController extends Controller
     {
         $group = Group::find($id);
 
+        $users = User::all();
+        $members = UserGroup::where('group_id', $group->id)->get();
+        $count = 0;
+
+        foreach ($users as $user){
+            foreach ($members as $member){
+                //dump($member);
+                if ($user->id == $member->user_id){
+                    unset($users[$count]);
+                }
+            }
+            $count++;
+        }
+
         if (Auth::user()->can('view', $group)) {
             $members = UserGroup::where('group_id', $group->id)->get();
             return view('group.show', [
                 'group' => $group,
-                'members' => $members
+                'members' => $members,
+                'users' => $users
             ]);
         }
 
@@ -273,12 +289,42 @@ class GroupController extends Controller
 
 
         if (Auth::user()->can('view', $group)) {
-            return redirect()->route('home')->with('danger', 'Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');
+            return view('group.share.share', [
+                'group' => $group
+            ]);
         }
 
-        return view('group.share.share', [
-            'group' => $group
-        ]);
+        return redirect()->route('home')->with('danger', 'Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');
+
+    }
+
+    public function invite($id, $user_id){
+
+        $group = Group::find($id);
+        if (Auth::user()->can('update', $group)){
+            $invitation = new InvitationGroup();
+            $invitation->user_id = $user_id ;
+            $invitation->group_id = $id;
+            $invitation->save();
+
+            NotificationController::notificationAutoInviteGroup("Invitation à rejoindre " . $group->name, "Bonjour, voici un mail vous informant que vous venez d'être inviter à rejoindre " . $group->name .
+                ". Vous pouvez choisir de rejoindre ce groupe en cliquant sur le bouton rejoindre ou ignorer cette notification et là supprimer.", $user_id, $group);
+
+            return redirect(route('group.show', $group->id))->with('success', 'Votre invitation a était envoyée avec succès');
+        }
+        return redirect()->route('group.show')->with('danger', 'Vous n\'avez pas les droits pour inviter une personne dans ce groupe.');
+    }
+
+    public function accept($id, $user_id){
+
+        dd('issou');
+
+        $group = Group::find($id);
+        if (Auth::user()->can('update', $group)){
+
+            return redirect(route('group.show', $group->id))->with('success', 'Votre invitation a était envoyée avec succès');
+        }
+        return redirect()->route('group.show')->with('danger', 'Vous n\'avez pas les droits pour inviter une personne dans ce groupe.');
     }
 
 }

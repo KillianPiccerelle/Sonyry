@@ -12,6 +12,10 @@
         <hr>
         <h5 class="text-center">Membre(s) du groupe :</h5>
         <br>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#invite">
+            Inviter un utilisateur
+        </button>
+
         <table class="table">
             <thead class="thead-dark">
             <tr>
@@ -72,6 +76,42 @@
             @endforeach
             </tbody>
         </table>
+        <!-- invite group modal -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="invite">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Inviter un utilisateur</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($users as $user)
+                            <tr>
+                                <td>{{$user->name}}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{{route('group.invite', ['id'=>$group->id, 'user_id'=>$user->id ])}}" role="button">Inviter</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
