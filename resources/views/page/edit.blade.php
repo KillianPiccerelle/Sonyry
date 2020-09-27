@@ -42,10 +42,10 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Configurer le bloc</h5>
+                    <h5 class="modal-title">Configurer le bloc :</h5>
                     <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <input  class="form-control mr-sm-2" style="margin-left: 20px" type="search" placeholder="Rechercher" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go !</button>
                     </form>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

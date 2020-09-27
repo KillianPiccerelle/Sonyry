@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container text-center">
         <div class="text-center">
             <h1 style="color: white">Liste de mes pages :</h1>
         </div>
@@ -12,7 +12,7 @@
             <input class="form-control" id="myInput" type="text" placeholder="Rechercher une page..">
         </div>
         <br>
-        <div class="row">
+        <div class="row" style="align-self: center">
             @if(count($pages) > 0)
                 @foreach($pages as $page)
                     <div class="col-md-4">
