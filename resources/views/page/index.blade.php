@@ -18,7 +18,7 @@
                     <div class="col-md-4">
                         <div class="card text-center">
                             <div class="card-header">
-                                <h5><span>{{ $page->title }}</span></h5>
+                                <h5 ><span>{{ $page->title }}</span></h5>
                             </div>
                             <div class="card-body">
                                 <div>

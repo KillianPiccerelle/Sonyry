@@ -12,7 +12,7 @@ body [class="container-fluid"] {
 }
 
 
-body, label , [type="file"], p, th, td {
+body, label , [type="file"], p, th, td{
     color: white;
 }
 

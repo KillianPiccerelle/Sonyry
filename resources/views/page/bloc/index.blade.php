@@ -5,7 +5,7 @@
         @foreach($page->blocs as $bloc)
             <div class="col-sm-5 border">
                 <div class="card-header text-center w-100">
-                    {{ $bloc->title }}
+                    <h5 style="color: white">{{ $bloc->title }}</h5>
                     <a class="btn btn-danger float-right" href="{{ route('bloc.destroy',$bloc->id) }}"><i class="fas fa-trash"></i></a>
                 </div>
                 <div class="w-100 grid-stack-item">
@@ -26,7 +26,7 @@
 
                     @if($bloc->type == 'image')
                         <h5>{{ $bloc->title }} :</h5>
-                        <img class="text-center" style="margin-top: 5px; margin-bottom: 5px" src="/storage/bloc/{{ $bloc->page_id }}/image/{{ $bloc->content }}" width="300" height="180" />
+                        <img class="text-center" style="margin-top: 5px; margin-bottom: 5px;" src="/storage/bloc/{{ $bloc->page_id }}/image/{{ $bloc->content }}"  />
                     @endif
 
                     @if($bloc->type == 'video')

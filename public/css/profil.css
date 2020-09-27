@@ -1,58 +1,57 @@
 
-nav > .nav.nav-tabs{
+nav > .nav.nav-tabs {
 
     border: none;
-    color:#fff;
-    background:#e6e9ed;
-    border-radius:0;
+    color: #fff;
+    background: #e6e9ed;
+    border-radius: 0;
 
 }
+
 nav > div a.nav-item.nav-link,
-nav > div a.nav-item.nav-link.active
-{
+nav > div a.nav-item.nav-link.active {
     border: none;
     padding: 18px 25px;
-    color:#fff;
-    background:#636b6f;
-    border-radius:0;
+    color: #fff;
+    background: #636b6f;
+    border-radius: 0;
 }
 
-nav > div a.nav-item.nav-link.active:after
-{
+nav > div a.nav-item.nav-link.active:after {
     content: "";
     position: relative;
     bottom: -60px;
     left: -10%;
     border: 15px solid transparent;
-    border-top-color: #e74c3c ;
+    border-top-color: #e74c3c;
 }
-.tab-content{
+
+.tab-content {
     background: #fdfdfd;
     line-height: 25px;
     border: 1px solid #ddd;
-    border-top:5px solid #252934;
+    border-top: 5px solid #252934;
 
-    padding:30px 25px;
+    padding: 30px 25px;
 }
 
 nav > div a.nav-item.nav-link:hover,
-nav > div a.nav-item.nav-link:focus
-{
+nav > div a.nav-item.nav-link:focus {
     border: none;
     background: #e74c3c;
-    color:#fff;
-    border-radius:0;
-    transition:background 0.20s linear;
+    color: #fff;
+    border-radius: 0;
+    transition: background 0.20s linear;
 }
 
 p, th, td {
     color: black;
 }
 
- p {
-     text-align: center;
-     font-size: 110%;
- }
+p {
+    text-align: center;
+    font-size: 110%;
+}
 
 form {
     /* Uniquement centrer le formulaire sur la page */
@@ -75,3 +74,31 @@ input {
     font-weight: bold;
 }
 
+label {
+    color: black;
+}
+
+input[type="submit"] {
+    padding: 0;
+    margin-left: 35%;
+    color: white;
+    background-color: #f6993f;
+    border-radius: 100px;
+    border: black;
+    width: 200px;
+    height: 50px;
+    transition: 0.3s;
+}
+
+input:hover {
+    background-color: #444444;
+    transform: scale(1.1);
+}
+
+input:active {
+    -webkit-box-shadow: 0 2px 0 #84261a;
+    -moz-box-shadow: 0 2px 0 #84261a;
+    box-shadow: 0 2px 0 #84261a;
+    position: relative;
+    top: 7px;
+}
