@@ -306,12 +306,15 @@ class GroupController extends Controller
     {
 
         $group = Group::find($id);
+
+        // If user have rights he create a new invitatin
         if (Auth::user()->can('update', $group)) {
             $invitation = new InvitationGroup();
             $invitation->user_id = $user_id;
-            $invitation->group_id = $id;
+            $invitation->group_id = $group->id;
             $invitation->save();
 
+            // Auto generate mail/notification
             NotificationController::notificationAutoInviteGroup('Invitation à rejoindre ' . $group->name, 'Bonjour, voici un mail vous informant que vous venez d\'être inviter à rejoindre ' . $group->name .
                 '. Vous pouvez choisir de rejoindre ce groupe en cliquant sur le bouton rejoindre ou ignorer cette notification et là supprimer.', $user_id, $group);
 
@@ -325,16 +328,25 @@ class GroupController extends Controller
 
         $group = Group::find($id);
         $userGroups = UserGroup::all();
+
+        // Retrieves invitations with a user_id corresponding to the connected person and the group in Question
+        $invitation = InvitationGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->get();
+
         foreach ($userGroups as $userGroup) {
+            // Test if user have already join the group
             if ($userGroup->user_id == Auth::user()->id) {
                 return redirect()->route('inbox.index', $group->id)->with('danger', 'Vous ne pouvez pas rejoindre ce groupe car vous l\'avez déjà rejoins');
             } else {
+                // User joining the group
                 $userGroup = new UserGroup();
                 $userGroup->user_id = Auth::user()->id;
                 $userGroup->group_id = $group->id;
                 $userGroup->save();
+                // Delete the invitationGroup for clean the bdd and so as not to pollute
+                $invitation[0]->delete();
+
+                }
             }
-        }
         return redirect()->route('inbox.index', $group->id)->with('success', 'Vous avez rejoins le groupe');
     }
 
