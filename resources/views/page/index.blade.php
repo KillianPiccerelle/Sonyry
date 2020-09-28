@@ -73,6 +73,13 @@
         });
     </script>
     <style>
+        #myInput {
+            background-color: lightgray;
+            font-weight: bold;
+            color: black;
+
+        }
+
         #card {
             border: solid black  1px;
             height: 410px;
@@ -92,6 +99,7 @@
             color: floralwhite;
         }
         #card-body {
+            background-color: lightgray;
             height: 100%;
         }
         #card-footer {
