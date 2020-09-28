@@ -30,15 +30,21 @@
         </div>
         <br>
         <div class="row">
-            <a href="{{ route('collection.addPages', $collection->id) }}" class="card bg-light mb-3 border" style="max-width: 18rem;" id="btnAddPage">
-                <div class="card-header">Gerer les pages dans la collection</div>
-                <div class="card-body">
-                    <p style="color:black">Ajoutez ou supprimez des pages</p>
+            <div class="col-md-4" id="add">
+                <a href="{{ route('collection.addPages', $collection->id) }}" class="card text-center" style="height: 360px;" id="btnAddPage">
+                    <div class="card-header">
+                        Gerer les pages dans la collection
+                    </div>
+                    <div class="card-body">
+                        <p style="color:black">
+                            Ajoutez ou supprimez des pages
+                        </p>
+                        <br>
+                        <i class="fas fa-plus" style="size: A3"></i>
+                    </div>
                     <br>
-                    <i class="fas fa-plus" style="size: A3"></i>
-                </div>
-                <br>
-            </a>
+                </a>
+            </div>
             @if(count($pages) > 0)
                 @foreach($pages as $page)
                     <div class="col-md-4">
@@ -149,7 +155,13 @@
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $(".col-md-4").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    if (this.id == "add"){
+
+                    }
+                    else {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    }
+
                 });
             });
         });
