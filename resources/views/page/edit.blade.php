@@ -21,7 +21,7 @@
                 Editer la page
             </button>
             <button class="btn btn-secondary text-center" id="btnNewBloc" data-toggle="modal"
-                    data-target="#modalNewBloc">
+                    data-target="modalNewBloc" onclick="openNavCreate()">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Nouveau bloc
             </button>
@@ -35,47 +35,6 @@
     </div>
     <div id="bloc" class="container">
 
-    </div>
-
-    <!-- bloc create modal -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-2" role="dialog" id="modalNewBloc">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Configurer le bloc</h5>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="form-group">
-                            <h4>Type du bloc</h4>
-                            <button class="btn" id="btnBlocText" style="background-color: lightgray">Texte</button>
-                            <button class="btn" id="btnBlocImage" style="background-color: lightgray">Image</button>
-                            <button class="btn" id="btnBlocVideo" style="background-color: lightgray">Video</button>
-                            <button class="btn" id="btnBlocScript" style="background-color: lightgray">Script</button>
-                        </div>
-                        <hr>
-                        <!-- ZONE DE RECUP DU CONTENU DU BLOC-->
-                        <div id="blocContent">
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="btnSaveBloc">Enregistrer</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Suppression modal -->
@@ -151,12 +110,28 @@
     </div>
 
 
-    <div id="blocSideNav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="sidenavUpdate" class="sidenavUpdate">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNavUpdate()">&times;</a>
         <p hidden id="bloc_id"></p>
         <label for="title" id="labelTitle"><b>Titre du bloc :</b></label>
         <input type="text" name="title" id="inputTitle" value="" class="form-control" onchange="updateBlockTitle(this.value)">
-        <button class="btn btn-danger" id="deleteBloc" onclick="deleteBlock();closeNav()">Supprimer le bloc</button>
+        <button class="btn btn-danger" id="deleteBloc" onclick="deleteBlock();closeNavUpdate()">Supprimer le bloc</button>
+    </div>
+
+    <div id="sidenavCreate" class="sidenavCreate">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNavCreate()">&times;</a>
+        <h4>Type du bloc :</h4>
+        <div class="container" id="buttonsBlocs">
+            <button class="btn btn-dark" id="btnBlocText">Texte</button>
+            <button class="btn btn-dark" id="btnBlocImage">Image</button>
+            <button class="btn btn-dark" id="btnBlocVideo">Video</button>
+            <button class="btn btn-dark" id="btnBlocScript">Script</button>
+            <hr>
+            <!-- ZONE DE RECUP DU CONTENU DU BLOC-->
+            <div id="blocContent">
+
+            </div>
+        </div>
     </div>
 
 
@@ -207,6 +182,7 @@
             $('#btnSaveBloc').click(function () {
                 $('#blocForm').submit();
             })
+
         });
 
 
@@ -220,10 +196,40 @@
             xhttp.open("GET", '{{ route('bloc.index', $page->id) }}', true);
             xhttp.send();
         })
+
     </script>
 
-
     <script>
+
+        function addBlocs() {
+            const title = document.getElementById("titleNewBloc").value;
+            const type = document.getElementById("typeNewBloc").value;
+
+            if (type === 'video' || type === 'image'){
+                content = document.getElementById("contentNewBloc").files[0];
+            }
+            else{
+                content = document.getElementById("contentNewBloc").value;
+            }
+
+            var formData = new FormData();
+
+            formData.append('title',title);
+            formData.append('type',type);
+            formData.append('content',content);
+
+            $.ajax({
+                type:'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                url:"{{route('bloc.create', $page->id)}}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
 
         function deleteBlock(){
             id =  document.getElementById("bloc_id").innerText
@@ -276,15 +282,27 @@
             });
         }
 
-        function openNav(cardHeader,id) {
-            document.getElementById("blocSideNav").style.width = "250px";
+        //SidenavDelete
+
+        function openNavUpdate(cardHeader,id) {
+            document.getElementById("sidenavUpdate").style.width = "250px";
             document.getElementById("inputTitle").value = cardHeader.innerText;
             document.getElementById("bloc_id").innerHTML = id;
             document.getElementById("deleteBloc").href = '{{ route('bloc.destroy') }}/'+id;
         }
 
-        function closeNav() {
-            document.getElementById("blocSideNav").style.width = "0";
+        function closeNavUpdate() {
+            document.getElementById("sidenavUpdate").style.width = "0";
+        }
+
+        //SideNav create
+
+        function openNavCreate() {
+            document.getElementById("sidenavCreate").style.width = "325px";
+        }
+
+        function closeNavCreate() {
+            document.getElementById("sidenavCreate").style.width = "0";
         }
     </script>
 @stop

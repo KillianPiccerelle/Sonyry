@@ -3,7 +3,55 @@
     border: solid black 1px;
 }
 
-.sidenav {
+.sidenavUpdate {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: lightgrey;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.sidenavUpdate .closebtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 36px;
+    margin-left: 25px;
+    text-decoration: none;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+.sidenavUpdate .closebtn:hover {
+    color: #f1f1f1;
+}
+
+.sidenavUpdate #labelTitle {
+    margin-left: 5%;
+}
+
+.sidenavUpdate #inputTitle {
+    width: auto;
+    border: solid black 1px;
+    margin-left: 5%;
+}
+
+.sidenavUpdate #deleteBloc {
+    bottom: 5%;
+    position: absolute;
+    text-align: center;
+    margin-left: 17%;
+}
+
+
+
+
+
+.sidenavCreate {
     height: 100%;
     width: 0;
     position: fixed;
@@ -15,7 +63,7 @@
     transition: 0.5s;
     padding-top: 60px;
 }
-.sidenav .closebtn {
+.sidenavCreate .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
@@ -26,25 +74,12 @@
     display: block;
     transition: 0.3s;
 }
-.sidenav .closebtn:hover {
+.sidenavCreate .closebtn:hover {
     color: #f1f1f1;
 }
 
-.sidenav #labelTitle {
+.sidenavCreate h4 {
     margin-left: 5%;
-}
-
-.sidenav #inputTitle {
-    width: auto;
-    border: solid black 1px;
-    margin-left: 5%;
-}
-
-.sidenav #deleteBloc {
-    bottom: 2%;
-    position: absolute;
-    text-align: center;
-    margin-left: 17%;
 }
 
 

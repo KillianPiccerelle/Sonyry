@@ -1,13 +1,12 @@
 <br>
 <div class="row">
     @forelse($page->blocs as $bloc)
-        <div class="col-sm-5">
-            <div class="card" id="card" >
-                <div class="card-header" onclick="openNav(this,{{ $bloc->id }})">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header" onclick="openNavUpdate(this,{{ $bloc->id }})">
                     <h5 class="text-center-center">{{ $bloc->title }}</h5>
                 </div>
-                </div>
-                <div class="card-body w-100">
+                <div class="card-body">
                     @if($bloc->type == 'text')
                         <textarea class="form-control" onchange="updateBlockText(this.value,{{ $bloc->id }})">{{ $bloc->content }}</textarea>
                     @endif
@@ -27,11 +26,10 @@
                     @endif
                 </div>
             </div>
+            <br>
         </div>
-        <br>
     @empty
-    </div>
-    <div class="text-center">
+    <div class="container text-center">
         <br>
         <h5><i>Vous n'avez pas de bloc dans cette page veuillez en créer un !</i></h5>
     </div>

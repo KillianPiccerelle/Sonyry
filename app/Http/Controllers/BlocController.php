@@ -108,7 +108,7 @@ class BlocController extends Controller
 
         $bloc->save();
 
-        return redirect()->route('page.edit',$page->id);
+        return redirect()->route('bloc.index',$page->id);
     }
 
     public function update(Request $request, $id){
