@@ -6,14 +6,14 @@
     <br>
     <div class="container text-center">
         <div class="text-center">
-            <h5>Titre de la page : <b id="title">{{ $page->title }}</b></h5>
+            <h5 style="color: white;">Titre de la page : <b id="title">{{ $page->title }}</b></h5>
         </div>
         <div>
             <p>Description :</p>
             <p id="description">{{ $page->description }}</p>
         </div>
         <br>
-        <hr>
+
         <div class="container text-center">
             <button class="btn btn-dark text-left" id="btnEdit" data-toggle="modal" data-target="#modalUpdate">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -42,10 +42,10 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Configurer le bloc</h5>
+                    <h5 class="modal-title">Configurer le bloc :</h5>
                     <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <input  class="form-control mr-sm-2" style="margin-left: 20px" type="search" placeholder="Rechercher" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go !</button>
                     </form>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -195,4 +195,7 @@
             })
         });
     </script>
+    <style>
+
+    </style>
 @stop

@@ -3,7 +3,7 @@ nav > .nav.nav-tabs{
 
     border: none;
     color:#fff;
-    background:#272e38;
+    background:#e6e9ed;
     border-radius:0;
 
 }
@@ -13,7 +13,7 @@ nav > div a.nav-item.nav-link.active
     border: none;
     padding: 18px 25px;
     color:#fff;
-    background:#272e38;
+    background:#636b6f;
     border-radius:0;
 }
 
@@ -30,8 +30,8 @@ nav > div a.nav-item.nav-link.active:after
     background: #fdfdfd;
     line-height: 25px;
     border: 1px solid #ddd;
-    border-top:5px solid #e74c3c;
-    border-bottom:5px solid #e74c3c;
+    border-top:5px solid #252934;
+
     padding:30px 25px;
 }
 
@@ -44,3 +44,34 @@ nav > div a.nav-item.nav-link:focus
     border-radius:0;
     transition:background 0.20s linear;
 }
+
+p, th, td {
+    color: black;
+}
+
+ p {
+     text-align: center;
+     font-size: 110%;
+ }
+
+form {
+    /* Uniquement centrer le formulaire sur la page */
+    margin: 0 auto;
+    width: 1000px;
+    /* Encadré pour voir les limites du formulaire */
+    padding: 2em;
+    border: 2px solid #252934;
+    border-radius: 2em;
+}
+
+label {
+    display: block;
+    width: 150px;
+    float: left;
+}
+
+input {
+
+    font-weight: bold;
+}
+

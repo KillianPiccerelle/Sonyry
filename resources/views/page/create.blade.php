@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="padding-top: 150px">
         <div class="d-flex justify-content-center">
             <div class="col-lg-8">
                     <x-forms.form route="page.store">

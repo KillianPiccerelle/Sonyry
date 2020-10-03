@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="/css/inbox.css">
 
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="content">
             <div class="notification-wrapper wrapper">
                 <div class="row align-items-stretch">
                     <!--nav-->
-                    <div class="sidebar d-none d-lg-block col-md-2 pt-3 bg-white">
+                    <div class="sidebar d-none d-lg-block col-md-2 pt-3  bg-white">
                         <ul class="nav nav-tabs" id="navTabPrimary" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link active" id="inbox-tab" data-toggle="tab" href="#inbox" role="tab"

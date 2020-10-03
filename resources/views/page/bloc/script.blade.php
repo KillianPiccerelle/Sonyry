@@ -2,7 +2,7 @@
     @csrf
     <label for="title">Titre</label>
     <div class="form-group">
-        <input id="title" name="title" class="form-control" type="text">
+        <input id="title" name="title" class="form-control" type="text" placeholder="Saisissez votre titre">
     </div>
     <div class="form-group">
         <textarea class="form-control" name="content" placeholder="Saisissez votre code"></textarea>
