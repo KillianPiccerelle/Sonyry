@@ -3,6 +3,7 @@
 
 @section('content')
 
+    <link rel="stylesheet" href="/css/bloc/bloc.css">
     <br>
     <div class="container text-center">
         <div class="text-center">
@@ -33,7 +34,7 @@
         </div>
     </div>
     <div id="bloc" class="container">
-        @include('page.bloc.index')
+
     </div>
 
     <!-- bloc create modal -->
@@ -148,7 +149,20 @@
             </div>
         </div>
     </div>
+
+
+    <div id="blocSideNav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <p hidden id="bloc_id"></p>
+        <label for="title" id="labelTitle"><b>Titre du bloc :</b></label>
+        <input type="text" name="title" id="inputTitle" value="" class="form-control" onchange="updateBlockTitle(this.value)">
+        <button class="btn btn-danger" id="deleteBloc" onclick="deleteBlock();closeNav()">Supprimer le bloc</button>
+    </div>
+
+
+
     <script>
+
         $(document).ready(function () {
             $('#btnBlocText').click(function () {
                 var xhttp = new XMLHttpRequest();
@@ -194,8 +208,83 @@
                 $('#blocForm').submit();
             })
         });
-    </script>
-    <style>
 
-    </style>
+
+        $(window).on("load",function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("bloc").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", '{{ route('bloc.index', $page->id) }}', true);
+            xhttp.send();
+        })
+    </script>
+
+
+    <script>
+
+        function deleteBlock(){
+            id =  document.getElementById("bloc_id").innerText
+            $.ajax({
+                type:'GET',
+                url:"{{route('bloc.destroy')}}/"+id,
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
+
+        function updateBlockText(textarea,id){
+
+            $.ajax({
+                type:'POST',
+                data: {'content':textarea},
+                url:"{{route('bloc.update')}}/"+id,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
+
+        function updateBlockTitle(title){
+
+            id =  document.getElementById("bloc_id").innerText
+            $.ajax({
+                type:'POST',
+                data: {'title':title},
+                url:"{{route('bloc.update')}}/"+id,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
+
+        function updateBlockScript(textarea,id){
+
+            $.ajax({
+                type:'POST',
+                data: {'content':textarea},
+                url:"{{route('bloc.update')}}/"+id,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
+
+        function openNav(cardHeader,id) {
+            document.getElementById("blocSideNav").style.width = "250px";
+            document.getElementById("inputTitle").value = cardHeader.innerText;
+            document.getElementById("bloc_id").innerHTML = id;
+            document.getElementById("deleteBloc").href = '{{ route('bloc.destroy') }}/'+id;
+        }
+
+        function closeNav() {
+            document.getElementById("blocSideNav").style.width = "0";
+        }
+    </script>
 @stop

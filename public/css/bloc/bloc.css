@@ -1,0 +1,51 @@
+
+#card {
+    border: solid black 1px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: lightgrey;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    text-decoration: none;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+.sidenav .closebtn:hover {
+    color: #f1f1f1;
+}
+
+.sidenav #labelTitle {
+    margin-left: 5%;
+}
+
+.sidenav #inputTitle {
+    width: auto;
+    border: solid black 1px;
+    margin-left: 5%;
+}
+
+.sidenav #deleteBloc {
+    bottom: 2%;
+    position: absolute;
+    text-align: center;
+    margin-left: 17%;
+}
+
+
+

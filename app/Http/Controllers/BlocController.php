@@ -113,35 +113,45 @@ class BlocController extends Controller
 
     public function update(Request $request, $id){
 
+
         $bloc = Bloc::find($id);
+        if (Auth::user()->can('update',$bloc)){
+            if ($request->input('title')){
+                $bloc->title = $request->input('title');
+            }
+            elseif ($request->input('content')){
+                $bloc->content = $request->input('content');
+            }
 
-        $bloc->content = $request->input('content');
-
-        $bloc->save();
-
+            $bloc->save();
+        }
+        return redirect()->route('bloc.index', $bloc->page->id);
     }
 
     public function delete($id){
+
         $bloc = Bloc::find($id);
 
-        if ($bloc->type == 'video'){
-            $fileToDelete = 'public/bloc/'.$bloc->page_id.'/video/'.$bloc->content;
+        if (Auth::user()->can('delete', $bloc)){
+            if ($bloc->type == 'video'){
+                $fileToDelete = 'public/bloc/'.$bloc->page_id.'/video/'.$bloc->content;
 
-            if(Storage::exists($fileToDelete)){
-                Storage::delete($fileToDelete);
+                if(Storage::exists($fileToDelete)){
+                    Storage::delete($fileToDelete);
+                }
             }
-        }
-        elseif ($bloc->type == 'image'){
-            $fileToDelete = 'public/bloc/'.$bloc->id.'/image/'.$bloc->content;
+            elseif ($bloc->type == 'image'){
+                $fileToDelete = 'public/bloc/'.$bloc->id.'/image/'.$bloc->content;
 
-            if(Storage::exists($fileToDelete)){
-                Storage::delete($fileToDelete);
+                if(Storage::exists($fileToDelete)){
+                    Storage::delete($fileToDelete);
+                }
             }
+
+            $bloc->delete();
         }
 
-        $bloc->delete();
-
-        return redirect()->route('page.edit',$bloc->page_id)->with('success','Bloc supprimé avec succès');
+        return redirect()->route('bloc.index', $bloc->page->id);
     }
 
     public function text($id){
