@@ -152,6 +152,20 @@ class PageController extends Controller
 
     public function show($id)
     {
+        $page = Page::find($id);
+        $blocs = Bloc::where('page_id', $page)->get();
 
+        if (Auth::user()->can('view', $page)){
+            return view('page.show', [
+                'page' => $page,
+                'blocs' => $blocs,
+            ]);
+        }
+
+        $pages = Page::where('user_id', Auth::user()->id)->get();
+        return redirect(route('page.index', [
+            'pages' => $pages,
+            'title' => 'Mes pages'
+        ]));
     }
 }
