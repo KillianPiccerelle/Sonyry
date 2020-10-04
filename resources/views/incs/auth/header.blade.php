@@ -77,9 +77,17 @@ if (count($inboxes) >0)
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('group.index') }}">{{ __('Mes groupes')}}</a>
-
                     </div>
                 </li>
+                @if(Auth::user()->role_id == 2)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('teacher.index')}}">Espace professeur</a>
+                </li>
+                @else
+                    <li class="nav-item" style="display: none">
+                        <a class="nav-link" href="">Espace professeur</a>
+                    </li>
+                @endif
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">

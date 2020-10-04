@@ -29,6 +29,8 @@ class CreateUsersTable extends Migration
             $table->string('businessPhone')->nullable();
             $table->string('job')->nullable();
             $table->string('businessSegment')->nullable();
+            $table->unsignedBigInteger('role_id')->nullable();
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->rememberToken();
             $table->timestamps();
         });

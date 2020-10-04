@@ -28,12 +28,13 @@ class UsersSeeder extends Seeder
         $user->businessPhone = Str::random(10);
         $user->job= Str::random(10);
         $user->businessSegment= Str::random(10);
+        $user->role_id= 1;
         $user->save();
 
         $user = new User();
-        $user->name = Str::random(10);
-        $user->firstName = Str::random(10);
-        $user->email = Str::random(10).'@gmail.com';
+        $user->name = 'professeur';
+        $user->firstName = 'professeur';
+        $user->email = 'professeur@gmail.com';
         $user->password = Hash::make('password');
         $user->description = Str::random(10);
         $user->streetAddress = Str::random(10);
@@ -44,14 +45,15 @@ class UsersSeeder extends Seeder
         $user->businessPhone = Str::random(10);
         $user->job= Str::random(10);
         $user->businessSegment= Str::random(10);
+        $user->role_id= 2;
         $user->save();
 
         $user = new User();
-        $user->name = Str::random(10);
-        $user->firstName = Str::random(10);
-        $user->email = Str::random(10).'@gmail.com';
+        $user->name = 'admin';
+        $user->firstName = 'admin';
+        $user->email = 'admin@gmail.com';
         $user->password = Hash::make('password');
-        $user->description = Str::random(10);
+        $user->description = 'Compte administrateur';
         $user->streetAddress = Str::random(10);
         $user->postCodeAddress = Str::random(10);
         $user->cityAddress = Str::random(10);
@@ -60,6 +62,7 @@ class UsersSeeder extends Seeder
         $user->businessPhone = Str::random(10);
         $user->job= Str::random(10);
         $user->businessSegment= Str::random(10);
+        $user->role_id= 3;
         $user->save();
     }
 }
