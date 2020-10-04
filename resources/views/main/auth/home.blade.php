@@ -5,9 +5,13 @@
     @php
 
         $firstname = Auth::user()->firstName;
-        $firstname = ($firstname);
 
         $nbChar = strlen($firstname );
+        $x = 0;
+        $pourcent = 25;
+
+        $path = 44.1;
+
 
     @endphp
 
@@ -55,26 +59,14 @@
         }
 
 
-        #logo {
-            position: absolute;
-
-            left: 50%;
-            transform: translate(-60%, -110%);
+        .logo {
+            position: relative;
+            transform: translate(-50%);
             animation: fill 0.5s ease forwards 3.5s;
         }
 
-        @for($i = 0; $i < $nbChar; $i++)
-                #logo path:nth-child({{ $i+1 }}) {
-            stroke-dasharray: 246;
-            stroke-dashoffset: 246;
-            animation: line-anim 2s ease forwards;
-        }
 
-        @endfor
-
-
-
- @keyframes line-anim {
+        @keyframes line-anim {
             to {
                 stroke-dashoffset: 0;
             }
@@ -90,39 +82,32 @@
         }
 
     </style>
+    <div class="row">
+        @for($i = 0; $i < $nbChar; $i++)
+            <svg
+                id="logo_{{ $i }}"
+                class="logo"
+                width="auto"
+                height="56"
+                viewBox="0 0 70 56"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style="left: {{ $pourcent }}%; "
 
-    <div>
-        <h1 style="color: white;left: 30%; position: relative;">Bienvenue </h1>
-        <svg
-            id="logo"
-            width="auto"
-            height="56"
-            viewBox="0 0 278 56"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
 
-            @for($i = 0; $i < $nbChar; $i++)
+            >
 
                 @include('components.svg.'.$firstname[$i])
 
-            @endfor
-
-
-        </svg>
-
-
+            </svg>
+            @php
+                $pourcent += (70-$path) / 1903;
+            @endphp
+        @endfor
     </div>
 
 
-
-
-
-
-
-
-
-    <hr style="display: block;  border-top: 1px solid #ddd;  width: 90%;  margin:auto; ">
-
+    <hr style="display: block;   border-top: 1px solid #ddd;  width: 90%;  margin:auto; ">
 
     <div class="flex">
         <div class="flex1">
@@ -347,23 +332,31 @@
 
 
 
+    @for($i = 0; $i < $nbChar; $i++)
+        <style>
+            .logo path:nth-child({{ $i+1 }}) {
+                position: relative;
+                animation: line-anim 2s ease forwards;
+            }
+        </style>
+        <script>
+            logo = document.querySelectorAll(".logo path");
+            logoBox = document.getElementById("logo_{{ $i }}");
+
+            for (let i = 0; i < logo.length; i++) {
+                logo[i].style.strokeDasharray = logo[i].getTotalLength();
+                logo[i].style.strokeDashoffset = logo[i].getTotalLength();
+                console.log(`Letter ${i} is ${logo[i].getTotalLength()}`);
+                console.log(logoBox.getBBox());
+                console.log(logo[i].getBBox());
+            }
+
+
+        </script>
 
 
 
-
-
-    <script>
-        const logo = document.querySelectorAll("#logo path");
-
-        for (let i = 0; i < logo.length; i++) {
-            console.log(`Letter ${i} is ${logo[i].getTotalLength()}`);
-        }
-    </script>
-
-
-
-
-
+    @endfor
 
 
 @endsection
