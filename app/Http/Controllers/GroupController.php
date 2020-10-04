@@ -272,7 +272,7 @@ class GroupController extends Controller
         $group = Group::find($id);
 
 
-        if (Auth::user()->can('view', $group)) {
+        if (Auth::user()->can('view', $group) == false) {
             return redirect()->route('home')->with('danger', 'Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');
         }
 

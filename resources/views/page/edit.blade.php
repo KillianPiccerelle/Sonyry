@@ -33,6 +33,10 @@
             @endif
         </div>
     </div>
+    <div class="container">
+        <hr>
+        <input type="text" id="myInput" class="form-control w-100" placeholder="Rechercher un bloc...">
+    </div>
     <div id="bloc" class="container">
 
     </div>
@@ -134,6 +138,12 @@
         </div>
     </div>
 
+    <div id="modalImage" class="modal">
+        <span class="close" onclick="closeModalImage()">&times;</span>
+        <img class="modal-content" id="img">
+        <div id="caption"></div>
+    </div>
+
 
 
     <script>
@@ -183,7 +193,24 @@
                 $('#blocForm').submit();
             })
 
+            $("#myInput").on("keyup", function() {
+                var input, filter, cards, cardContainer, h5, title, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                cardContainer = document.getElementById("bloc");
+                cards = cardContainer.getElementsByClassName("col-md-4");
+                for (i = 0; i < cards.length; i++) {
+                    title = cards[i].querySelector(".card .card-header h5");
+                    if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            });
+
         });
+
 
 
         $(window).on("load",function () {
@@ -200,6 +227,21 @@
     </script>
 
     <script>
+
+        function openModalImage(img,title){
+            imgMod = document.getElementById("img");
+            var captionText = document.getElementById("caption");
+
+            document.getElementById("modalImage").style.display = "block";
+            imgMod.src = img.src;
+            captionText.innerHTML = title.toString();
+
+        }
+
+        function closeModalImage(){
+            document.getElementById("modalImage").style.display = "none";
+        }
+
 
         function addBlocs() {
             const title = document.getElementById("titleNewBloc").value;

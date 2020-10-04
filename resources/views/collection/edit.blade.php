@@ -3,6 +3,7 @@
 
 @section('content')
 
+    <link rel="stylesheet" href="/css/collections/index.css">
     <div class="container text-center">
         <div class="text-center">
             <h5>Titre de la collection : <b>{{ $collection->name }}</b></h5>
@@ -13,6 +14,10 @@
         </div>
         <br>
         <div class="text-center">
+            <a class="btn btn-outline-info" href="{{ route('collection.addPages', $collection->id) }}">
+                Ajouter
+            </a>
+            -
             <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalUpdate">
                 Modifier
             </button>
@@ -24,21 +29,11 @@
             <a class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
         </div>
         <hr>
-
         <div class="form-row">
             <input class="form-control" id="myInput" type="text" placeholder="Rechercher une page..">
         </div>
         <br>
-        <div class="row">
-            <a href="{{ route('collection.addPages', $collection->id) }}" class="card bg-light mb-3 border" style="max-width: 18rem;" id="btnAddPage">
-                <div class="card-header">Gerer les pages dans la collection</div>
-                <div class="card-body">
-                    <p>Ajoutez ou supprimez des pages</p>
-                    <br>
-                    <i class="fas fa-plus" style="size: A3"></i>
-                </div>
-                <br>
-            </a>
+        <div class="row" id="pages">
             @if(count($pages) > 0)
                 @foreach($pages as $page)
                     <div class="col-md-4">
@@ -147,10 +142,19 @@
     <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $(".col-md-4").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
+                var input, filter, cards, cardContainer, h5, title, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                cardContainer = document.getElementById("pages");
+                cards = cardContainer.getElementsByClassName("col-md-4");
+                for (i = 0; i < cards.length; i++) {
+                    title = cards[i].querySelector(".card .card-header h5 span");
+                    if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
             });
         });
     </script>

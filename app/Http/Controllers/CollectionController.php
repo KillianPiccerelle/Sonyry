@@ -47,7 +47,7 @@ class CollectionController extends Controller
 
             $image = $request->file('image');
 
-            $imageAction->store($image, 'collections');
+            $file = $imageAction->store($image, 'collections');
 
 
         } else {
