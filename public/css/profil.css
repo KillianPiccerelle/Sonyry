@@ -90,12 +90,12 @@ input[type="submit"] {
     transition: 0.3s;
 }
 
-input:hover {
+input[type="submit"]:hover {
     background-color: #444444;
     transform: scale(1.1);
 }
 
-input:active {
+input[type="submit"]:active {
     -webkit-box-shadow: 0 2px 0 #84261a;
     -moz-box-shadow: 0 2px 0 #84261a;
     box-shadow: 0 2px 0 #84261a;

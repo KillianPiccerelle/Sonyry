@@ -22,7 +22,7 @@
                     <div class="form-group float-left">
                         <input type="file" id="monInputFile" name="image" style="visibility:hidden"/>
                         <input value="Sélectionner un fichier" type="button"
-                               style="border: none; border-radius:5px;float: left;width:175px;height:40px;background-color:white;"
+                               class="btn btn-success" style="float: left"
                                onclick="$('#monInputFile').click();"/>
                     </div>
                     <br><br><br>
