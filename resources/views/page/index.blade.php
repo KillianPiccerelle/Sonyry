@@ -39,7 +39,7 @@
                                         Éditer
                                     </a>
                                     -
-                                    <a href="#" id="btnView" class="btn btn-outline-dark">
+                                    <a href="{{ route('page.show', $page->id) }}" id="btnView" class="btn btn-outline-dark">
                                         <i class="fas fa-eye"></i>
                                         Consulter
                                     </a>

@@ -134,6 +134,9 @@
                                         </div>
                                         <div class="message-content">
                                             <p>{{ $inbox->notification->paragraph }}</p>
+                                            @if(isset($inbox->notification->link))
+                                                <a class="btn btn-primary" href="{{$inbox->notification->link}}">Rejoindre</a>
+                                                @endif
                                         </div>
                                     </div>
                                 </div>
