@@ -15,9 +15,9 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $user = new User();
-        $user->firstName = Str::random(10);
-        $user->name = Str::random(10);
-        $user->email = Str::random(10).'@gmail.com';
+        $user->firstName = 'étudiant';
+        $user->name = 'étudiant';
+        $user->email = 'étudiant@gmail.com';
         $user->password = Hash::make('password');
         $user->description = Str::random(10);
         $user->streetAddress = Str::random(10);
