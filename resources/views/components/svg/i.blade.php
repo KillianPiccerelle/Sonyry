@@ -1,1 +1,1 @@
-<path d="M10.096 2.81598V1.81598H9.09601H2.54401H1.54401V2.81598V53V54H2.54401H9.09601H10.096V53V2.81598Z" stroke="white" stroke-width="2"/>
+<path style="padding: 1em"  d="M9.552 2V1H8.552H2H1V2V52.184V53.184H2H8.552H9.552V52.184V2Z" stroke="white" stroke-width="2"/>
