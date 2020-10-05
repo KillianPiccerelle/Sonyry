@@ -6,7 +6,8 @@
 
 
     <div class="container-fluid">
-        <div class="title ml-2">Bienvenue dans Sonyry</div>
+
+
 
 
         <div id="carousel1">
