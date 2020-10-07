@@ -25,6 +25,81 @@ class ProfilController extends Controller
         }
 
 
+
+
+        return view('profil.profil', [
+            'groups' => $groups,
+        ]);
+
+    }
+
+
+    public function edit()
+    {
+        return view('profil.ajax.edit');
+    }
+
+
+    public function update(Request $request)
+    {
+
+        $profil = Auth::user();
+
+
+        if ($request->input('newName') != null) {
+            $profil->name = $request->input('newName');
+        }
+        if ($request->input('newFirstname') != null) {
+            $profil->firstName = $request->input('newFirstname');
+        }
+        if ($request->input('newEmail') != null) {
+            $profil->email = $request->input('newEmail');
+        }
+        if ($request->input('newJob') != null) {
+            $profil->job = $request->input('newJob');
+        }
+        if ($request->input('newJobSegment') != null) {
+            $profil->businessSegment = $request->input('newJobSegment');
+        }
+        if ($request->input('newStreet') != null) {
+            $profil->streetAddress = $request->input('newStreet');
+        }
+        if ($request->input('newCity') != null) {
+            $profil->cityAddress = $request->input('newCity');
+        }
+        if ($request->input('newPostalCode') != null) {
+            $profil->postCodeAddress = $request->input('newPostalCode');
+        }
+        if ($request->input('newCountry') != null) {
+            $profil->country = $request->input('newCountry');
+        }
+        if ($request->input('newMobilePhone') != null) {
+            $profil->mobilePhone = $request->input('newMobilePhone');
+        }
+        if ($request->input('newWorkPhone') != null) {
+            $profil->businessPhone = $request->input('newWorkPhone');
+        }
+        if ($request->input('newDescription') != null) {
+            $profil->description = $request->input('newDescription');
+        }
+
+        $profil->save();
+
+        Auth::user();
+
+        return view('profil.ajax.edit');
+
+    }
+
+    /**
+     * Ajax
+     */
+
+    public function info(){
+        return view('profil.ajax.info');
+    }
+
+    public function contact(){
         /** query that retrieves all rows of the friend table if the user matches the sender or the target */
 
         $friends = Friend::where('sender', Auth::user()->id)->orWhere('target', Auth::user()->id)->get();
@@ -143,70 +218,20 @@ class ProfilController extends Controller
 
         }
 
-        return view('profil.profil', [
-            'groups' => $groups,
-            'friends' => $friends,
-            'friendRequests' => $friendRequests,
-            'valableUsers' => $valableUsers,
 
+        return view('profil.ajax.contact',[
+            'valableUsers'=>$valableUsers,
+            'friendRequests'=>$friendRequests,
+            'friends'=>$friends
         ]);
-
     }
 
-
-    public function edit($id)
-    {
-        //
+    public function portfolio(){
+        return view('profil.ajax.portfolio');
     }
 
-
-    public function update(Request $request, $id)
-    {
-        $profil = User::find($id);
-
-
-        if ($request->input('newName') != null) {
-            $profil->name = $request->input('newName');
-        }
-        if ($request->input('newFirstname') != null) {
-            $profil->firstName = $request->input('newFirstname');
-        }
-        if ($request->input('newEmail') != null) {
-            $profil->email = $request->input('newEmail');
-        }
-        if ($request->input('newJob') != null) {
-            $profil->job = $request->input('newJob');
-        }
-        if ($request->input('newJobSegment') != null) {
-            $profil->businessSegment = $request->input('newJobSegment');
-        }
-        if ($request->input('newStreet') != null) {
-            $profil->streetAddress = $request->input('newStreet');
-        }
-        if ($request->input('newCity') != null) {
-            $profil->cityAddress = $request->input('newCity');
-        }
-        if ($request->input('newPostalCode') != null) {
-            $profil->postCodeAddress = $request->input('newPostalCode');
-        }
-        if ($request->input('newCountry') != null) {
-            $profil->country = $request->input('newCountry');
-        }
-        if ($request->input('newMobilePhone') != null) {
-            $profil->mobilePhone = $request->input('newMobilePhone');
-        }
-        if ($request->input('newWorkPhone') != null) {
-            $profil->businessPhone = $request->input('newWorkPhone');
-        }
-        if ($request->input('newDescription') != null) {
-            $profil->description = $request->input('newDescription');
-        }
-
-        $profil->save();
-
-        return redirect()->route('profil.index')->with('success', 'Votre profil a été mis à jour');
-
-
+    public function group(){
+        return view('profil.ajax.group');
     }
 
 }

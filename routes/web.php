@@ -86,11 +86,20 @@ Route::middleware('auth')->group(function(){
      * Profil
      */
     Route::get('/profil', 'ProfilController@index')->name('profil.index');
-    Route::put('/profil/{id}/update', 'ProfilController@update')->name('profil.update');
+    Route::put('/profil/update', 'ProfilController@update')->name('profil.update');
     Route::get('/profil/group/{id}/exit', 'UserGroupController@destroy')->name('userGroup.destroy');
     Route::get('/profil/friend/{id}/destroy', 'FriendController@destroy')->name('friend.destroy');
     Route::get('/profil/friend/{id}/add', 'FriendController@add')->name('friend.add');
     Route::get('/profil/friend/{id}/request', 'FriendController@request')->name('friend.request');
+
+    /**
+     * Profil ajax
+     */
+    Route::get('/profil/info','ProfilController@info')->name('profil.info');
+    Route::get('/profil/contacts','ProfilController@contact')->name('profil.contact');
+    Route::get('/profil/portfolio','ProfilController@portfolio')->name('profil.portfolio');
+    Route::get('/profil/groups','ProfilController@group')->name('profil.group');
+    Route::get('/profil/edit','ProfilController@edit')->name('profil.edit');
 
 
     /**
