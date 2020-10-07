@@ -11,7 +11,7 @@
             <input class="form-control" id="myInput" type="text" placeholder="Rechercher une collection..">
         </div>
         <br>
-        <div class="row">
+        <div class="row" id="collections">
             @if(count($collections) > 0)
                 @foreach($collections as $collection)
                     <div class="col-md-4">
@@ -36,24 +36,35 @@
                                 </div>
                             </div>
                             <div class="card-footer text-center">
-                                <p>Nombre de pages dans la collection : </p>
+                                <p>Nombre de pages dans la collection : <span>{{ count($collection->pages) }}</span></p>
                             </div>
                         </div>
                         <br>
                     </div>
                 @endforeach
             @else
-                <p>Pas de collections.</p>
+                <div class="container text-center">
+                    <h5><i>Vous ne possédez pas de collections, veuillez en créer une : </i></h5><a href="{{ route('collection.create') }}" class="btn btn-outline-dark"> Ici </a>
+                </div>
             @endif
         </div>
     </div>
     <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $(".col-md-4").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
+                var input, filter, cards, cardContainer, h5, title, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                cardContainer = document.getElementById("collections");
+                cards = cardContainer.getElementsByClassName("col-md-4");
+                for (i = 0; i < cards.length; i++) {
+                    title = cards[i].querySelector(".card .card-header h5 span");
+                    if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
             });
         });
     </script>

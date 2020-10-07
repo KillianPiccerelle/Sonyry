@@ -3,6 +3,7 @@
 
 @section('content')
 
+    <link rel="stylesheet" href="/css/bloc/bloc.css">
     <br>
     <div class="container text-center">
         <div class="text-center">
@@ -20,7 +21,7 @@
                 Editer la page
             </button>
             <button class="btn btn-secondary text-center" id="btnNewBloc" data-toggle="modal"
-                    data-target="#modalNewBloc">
+                    data-target="modalNewBloc" onclick="openNavCreate()">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Nouveau bloc
             </button>
@@ -32,51 +33,13 @@
             @endif
         </div>
     </div>
+    <div class="container">
+        <hr>
+        <input type="text" id="myInput" class="form-control w-100" placeholder="Rechercher un bloc...">
+    </div>
     <div id="bloc" class="container">
-        @include('page.bloc.index')
+
     </div>
-
-    <!-- bloc create modal -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-2" role="dialog" id="modalNewBloc">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Configurer le bloc :</h5>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input  class="form-control mr-sm-2" style="margin-left: 20px" type="search" placeholder="Rechercher" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go !</button>
-                    </form>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="form-group">
-                            <h4>Type du bloc</h4>
-                            <button class="btn" id="btnBlocText" style="background-color: lightgray">Texte</button>
-                            <button class="btn" id="btnBlocImage" style="background-color: lightgray">Image</button>
-                            <button class="btn" id="btnBlocVideo" style="background-color: lightgray">Video</button>
-                            <button class="btn" id="btnBlocScript" style="background-color: lightgray">Script</button>
-                        </div>
-                        <hr>
-                        <!-- ZONE DE RECUP DU CONTENU DU BLOC-->
-                        <div id="blocContent">
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="btnSaveBloc">Enregistrer</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Suppression modal -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalDelete">
         <div class="modal-dialog" role="document">
@@ -148,7 +111,42 @@
             </div>
         </div>
     </div>
+
+
+    <div id="sidenavUpdate" class="sidenavUpdate">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNavUpdate()">&times;</a>
+        <p hidden id="bloc_id"></p>
+        <label for="title" id="labelTitle"><b>Titre du bloc :</b></label>
+        <input type="text" name="title" id="inputTitle" value="" class="form-control" onchange="updateBlockTitle(this.value)">
+        <button class="btn btn-danger" id="deleteBloc" onclick="deleteBlock();closeNavUpdate()">Supprimer le bloc</button>
+    </div>
+
+    <div id="sidenavCreate" class="sidenavCreate">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNavCreate()">&times;</a>
+        <h4>Type du bloc :</h4>
+        <div class="container" id="buttonsBlocs">
+            <button class="btn btn-dark" id="btnBlocText">Texte</button>
+            <button class="btn btn-dark" id="btnBlocImage">Image</button>
+            <button class="btn btn-dark" id="btnBlocVideo">Video</button>
+            <button class="btn btn-dark" id="btnBlocScript">Script</button>
+            <hr>
+            <!-- ZONE DE RECUP DU CONTENU DU BLOC-->
+            <div id="blocContent">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="modalImage" class="modal">
+        <span class="close" onclick="closeModalImage()">&times;</span>
+        <img class="modal-content" id="img">
+        <div id="caption"></div>
+    </div>
+
+
+
     <script>
+
         $(document).ready(function () {
             $('#btnBlocText').click(function () {
                 var xhttp = new XMLHttpRequest();
@@ -193,9 +191,159 @@
             $('#btnSaveBloc').click(function () {
                 $('#blocForm').submit();
             })
-        });
-    </script>
-    <style>
 
-    </style>
+            $("#myInput").on("keyup", function() {
+                var input, filter, cards, cardContainer, h5, title, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                cardContainer = document.getElementById("bloc");
+                cards = cardContainer.getElementsByClassName("col-md-4");
+                for (i = 0; i < cards.length; i++) {
+                    title = cards[i].querySelector(".card .card-header h5");
+                    if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            });
+
+        });
+
+
+
+        $(window).on("load",function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("bloc").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", '{{ route('bloc.index', $page->id) }}', true);
+            xhttp.send();
+        })
+
+    </script>
+
+    <script>
+
+        function openModalImage(img,title){
+            imgMod = document.getElementById("img");
+            var captionText = document.getElementById("caption");
+
+            document.getElementById("modalImage").style.display = "block";
+            imgMod.src = img.src;
+            captionText.innerHTML = title.toString();
+
+        }
+
+        function closeModalImage(){
+            document.getElementById("modalImage").style.display = "none";
+        }
+
+
+        function addBlocs() {
+            const title = document.getElementById("titleNewBloc").value;
+            const type = document.getElementById("typeNewBloc").value;
+
+            if (type === 'video' || type === 'image'){
+                content = document.getElementById("contentNewBloc").files[0];
+            }
+            else{
+                content = document.getElementById("contentNewBloc").value;
+            }
+
+            var formData = new FormData();
+
+            formData.append('title',title);
+            formData.append('type',type);
+            formData.append('content',content);
+
+            $.ajax({
+                type:'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                url:"{{route('bloc.create', $page->id)}}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
+
+        function deleteBlock(){
+            id =  document.getElementById("bloc_id").innerText
+            $.ajax({
+                type:'GET',
+                url:"{{route('bloc.destroy')}}/"+id,
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
+
+        function updateBlockText(textarea,id){
+
+            $.ajax({
+                type:'POST',
+                data: {'content':textarea},
+                url:"{{route('bloc.update')}}/"+id,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
+
+        function updateBlockTitle(title){
+
+            id =  document.getElementById("bloc_id").innerText
+            $.ajax({
+                type:'POST',
+                data: {'title':title},
+                url:"{{route('bloc.update')}}/"+id,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
+
+        function updateBlockScript(textarea,id){
+
+            $.ajax({
+                type:'POST',
+                data: {'content':textarea},
+                url:"{{route('bloc.update')}}/"+id,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    document.getElementById("bloc").innerHTML = data;
+                }
+            });
+        }
+
+        //SidenavDelete
+
+        function openNavUpdate(cardHeader,id) {
+            document.getElementById("sidenavUpdate").style.width = "250px";
+            document.getElementById("inputTitle").value = cardHeader.innerText;
+            document.getElementById("bloc_id").innerHTML = id;
+            document.getElementById("deleteBloc").href = '{{ route('bloc.destroy') }}/'+id;
+        }
+
+        function closeNavUpdate() {
+            document.getElementById("sidenavUpdate").style.width = "0";
+        }
+
+        //SideNav create
+
+        function openNavCreate() {
+            document.getElementById("sidenavCreate").style.width = "325px";
+        }
+
+        function closeNavCreate() {
+            document.getElementById("sidenavCreate").style.width = "0";
+        }
+    </script>
 @stop

@@ -3,6 +3,7 @@
 
 @section('content')
 
+    <link rel="stylesheet" href="/css/collections/index.css">
     <div class="container text-center">
         <div class="text-center">
             <h5 style="color: white;">Titre de la collection : <b>{{ $collection->name }}</b></h5>
@@ -13,7 +14,11 @@
         </div>
         <br>
         <div class="text-center">
-            <button style="width: 200px" class="btn btn-outline-info" data-toggle="modal" data-target="#modalUpdate">
+            <a class="btn btn-outline-info" href="{{ route('collection.addPages', $collection->id) }}">
+                Ajouter
+            </a>
+            -
+            <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalUpdate">
                 Modifier
             </button>
             <div class="float-right">
@@ -23,28 +28,12 @@
             </div>
             <a style="width: 200px" class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
         </div>
-
-
-        <div class="form-row" style="padding-top: 15px;">
+        <hr>
+        <div class="form-row">
             <input class="form-control" id="myInput" type="text" placeholder="Rechercher une page..">
         </div>
         <br>
-        <div class="row">
-            <div class="col-md-4" id="add">
-                <a href="{{ route('collection.addPages', $collection->id) }}" class="card text-center" style="height: 360px;" id="btnAddPage">
-                    <div class="card-header">
-                        Gerer les pages dans la collection
-                    </div>
-                    <div class="card-body">
-                        <p style="color:black">
-                            Ajoutez ou supprimez des pages
-                        </p>
-                        <br>
-                        <i class="fas fa-plus" style="size: A3"></i>
-                    </div>
-                    <br>
-                </a>
-            </div>
+        <div class="row" id="pages">
             @if(count($pages) > 0)
                 @foreach($pages as $page)
                     <div class="col-md-4">
@@ -153,6 +142,21 @@
     <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
+<<<<<<< HEAD
+                var input, filter, cards, cardContainer, h5, title, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                cardContainer = document.getElementById("pages");
+                cards = cardContainer.getElementsByClassName("col-md-4");
+                for (i = 0; i < cards.length; i++) {
+                    title = cards[i].querySelector(".card .card-header h5 span");
+                    if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+=======
                 var value = $(this).val().toLowerCase();
                 $(".col-md-4").filter(function() {
                     if (this.id == "add"){
@@ -163,6 +167,7 @@
                     }
 
                 });
+>>>>>>> 4710292ae95812d7015c448e95176db12035be09
             });
         });
     </script>

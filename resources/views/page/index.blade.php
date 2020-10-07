@@ -12,7 +12,7 @@
             <input class="form-control" id="myInput" type="text" placeholder="Rechercher une page..">
         </div>
         <br>
-        <div class="row" style="align-self: center">
+        <div class="row" id="pages">
             @if(count($pages) > 0)
                 @php
                     $count = 1;
@@ -65,10 +65,19 @@
     <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $(".col-md-4").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
+                var input, filter, cards, cardContainer, h5, title, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                cardContainer = document.getElementById("pages");
+                cards = cardContainer.getElementsByClassName("col-md-4");
+                for (i = 0; i < cards.length; i++) {
+                    title = cards[i].querySelector(".card .card-header h5");
+                    if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
             });
         });
     </script>
