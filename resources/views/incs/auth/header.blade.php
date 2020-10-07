@@ -23,7 +23,7 @@ if (count($inboxes) >0)
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm container-fluid" >
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            {{ config('app.name', 'Laravel') }}
+            <img src="https://media.discordapp.net/attachments/718040099618685009/718041074169413775/unknown.png" alt="" width="100%" height="50">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

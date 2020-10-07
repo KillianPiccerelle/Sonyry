@@ -50,8 +50,8 @@
     </style>
 
     <h1 style="text-align: center; ; font-weight: bold;font-family: Courier New;">
-        <p class="typewrite" style="color: azure" data-period="2000"
-           data-type='[ "Bienvenue sur Sonyry."," Enchanté {{ Auth::user()->firstName }} !" ]'>
+        <p id="typewriter" class="typewrite" style="color: azure" data-period="2000"
+           data-type='[ "Bienvenue sur Sonyry {{ Auth::user()->firstName }}." ]'>
             <span class="wrap"></span>
         </p>
     </h1>
@@ -135,7 +135,7 @@
                     </div>
                 </nav>
 
-                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-content px-sm-0" id="nav-tabContent">
 
                     <div class="tab-pane fade show active" id="nav-sujet" role="tabpanel"
                          aria-labelledby="nav-sujet-tab">
@@ -293,33 +293,23 @@
             var i = this.loopNum % this.toRotate.length;
             var fullTxt = this.toRotate[i];
 
-            if (this.isDeleting) {
-                this.txt = fullTxt.substring(0, this.txt.length - 1);
-            } else {
+            if (this.isDeleting == false) {
                 this.txt = fullTxt.substring(0, this.txt.length + 1);
             }
 
             this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
 
             var that = this;
-            var delta = 200 - Math.random() * 100;
+            var delta = 100 - Math.random() * 100;
 
-            if (this.isDeleting) {
-                delta /= 2;
+            if (!this.isDeleting && this.txt != fullTxt) {
+                setTimeout(function () {
+                    that.tick();
+                }, delta);
             }
-
-            if (!this.isDeleting && this.txt === fullTxt) {
-                delta = this.period;
-                this.isDeleting = true;
-            } else if (this.isDeleting && this.txt === '') {
-                this.isDeleting = false;
-                this.loopNum++;
-                delta = 500;
+            else {
+                document.getElementById("typewriter").className = "";
             }
-
-            setTimeout(function () {
-                that.tick();
-            }, delta);
         };
 
         window.onload = function () {
