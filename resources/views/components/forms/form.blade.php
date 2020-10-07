@@ -2,6 +2,6 @@
 @csrf
 {{ $slot }}
     @if(!isset($noButton))
-        <x-forms.button></x-forms.button>
+
     @endif
 </form>

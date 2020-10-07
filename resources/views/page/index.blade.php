@@ -3,9 +3,9 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container text-center">
         <div class="text-center">
-            <h1>Liste de mes pages :</h1>
+            <h1 style="color: white">Liste de mes pages :</h1>
         </div>
         <br>
         <div class="text-center">
@@ -39,7 +39,7 @@
                                         Éditer
                                     </a>
                                     -
-                                    <a href="#" id="btnView" class="btn btn-outline-dark">
+                                    <a href="{{ route('page.show', $page->id) }}" id="btnView" class="btn btn-outline-dark">
                                         <i class="fas fa-eye"></i>
                                         Consulter
                                     </a>
@@ -82,6 +82,13 @@
         });
     </script>
     <style>
+        #myInput {
+            background-color: lightgray;
+            font-weight: bold;
+            color: black;
+
+        }
+
         #card {
             border: solid black  1px;
             height: 410px;
@@ -101,6 +108,7 @@
             color: floralwhite;
         }
         #card-body {
+            background-color: lightgray;
             height: 100%;
         }
         #card-footer {

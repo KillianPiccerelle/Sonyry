@@ -7,14 +7,14 @@
     <br>
     <div class="container text-center">
         <div class="text-center">
-            <h5>Titre de la page : <b id="title">{{ $page->title }}</b></h5>
+            <h5 style="color: white;">Titre de la page : <b id="title">{{ $page->title }}</b></h5>
         </div>
         <div>
             <p>Description :</p>
             <p id="description">{{ $page->description }}</p>
         </div>
         <br>
-        <hr>
+
         <div class="container text-center">
             <button class="btn btn-dark text-left" id="btnEdit" data-toggle="modal" data-target="#modalUpdate">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -40,7 +40,6 @@
     <div id="bloc" class="container">
 
     </div>
-
     <!-- Suppression modal -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalDelete">
         <div class="modal-dialog" role="document">

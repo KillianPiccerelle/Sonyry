@@ -107,6 +107,8 @@ Route::middleware('auth')->group(function(){
     Route::put('/group/{id}/update', 'GroupController@update')->name('group.update');
     Route::get('/group/{id}/destroy', 'GroupController@destroy')->name('group.destroy');
     Route::get('/group/{id}/kick/{user_id}', 'GroupController@kick')->name('group.kick');
+    Route::get('/group/{id}/invite/{user_id}', 'GroupController@invite')->name('group.invite');
+    Route::get('/group/{id}/accept', 'GroupController@accept')->name('group.accept');
 
     /**
      * Share
@@ -128,8 +130,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/inbox/{id}/toTrash', 'InboxController@toTrash')->name('inbox.toTrash');
 
     Route::get('/inbox/{id}/destroy', 'NotificationController@destroy')->name('notification.destroy');
-
-
 
 });
 

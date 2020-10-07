@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\Http\Controllers\NotificationController;
 use App\Inbox;
+use App\InvitationGroup;
 use App\Notification;
 use App\ShareDirectory;
 use App\ShareGroup;
@@ -79,11 +80,26 @@ class GroupController extends Controller
     {
         $group = Group::find($id);
 
+        $users = User::all();
+        $members = UserGroup::where('group_id', $group->id)->get();
+        $count = 0;
+
+        foreach ($users as $user) {
+            foreach ($members as $member) {
+                //dump($member);
+                if ($user->id == $member->user_id) {
+                    unset($users[$count]);
+                }
+            }
+            $count++;
+        }
+
         if (Auth::user()->can('view', $group)) {
             $members = UserGroup::where('group_id', $group->id)->get();
             return view('group.show', [
                 'group' => $group,
-                'members' => $members
+                'members' => $members,
+                'users' => $users
             ]);
         }
 
@@ -235,29 +251,33 @@ class GroupController extends Controller
         $group = Group::find($id);
 
         if (Auth::user()->can('delete', $group)) {
-            return redirect()->route('home')->with('danger', 'Vous ne pouvez pas quitter ce groupe');
+            $member = UserGroup::where('group_id', $id)->where('user_id', $user_id)->get();
+
+            $shares = $member[0]->user->sharesGroups;
+
+            //delete share and policies of the share
+            $sharesGroup = new ShareGroup();
+            if (count($shares) > 0){
+                $sharesGroup->deleteShares($shares, $group);
+            }
+
+            //delete the directory for the shares
+            $shareDirectory = new ShareDirectory();
+            $directory = ShareDirectory::where('user_id', $user_id)->where('group_id', $group->id)->get();
+            if (count($directory) > 0) {
+                $shareDirectory->deleteDirectory($directory[0]);
+            }
+
+            NotificationController::notificationAutoKick("Vous venez d'être exclue du groupe " . $group->name, "Bonjour, voici un mail vous informant que vous venez d'être exclue du groupe " . $group->name . ".", $member[0]->user->id);
+
+
+            $member[0]->delete();
+
+
+            return redirect()->route('group.show', $group->id)->with('success', 'La personne a bien été exclue !');
+
         }
-
-        $member = UserGroup::where('group_id', $id)->where('user_id', $user_id)->get();
-
-        $shares = $member[0]->user->sharesGroups;
-
-        //delete share and policies of the share
-        $sharesGroup = new ShareGroup();
-        $sharesGroup->deleteShares($shares, $group);
-
-        //delete the directory for the shares
-        $shareDirectory = new ShareDirectory();
-        $directory = ShareDirectory::where('user_id', $user_id)->where('group_id', $group->id)->get();
-        $shareDirectory->deleteDirectory($directory[0]);
-
-
-        NotificationController::notificationAutoKick("Vous venez d'être exclue du groupe " . $group->name, "Bonjour, voici un mail vous informant que vous venez d'être exclue du groupe " . $group->name . ".", $member[0]->user->id);
-
-        $member[0]->delete();
-
-
-        return redirect()->route('group.show', $group->id)->with('success', 'La personne a bien été exclue !');
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas quitter ce groupe');
     }
 
     /**
@@ -271,14 +291,60 @@ class GroupController extends Controller
 
         $group = Group::find($id);
 
-
         if (Auth::user()->can('view', $group) == false) {
             return redirect()->route('home')->with('danger', 'Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');
         }
 
-        return view('group.share.share', [
-            'group' => $group
-        ]);
+        return redirect()->route('home')->with('danger', 'Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');
+
+    }
+
+    public function invite($id, $user_id)
+    {
+
+        $group = Group::find($id);
+
+        // If user have rights he create a new invitatin
+        if (Auth::user()->can('update', $group)) {
+            $invitation = new InvitationGroup();
+            $invitation->user_id = $user_id;
+            $invitation->group_id = $group->id;
+            $invitation->save();
+
+            // Auto generate mail/notification
+            NotificationController::notificationAutoInviteGroup('Invitation à rejoindre ' . $group->name, 'Bonjour, voici un mail vous informant que vous venez d\'être inviter à rejoindre ' . $group->name .
+                '. Vous pouvez choisir de rejoindre ce groupe en cliquant sur le bouton rejoindre ou ignorer cette notification et là supprimer.', $user_id, $group);
+
+            return redirect(route('group.show', $group->id))->with('success', 'Votre invitation a était envoyée avec succès');
+        }
+        return redirect()->route('group.show')->with('danger', 'Vous n\'avez pas les droits pour inviter une personne dans ce groupe.');
+    }
+
+    public function accept($id)
+    {
+
+        $group = Group::find($id);
+        $userGroups = UserGroup::all();
+
+        // Retrieves invitations with a user_id corresponding to the connected person and the group in Question
+        $invitation = InvitationGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->get();
+
+        foreach ($userGroups as $userGroup) {
+            // Test if user have already join the group
+            if ($userGroup->user_id == Auth::user()->id) {
+                return redirect()->route('inbox.index', $group->id)->with('danger', 'Vous ne pouvez pas rejoindre ce groupe car vous l\'avez déjà rejoins');
+            } else {
+                // User joining the group
+                $userGroup = new UserGroup();
+                $userGroup->user_id = Auth::user()->id;
+                $userGroup->group_id = $group->id;
+                $userGroup->save();
+                // Delete the invitationGroup for clean the bdd and so as not to pollute
+                $invitation[0]->delete();
+
+                }
+            }
+        return redirect()->route('inbox.index', $group->id)->with('success', 'Vous avez rejoins le groupe');
     }
 
 }
