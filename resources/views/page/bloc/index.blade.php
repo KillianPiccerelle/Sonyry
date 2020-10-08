@@ -31,7 +31,7 @@
     @empty
     <div class="container text-center">
         <br>
-        <h5><i>Vous n'avez pas de bloc dans cette page veuillez en créer un !</i></h5>
+        <h5 style="color: white "><i>Vous n'avez pas de bloc dans cette page veuillez en créer un !</i></h5>
     </div>
     @endforelse
 </div>

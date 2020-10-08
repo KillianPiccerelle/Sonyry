@@ -4,7 +4,6 @@
     @php
     $limite = 10;
     @endphp
-
     <div class="container col-10">
         <div class="row">
             <div class="col-lg-9 main">

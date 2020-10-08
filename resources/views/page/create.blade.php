@@ -3,21 +3,40 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="padding-top: 150px">
         <div class="d-flex justify-content-center">
             <div class="col-lg-8">
-                    <x-forms.form route="page.store">
-                        <x-forms.text name="title" value="" label="Titre" placeholder="Titre de la page"></x-forms.text>
-                            <div class="form-group">
-                                <label for="description">Description de la page</label>
-                                <textarea type="textarea" class="form-control" id="description" name="description" placeholder="Description de la page"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="file" name="image"/>
-                            </div>
-                    </x-forms.form>
+                <form method="post" action="{{ route('page.store') }}" class="comment-form contact-form"
+                      enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="title">Nom de la page</label>
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Nom de la page" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description de la page</label>
+                        <textarea type="textarea" class="form-control" id="description" name="description"
+                                  placeholder="Description de la page" required></textarea>
+                    </div>
+                    <div class="form-group float-left">
+                        <input type="file" id="monInputFile" name="image" style="visibility:hidden"/>
+                        <input value="Sélectionner un fichier" type="button"
+                               class="btn btn-success" style="float: left"
+                               onclick="$('#monInputFile').click();"/>
+                    </div>
+                    <br><br><br>
+                    <div style="float: right;">
+                        <button type="submit"  class="btn btn-primary"><i
+                                class="fa fa-check" aria-hidden="true"></i>
+                            Créer la page
+                        </button>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
 
 @stop
+

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/collections/index.css">
     <div class="container text-center">
         <div class="text-center">
-            <h5>Titre de la collection : <b>{{ $collection->name }}</b></h5>
+            <h5 style="color: white;">Titre de la collection : <b>{{ $collection->name }}</b></h5>
         </div>
         <div>
             <p>Description :</p>
@@ -22,11 +22,11 @@
                 Modifier
             </button>
             <div class="float-right">
-                <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDelete">
+                <button class="btn btn-outline-danger" style="width: 200px"  data-toggle="modal" data-target="#modalDelete">
                     Supprimer
                 </button>
             </div>
-            <a class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
+            <a style="width: 200px" class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
         </div>
         <hr>
         <div class="form-row">
@@ -142,6 +142,7 @@
     <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
+<<<<<<< HEAD
                 var input, filter, cards, cardContainer, h5, title, i;
                 input = document.getElementById("myInput");
                 filter = input.value.toUpperCase();
@@ -155,6 +156,18 @@
                         cards[i].style.display = "none";
                     }
                 }
+=======
+                var value = $(this).val().toLowerCase();
+                $(".col-md-4").filter(function() {
+                    if (this.id == "add"){
+
+                    }
+                    else {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    }
+
+                });
+>>>>>>> 4710292ae95812d7015c448e95176db12035be09
             });
         });
     </script>

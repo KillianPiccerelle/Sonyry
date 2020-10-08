@@ -1,6 +1,18 @@
-body{
-    margin-top:20px;
-    background: #eee;
+body, html {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0.25deg, #3f87a6 , #ebf8e1 , #f69d3c);
+
+
 }
 
 /* Sidebard */
@@ -13,8 +25,9 @@ body{
 .notification-wrapper .sidebar .nav {
     width: 100%;
     float: right;
-    height: auto;
+    height: 100%;
     border: none;
+    position: absolute;
 }
 
 .notification-wrapper .sidebar .nav .nav-item{
@@ -117,4 +130,8 @@ body{
 
 .notification-wrapper .notification-body .message-content {
     padding: 50px 15px;
+}
+
+p {
+    color: black;
 }

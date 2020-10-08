@@ -59,7 +59,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Auto-generation of notification
+     * Auto-generation of notification kicking
      */
     public static function notificationAutoKick($title, $paragraph, $member) {
 
@@ -73,6 +73,25 @@ class NotificationController extends Controller
         $inbox = New Inbox();
         $inbox->notification_id = $notification->id;
         $inbox->user_id = $member;
+        $inbox->save();
+    }
+
+    /**
+     * Auto-generation of notification for invitation in group
+     */
+    public static function notificationAutoInviteGroup($title, $paragraph, $user_id, $group) {
+
+        /** Generating the content of the notification */
+        $notification = new Notification();
+        $notification->title = $title;
+        $notification->paragraph = $paragraph;
+        $notification->link = route('group.accept', $group->id) ;
+        $notification->save();
+
+        /** Generation of the notification link with the user in question */
+        $inbox = New Inbox();
+        $inbox->notification_id = $notification->id;
+        $inbox->user_id = $user_id;
         $inbox->save();
     }
 }

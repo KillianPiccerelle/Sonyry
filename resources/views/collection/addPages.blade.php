@@ -7,8 +7,8 @@
         <!-- header of this page -->
         <div class="container">
             <div class="text-center">
-                <b><h1>Gestion des pages dans la collection :</h1></b>
-                <button class="btn btn-outline-dark float-right" data-toggle="modal" data-target="#helpModal">
+                <b><h1 style="color: white">Gestion des pages dans la collection :</h1></b>
+                <button class="btn btn-outline-warning float-right" data-toggle="modal" data-target="#helpModal">
                     <i class="fas fa-info-circle"></i>
                     Aide
                 </button>
@@ -18,7 +18,7 @@
                 </a>
             </div>
         </div>
-        <br><br><hr><br>
+        <br><br><hr style="border: white"><br>
 
 
         <!-- add pages div-->
@@ -29,8 +29,8 @@
                         <x-forms.button text="Ajouter" id="btnAddPages"></x-forms.button>
                     @endif
                 </div>
-                <i><h3>Pages disponibles pour ajouter dans la collection :</h3></i>
-                <hr>
+                <i><h3 style="color: white">Pages disponibles pour ajouter dans la collection :</h3></i>
+                <hr style="color: white">
                 @if(count($pagesAvailables) > 0)
                 <div class="text-center">
                     <input class="form-control" id="pageFreeInput" type="text" placeholder="Rechercher une page..">
@@ -65,7 +65,7 @@
                 </x-forms.form>
             @else
                 <div class="text-center">
-                    <h5>Commencez par créer une nouvelle page : </h5>
+                    <h5 >Commencez par créer une nouvelle page : </h5>
                     <a href="{{ route('page.create') }}" class="btn btn-outline-dark">Ici</a>
                 </div>
             @endif
@@ -80,7 +80,7 @@
                         <x-forms.button text="Supprimer" id="btnDeletePages" class="danger float-right" classIcon="trash"></x-forms.button>
                     @endif
                 </div>
-                <i><h3>Pages déjà présentes dans la collection :</h3></i>
+                <i><h3 style="color: white">Pages déjà présentes dans la collection :</h3></i>
                 <hr>
                 @if(count($pagesInCollection) > 0)
                 <div class="text-center">
@@ -116,7 +116,7 @@
                 </x-forms.form>
             @else
                 <div class="text-center">
-                    <h5>Aucune page ajoutée dans la collection.</h5>
+                    <h5 style="color: white">Aucune page ajoutée dans la collection.</h5>
 
                 </div>
             @endif

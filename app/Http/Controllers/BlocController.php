@@ -181,4 +181,5 @@ class BlocController extends Controller
             'page'=>$page
         ]);
     }
+
 }

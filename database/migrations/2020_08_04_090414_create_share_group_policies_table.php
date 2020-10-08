@@ -18,9 +18,9 @@ class CreateShareGroupPoliciesTable extends Migration
             $table->integer('member_id');
             $table->unsignedBigInteger('share_group_id');
             $table->foreign('share_group_id')->references('id')->on('share_groups');
-            $table->boolean('read');
-            $table->boolean('write');
-            $table->boolean('execute');
+            $table->boolean('read')->nullable();
+            $table->boolean('write')->nullable();
+            $table->boolean('execute')->nullable();
             $table->timestamps();
         });
     }
