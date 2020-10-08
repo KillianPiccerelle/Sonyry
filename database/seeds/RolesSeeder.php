@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Seeders;
-
 use App\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class RolesSeeder extends Seeder
 {
@@ -14,7 +13,6 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-
         $roles = ['Étudiant','Professeur','Administrateur','Jury'];
 
         foreach ($roles as $role){
