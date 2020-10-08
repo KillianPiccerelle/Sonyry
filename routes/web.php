@@ -131,6 +131,11 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/inbox/{id}/destroy', 'NotificationController@destroy')->name('notification.destroy');
 
+    /**
+     * TeacherSide
+     */
+    Route::get('teacher', 'TeacherController@index')->name('teacher.index');
+
 });
 
 

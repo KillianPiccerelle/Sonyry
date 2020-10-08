@@ -23,7 +23,7 @@ if (count($inboxes) >0)
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm container-fluid" >
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            {{ config('app.name', 'Laravel') }}
+            <img src="https://media.discordapp.net/attachments/718040099618685009/718041074169413775/unknown.png" alt="" width="100%" height="50">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -79,6 +79,19 @@ if (count($inboxes) >0)
                         <a class="dropdown-item" href="{{ route('group.index') }}">{{ __('Mes groupes')}}</a>
 
                     </div>
+                @php
+                    $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
+
+                    @endphp
+                @if($user[0]->role_id == 2)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('teacher.index')}}">Espace professeur</a>
+                    </li>
+                @else
+                    <li class="nav-item" style="display: none">
+                        <a class="nav-link" href="">Espace professeur</a>
+                    </li>
+                    @endif
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->
