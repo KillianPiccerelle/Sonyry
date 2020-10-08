@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+    $limite = 10;
+    @endphp
+
     <div class="container col-10">
         <div class="row">
             <div class="col-lg-9 main">
@@ -34,15 +38,20 @@
                                         <div class="tab-pane fade show active" id="pageModif" role="tabpanel"
                                              aria-labelledby="page-tab">
                                             @if(count(Auth::user()->pages) > 0)
-                                                @foreach(Auth::user()->pages as $page)
-                                                    <div class="list-group">
-                                                        <div class="post">
-                                                            <a href="{{ route('page.edit', $page->id) }}"
-                                                               class="list-group-item list-group-item-action">{{ $page->title }}
-                                                                édité le {{ $page->updated_at }}</a>
+                                                @php
+                                                    $pages  = Auth::user()->pages
+                                                @endphp
+                                                @for($i = 0; $i < $limite; $i++)
+                                                    @if(isset($pages[$i]))
+                                                        <div class="list-group">
+                                                            <div class="post">
+                                                                <a href="{{ route('page.edit', $pages[$i]->id) }}"
+                                                                   class="list-group-item list-group-item-action">{{ $pages[$i]->title }}
+                                                                    édité le {{ $pages[$i]->updated_at }}</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                @endforeach
+                                                    @endif
+                                                @endfor
                                             @else
                                                 <p>Aucun élément modifié dernièrement.</p>
                                             @endif

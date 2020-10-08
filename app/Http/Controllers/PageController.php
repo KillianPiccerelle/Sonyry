@@ -145,6 +145,23 @@ class PageController extends Controller
 
             $page->delete();
 
+            if (count($page->blocs) > 0){
+                foreach ($page->blocs as $bloc){
+                    $bloc->delete();
+                }
+            }
+
+            if (count($page->sharesGroup) > 0){
+                foreach ($page->sharesGroup as $share){
+                    if (count($share->sharesAuth) > 0){
+                        foreach ($share->sharesAuth as $policies) {
+                            $policies->delete();
+                        }
+                    }
+                    $share->delete();
+                }
+            }
+
             return redirect()->route('page.index')->with('success', 'La page à bien été supprimée');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas supprimer cette page');
