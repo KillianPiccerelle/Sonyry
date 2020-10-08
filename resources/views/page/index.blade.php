@@ -3,6 +3,43 @@
 
 @section('content')
 
+    <style>
+        #myInput {
+            background-color: azure;
+            font-weight: bold;
+            color: black;
+
+        }
+
+        #card {
+            border: solid black  1px;
+            height: 410px;
+        }
+        #card-header {
+            border: #303a40;
+        }
+        #img {
+            border-radius: 5px;
+            width: 100%;
+            height: 205px;
+            border: solid black 1px;
+            max-height: 80%;
+
+        }
+        #title {
+            color: floralwhite;
+        }
+        #card-body {
+            background-color: lightgray;
+            height: 100%;
+        }
+        #card-footer {
+            color: floralwhite;
+        }
+
+
+    </style>
+
     <div class="container text-center">
         <div class="text-center">
             <h1 style="color: white">Liste de mes pages :</h1>
@@ -81,41 +118,6 @@
             });
         });
     </script>
-    <style>
-        #myInput {
-            background-color: lightgray;
-            font-weight: bold;
-            color: black;
 
-        }
-
-        #card {
-            border: solid black  1px;
-            height: 410px;
-        }
-        #card-header {
-            border: #303a40;
-        }
-        #img {
-            border-radius: 5px;
-            width: 100%;
-            height: 205px;
-            border: solid black 1px;
-            max-height: 80%;
-
-        }
-        #title {
-            color: floralwhite;
-        }
-        #card-body {
-            background-color: lightgray;
-            height: 100%;
-        }
-        #card-footer {
-            color: floralwhite;
-        }
-
-
-    </style>
 
 @stop

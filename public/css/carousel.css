@@ -1,5 +1,4 @@
 
-
 body, html {
     margin: 0;
     padding: 0;
@@ -28,11 +27,11 @@ body {
     background-color: #ffffff;
 
     transition: transform 0.3s;
-    transform: translate3d(0,-1px,0);
+    transform: translate3d(0, -1px, 0);
 }
 
 .item:hover {
-    transform: translate3d(0,-10px,0);
+    transform: translate3d(0, -10px, 0);
 }
 
 .item img {
@@ -74,7 +73,7 @@ CAROUSEL
 
 .carousel__container {
     transition: transform 0.3s;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 }
 
 .carousel__container::after {
@@ -103,28 +102,26 @@ CAROUSEL
     transition: transform 0.3s, opacity 0.3s;
 
 
-
 }
 
 
-
-.carousel__next:hover, .carousel__prev:hover{
+.carousel__next:hover, .carousel__prev:hover {
     transform: scale(1.2);
 
 
 }
+
 .carousel__prev {
-    background-image: url(svg/left.svg) ;
+    background-image: url(svg/left.svg);
     right: auto;
     left: 20px;
 }
 
-.carousel__next--hidden, .carousel__prev--hidden{
+.carousel__next--hidden, .carousel__prev--hidden {
     opacity: 0;
 
 
 }
-
 
 
 .carousel__pagination {
@@ -146,7 +143,7 @@ CAROUSEL
     transition: 0.3s;
 }
 
-.carousel__pagination__button--active, .carousel__pagination__button:hover{
+.carousel__pagination__button--active, .carousel__pagination__button:hover {
     transform: scale(1.4);
 
 }
@@ -154,3 +151,64 @@ CAROUSEL
 p {
     color: black;
 }
+
+#logo {
+    position: relative;
+    display: block;
+    margin: auto;
+    animation: fill 0.5s ease forwards 3.5s;
+}
+
+#logo path:nth-child(1) {
+    stroke-dasharray: 246;
+    stroke-dashoffset: 246;
+    animation: line-anim 1s ease forwards;
+}
+
+#logo path:nth-child(2) {
+    stroke-dasharray: 282;
+    stroke-dashoffset: 282;
+    animation: line-anim 1.3s ease forwards 0.3s;
+}
+
+#logo path:nth-child(3) {
+    stroke-dasharray: 302;
+    stroke-dashoffset: 302;
+    animation: line-anim 1.5s ease forwards 0.6s ;
+}
+
+#logo path:nth-child(4) {
+    stroke-dasharray: 186;
+    stroke-dashoffset: 186;
+    animation: line-anim 1.8s ease forwards 0.9s;
+}
+
+#logo path:nth-child(5) {
+    stroke-dasharray: 274;
+    stroke-dashoffset: 274;
+    animation: line-anim 2.1s ease forwards 1.2s;
+}
+
+#logo path:nth-child(6) {
+    stroke-dasharray: 186;
+    stroke-dashoffset: 186;
+    animation: line-anim 2.1s ease forwards 1.5s;
+}
+
+@keyframes line-anim{
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fill {
+
+    from {
+        fill: transparent;
+    }
+    to {
+        fill: white;
+    }
+}
+
