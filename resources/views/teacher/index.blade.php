@@ -14,7 +14,6 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
                     <th scope="col">Pages</th>
-                    <th scope="col">Collections</th>
                 </tr>
                 </thead>
                 <tbody>
