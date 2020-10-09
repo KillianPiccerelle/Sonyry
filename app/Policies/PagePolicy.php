@@ -3,8 +3,11 @@
 namespace App\Policies;
 
 use App\Page;
+use App\Role;
+use App\RoleUser;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class PagePolicy
 {
@@ -41,7 +44,11 @@ class PagePolicy
      */
     public function view(User $user, Page $page)
     {
+        $role_user = RoleUser::where('user_id', $user->id)->get();
+        $roleProf = Role::where('libelle', 'Professeur')->get();
         if ($user->id == $page->user_id){
+            return true;
+        }elseif(Auth::user()->id == $role_user[0]->user_id && $roleProf[0]->id){
             return true;
         }
         else{

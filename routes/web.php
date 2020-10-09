@@ -135,6 +135,7 @@ Route::middleware('auth')->group(function(){
      * TeacherSide
      */
     Route::get('teacher', 'TeacherController@index')->name('teacher.index');
+    Route::get('teacher/{id}/pages', 'TeacherController@viewPagesUser')->name('teacher.viewPages');
 
 });
 

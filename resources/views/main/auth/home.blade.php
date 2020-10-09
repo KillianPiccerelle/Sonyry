@@ -3,7 +3,7 @@
 @section('content')
 
     @php
-        $limite =2;
+        $limite =7;
     @endphp
 
     <style>
