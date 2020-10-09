@@ -77,12 +77,11 @@ if (count($inboxes) >0)
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('group.index') }}">{{ __('Mes groupes')}}</a>
-
                     </div>
+                </li>
                 @php
                     $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
-
-                    @endphp
+                @endphp
                 @if($user[0]->role_id == 2)
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('teacher.index')}}">Espace professeur</a>
@@ -91,8 +90,7 @@ if (count($inboxes) >0)
                     <li class="nav-item" style="display: none">
                         <a class="nav-link" href="">Espace professeur</a>
                     </li>
-                    @endif
-                </li>
+                @endif
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
