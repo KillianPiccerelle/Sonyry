@@ -4,7 +4,7 @@
 @section('content')
 
     <div></div>
-    <h1 style="color: white; ">Liste des étudiants</h1>
+    <h1 style="color: white; text-align: center ">Liste des étudiants</h1>
 
     <div class="row">
         <div class="col-sm-1 border-right">
