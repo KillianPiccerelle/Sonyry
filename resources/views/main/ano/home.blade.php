@@ -5,7 +5,7 @@
     <link href="/css/signin.css" rel="stylesheet">
 
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-top: 50px">
 
         <svg id="logo" width="278" height="56" viewBox="0 0 278 56" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -219,7 +219,7 @@
 
                 this.moveCallbacks.forEach(cb => cb(0))
                 this.onWindowResize()
-                window.addEventListener('resize',this.onWindowResize.bind(this))
+                window.addEventListener('resize', this.onWindowResize.bind(this))
 
 
             }
@@ -321,14 +321,14 @@
             }
 
             /**
-             * @param {moveCallback} cb
+             * @param {function(*): void} cb
              * */
             onMove(cb) {
                 this.moveCallbacks.push(cb)
 
             }
 
-            onWindowResize () {
+            onWindowResize() {
                 let mobile = window.innerWidth < 800
                 if (mobile !== this.isMobile) {
                     this.isMobile = mobile
@@ -370,37 +370,13 @@
 
         let onReady = function () {
 
-            var Largeur = $(window).width();
+            new Carousel(document.querySelector('#carousel1'), {
+                slidesVisible: 3,
+                slidesToScroll: 3,
+                loop: true,
+                pagination: true
 
-            if (Largeur > 1095) {
-                new Carousel(document.querySelector('#carousel1'), {
-                    slidesVisible: 3,
-                    slidesToScroll: 3,
-                    loop: false,
-                    pagination: false
-
-                })
-                if (Largeur < 1095) {
-                    new Carousel(document.querySelector('#carousel1'), {
-                        slidesVisible: 2,
-                        slidesToScroll: 3,
-                        loop: false,
-                        pagination: false
-
-                    })
-                    if (Largeur < 420) {
-                        new Carousel(document.querySelector('#carousel1'), {
-                            slidesVisible: 1,
-                            slidesToScroll: 1,
-                            loop: false,
-                            pagination: false
-
-                        })
-                    }
-
-
-                }
-            }
+            })
             if (document.readyState !== 'loading') {
 
             }

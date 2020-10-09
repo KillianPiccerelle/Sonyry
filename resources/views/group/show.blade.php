@@ -6,17 +6,17 @@
     <div class="col-sm-1 border-right">
         @include('incs.auth.group.navbar')
     </div>
-    <div class="container text-center">
+    <div class="container text-center" style="color: white">
         <h1>{{ $group->name }}</h1>
         <p>Crée le : {{ $group->created_at->format('d/m/y') }}</p>
         <hr>
         <h5 class="text-center">Membre(s) du groupe :</h5>
         <br>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#invite">
+        <button style="float: right; margin-bottom: 15px" class="btn btn-primary" data-toggle="modal" data-target="#invite">
             Inviter un utilisateur
         </button>
 
-        <table class="table">
+        <table class="table" style="color: white">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">Prénom</th>
@@ -51,13 +51,13 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Exclure du groupe</h5>
+                                            <h5 style="color: black" class="modal-title">Exclure du groupe</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Voulez-vous vraiment exclure <b>{{ $member->user->name }}</b> du groupe <b>{{ $group->name }}</b> ?</p>
+                                            <p style="color: black">Voulez-vous vraiment exclure <b>{{ $member->user->name }}</b> du groupe <b>{{ $group->name }}</b> ?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{ route('group.kick', [

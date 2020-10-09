@@ -44,7 +44,7 @@
                 @endforeach
             @else
                 <div class="container text-center">
-                    <h5><i>Vous ne possédez pas de collections, veuillez en créer une : </i></h5><a href="{{ route('collection.create') }}" class="btn btn-outline-dark"> Ici </a>
+                    <h5><i  style="color: white">Vous ne possédez pas de collections, veuillez en créer une : </i></h5><a href="{{ route('collection.create') }}" class="btn btn-info"> Ici </a>
                 </div>
             @endif
         </div>

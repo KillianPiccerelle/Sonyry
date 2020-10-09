@@ -294,9 +294,7 @@ class GroupController extends Controller
         if (Auth::user()->can('view', $group) == false) {
             return redirect()->route('home')->with('danger', 'Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');
         }
-
-        return redirect()->route('home')->with('danger', 'Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');
-
+        return view('group.share.share',['group'=>$group]);
     }
 
     public function invite($id, $user_id)
