@@ -19,8 +19,8 @@
                 <tbody>
                 @foreach($users as $user)
                     <tr>
-                        <th scope="row">{{ $user->name }}</th>
-                        <th scope="row">{{ $user->firstName }}</th>
+                        <th scope="row">{{ $user->user->name }}</th>
+                        <th scope="row">{{ $user->user->firstName }}</th>
                         <th scope="row"><a href="{{route('teacher.viewPages', $user->id)}}" class="btn btn-primary">Consulter</a></th>
                     </tr>
                 @endforeach

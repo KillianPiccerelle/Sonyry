@@ -82,13 +82,13 @@ if (count($inboxes) >0)
                 @php
                     $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
                 @endphp
-                @if($user[0]->role_id == 2)
+                @if($user[0]->role_id == 2 or $user[0]->role_id == 4)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('teacher.index')}}">Espace professeur</a>
+                        <a class="nav-link" href="{{route('teacher.index')}}">Espace professeur et jury</a>
                     </li>
                 @else
                     <li class="nav-item" style="display: none">
-                        <a class="nav-link" href="">Espace professeur</a>
+                        <a class="nav-link" href="">Espace professeur et Jury</a>
                     </li>
                 @endif
             </ul>

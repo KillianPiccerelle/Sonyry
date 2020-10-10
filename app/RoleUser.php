@@ -8,11 +8,11 @@ class RoleUser extends Model
 {
 
     public function user(){
-        return $this->hasMany('App\User');
+        return $this->belongsTo('App\User');
     }
 
     public function role(){
-        return $this->hasMany('App\Role');
+        return $this->belongsTo('App\Role');
     }
 
 }

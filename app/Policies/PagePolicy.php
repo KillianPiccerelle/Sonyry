@@ -46,9 +46,12 @@ class PagePolicy
     {
         $role_user = RoleUser::where('user_id', $user->id)->get();
         $roleProf = Role::where('libelle', 'Professeur')->get();
+        $roleJury = Role::where('libelle', 'Jury')->get();
         if ($user->id == $page->user_id){
             return true;
         }elseif(Auth::user()->id == $role_user[0]->user_id && $roleProf[0]->id){
+            return true;
+        }elseif(Auth::user()->id == $role_user[0]->user_id && $roleJury[0]->id){
             return true;
         }
         else{
