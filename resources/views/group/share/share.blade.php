@@ -39,7 +39,7 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     @if(Auth::user()->can('view',$page->page))
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="{{route('page.show',$page->id)}}">
                                                         Consulter
                                                     </a>
                                                     @endif

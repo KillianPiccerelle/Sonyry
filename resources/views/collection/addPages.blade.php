@@ -139,7 +139,7 @@
                     <p>Pour supprimer une page de la collection veuillez cocher la page et cliquer sur le bouton <i>supprimer</i>.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </div>
             </div>
         </div>

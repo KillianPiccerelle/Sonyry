@@ -94,7 +94,12 @@
                                         </div>
                                     </div>
                                     <div class="message-content">
-                                        <p>Bonjour, merci à vous de nous avoir rejoins</p>
+                                        <p>Bonjour, merci à vous de nous avoir rejoint, nous espérons que vous apprécierez
+                                            le service mis en place pour la création de votre portfolio en ligne.
+                                            Pour toutes détections d'éventuels bugs ou demandes complémentaires veuillez contacter
+                                            M. Martineau, M. Piccerelle, M. Alexandre ou à l'administrateur.
+                                            Nous vous souhaitons une agréable continuation.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
