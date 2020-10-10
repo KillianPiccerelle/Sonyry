@@ -8,15 +8,19 @@
                 </div>
                 <div class="card-body">
                     @if($bloc->type == 'text')
-                        <textarea class="form-control" id="content" onchange="updateBlockText(this.value,{{ $bloc->id }})">{{ $bloc->content }}</textarea>
+                        <textarea class="form-control" id="content"
+                                  onchange="updateBlockText(this.value,{{ $bloc->id }})">{{ $bloc->content }}</textarea>
                     @endif
 
                     @if($bloc->type == 'script')
-                        <textarea class="form-control" id="content" onchange="updateBlockScript(this.value,{{ $bloc->id }})">{{ $bloc->content }}</textarea>
+                        <textarea class="form-control" id="content"
+                                  onchange="updateBlockScript(this.value,{{ $bloc->id }})">{{ $bloc->content }}</textarea>
                     @endif
 
                     @if($bloc->type == 'image')
-                        <img class="text-center" id="content" src="/storage/bloc/{{ $bloc->page_id }}/image/{{ $bloc->content }}" onclick="openModalImage(this,'{{$bloc->title}}')" />
+                        <img class="text-center" id="content"
+                             src="/storage/bloc/{{ $bloc->page_id }}/image/{{ $bloc->content }}"
+                             onclick="openModalImage(this,'{{$bloc->title}}')"/>
                     @endif
 
                     @if($bloc->type == 'video')
@@ -29,10 +33,10 @@
             <br>
         </div>
     @empty
-    <div class="container text-center">
-        <br>
-        <h5 style="color: white "><i>Vous n'avez pas de bloc dans cette page veuillez en créer un !</i></h5>
-    </div>
+        <div class="container text-center">
+            <br>
+            <h5 style="color: white "><i>Vous n'avez pas de bloc dans cette page veuillez en créer un !</i></h5>
+        </div>
     @endforelse
 </div>
 

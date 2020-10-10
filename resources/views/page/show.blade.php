@@ -23,6 +23,7 @@
             grid-template-rows: max-content 200px 1fr;
             max-height: 300px;
             width: 100%;
+            border: solid black 1px;
         }
 
         .card img {
@@ -31,23 +32,42 @@
             height: 100%;
         }
 
+        #card-header {
+            border: #303a40;
+            background-color: lightgray;
+            text-align: center;
+        }
+
 
     </style>
 
     <div class="container text-center">
+        <div class="text-center">
+            <h5 style="color: white;">Titre de la page : <b id="title">{{ $page->title }}</b></h5>
+        </div>
+        <div>
+            <p style="color: white;">Description :</p>
+            <p style="color: white;" id="description">{{ $page->description }}</p>
+        </div>
+        <br>
+    </div>
 
-        <div class="cards">
-            @if(count($page->blocs) > 0)
+    <div class="container text-center">
+
+
+        @if(count($page->blocs) > 0)
+            <div class="cards">
                 @foreach($page->blocs as $bloc)
+
                     @if($bloc->type == 'text')
                         <div class="card">
                             <div id="card-header">
                                 <h5 class="text-center-center">{{ $bloc->title }}</h5>
                             </div>
-                            <div class="card-body">
-                                <textarea class="form-control" disabled
-                                          onchange="updateBlockText(this.value,{{ $bloc->id }})">{{ $bloc->content }}</textarea>
-                            </div>
+
+                            <textarea class="form-control" style="height: 300px" disabled
+                                      onchange="updateBlockText(this.value,{{ $bloc->id }})">{{ $bloc->content }}</textarea>
+
                         </div>
 
 
@@ -57,8 +77,9 @@
                             <div id="card-header">
                                 <h5 class="text-center-center">{{ $bloc->title }}</h5>
                             </div>
-                            <textarea class="form-control" disabled
+                            <textarea class="form-control" style="height: 300px" disabled
                                       onchange="updateBlockScript(this.value,{{ $bloc->id }})">{{ $bloc->content }}</textarea>
+
                         </div>
                     @endif
                     @if($bloc->type == 'image')
@@ -85,23 +106,19 @@
                     @endif
                 @endforeach
 
-                <div id="card-footer"
-                     style="background: linear-gradient(70deg, black, lightgrey);">
-                    <small>Dernière modification : 09/10/20 à 19h27</small>
-                </div>
-        </div>
-        <br>
 
+            </div>
+            <br>
+
+
+        @else
+            <div class="container text-center">
+                <br>
+                <h5 style="color: white "><i>Vous n'avez pas de bloc dans cette page veuillez en créer un
+                        !</i></h5>
+            </div>
+        @endif
     </div>
 
 
-
-    @else
-        <div class="text-center">
-            <br>
-            <h5 style="color: white "><i>Vous n'avez pas de bloc dans cette page veuillez en créer un
-                    !</i></h5>
-        </div>
-        @endif
-        </div>
 @endsection

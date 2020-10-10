@@ -10,8 +10,8 @@
             <h5 style="color: white;">Titre de la page : <b id="title">{{ $page->title }}</b></h5>
         </div>
         <div>
-            <p>Description :</p>
-            <p id="description">{{ $page->description }}</p>
+            <p style="color: white;">Description :</p>
+            <p  style="color: white;" id="description">{{ $page->description }}</p>
         </div>
         <br>
 
