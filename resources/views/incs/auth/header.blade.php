@@ -1,29 +1,35 @@
 @php
 
-/** Récup les notif */
-    $inboxes = \App\Inbox::where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->get();
-    $count = 0;
+    /** Récup les notif */
+        $inboxes = \App\Inbox::where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->get();
+        $count = 0;
 
-    /** si y'a des notifs */
-if (count($inboxes) >0)
-{
-        /** je test si la notif est à la corbeille, si c'est le cas je l'enlève de la liste */
-    foreach ($inboxes as $inbox)
+        /** si y'a des notifs */
+    if (count($inboxes) >0)
     {
-        if ($inbox->notification->trash === 1){
-            unset($inboxes[$count]);
+            /** je test si la notif est à la corbeille, si c'est le cas je l'enlève de la liste */
+        foreach ($inboxes as $inbox)
+        {
+            if ($inbox->notification->trash === 1){
+                unset($inboxes[$count]);
+            }
+            $count++;
         }
-        $count++;
     }
-}
 
 
 @endphp
 
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm container-fluid" >
+<style>
+
+</style>
+
+<nav class="navbar navbar-expand-md navbar-light  shadow-sm container-fluid"
+     style="fill: transparent">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="https://media.discordapp.net/attachments/718040099618685009/718041074169413775/unknown.png" alt="" width="100%" height="50">
+            <img src="https://media.discordapp.net/attachments/718040099618685009/718041074169413775/unknown.png" alt=""
+                 width="100%" height="50">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -34,7 +40,7 @@ if (count($inboxes) >0)
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style="color: white"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Créer
                     </a>
@@ -49,7 +55,7 @@ if (count($inboxes) >0)
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style="color: white"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Modifier
                     </a>
@@ -62,7 +68,7 @@ if (count($inboxes) >0)
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style="color: white"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Partager
                     </a>
@@ -71,7 +77,7 @@ if (count($inboxes) >0)
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style="color: white"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Collaborer
                     </a>
@@ -84,7 +90,7 @@ if (count($inboxes) >0)
                 @endphp
                 @if($user[0]->role_id == 2 or $user[0]->role_id == 4)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('teacher.index')}}">Espace professeur et jury</a>
+                        <a class="nav-link" style="text-decoration: none; color: #ffffff" href="{{route('teacher.index')}}">Espace professeur et jury</a>
                     </li>
                 @else
                     <li class="nav-item" style="display: none">
@@ -97,7 +103,9 @@ if (count($inboxes) >0)
 
                 <li class="nav-item">
                     <a type="button" href="{{ route('inbox.index') }}" class="btn btn-primary">
-                        Notifications <span class="badge badge-light">@if(count($inboxes) < 10) {{ count($inboxes) }} @else 9+ @endif</span>
+                        Notifications <span
+                            class="badge badge-light">@if(count($inboxes) < 10) {{ count($inboxes) }} @else
+                                9+ @endif</span>
                     </a>
                 </li>
 
@@ -113,11 +121,6 @@ if (count($inboxes) >0)
                     @endif
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('profil.index') }}">
@@ -147,7 +150,13 @@ if (count($inboxes) >0)
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
+
                         </div>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           style="color: white"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
                     </li>
                 @endguest
             </ul>

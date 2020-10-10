@@ -296,9 +296,7 @@ class GroupController extends Controller
                 'group' => $group
             ]);
         }
-
-        return redirect()->route('home')->with('danger', 'Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');
-
+        return view('group.share.share',['group'=>$group]);
     }
 
     public function invite($id, $user_id)

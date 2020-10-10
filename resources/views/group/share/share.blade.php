@@ -19,6 +19,7 @@
                         <div class="row">
                             @foreach($directory->user->sharesGroups as $page)
                                 @if($page->group_id === $group->id)
+                                    @if($page->page != null)
                                 <div class="col-md-3">
                                     <div class="card text-center">
                                         <div class="card-header">
@@ -43,28 +44,42 @@
                                                         Consulter
                                                     </a>
                                                     @endif
+                                                </div>
+                                                <div class="card-footer text-center">
 
-                                                    @if(Auth::user()->can('update',$page->page))
-                                                            <a class="dropdown-item" href="{{ route('page.edit', $page->page->id) }}">
-                                                                Editer
-                                                            </a>
-                                                    @endif
+                                                    <div class="btn-group dropup">
+                                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Actions
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            @if(Auth::user()->can('view',$page->page))
+                                                                <a class="dropdown-item" href="#">
+                                                                    Consulter
+                                                                </a>
+                                                            @endif
 
-                                                        @if(Auth::user()->can('access',$page->page))
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="{{ route('policies.edit', [
+                                                            @if(Auth::user()->can('update',$page->page))
+                                                                <a class="dropdown-item" href="{{ route('page.edit', $page->page->id) }}">
+                                                                    Editer
+                                                                </a>
+                                                            @endif
+
+                                                            @if(Auth::user()->can('access',$page->page))
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="{{ route('policies.edit', [
                                                         'page'=>$page->page,
                                                         'id'=>$group->id
                                                          ]) }}" >
-                                                                Autorisations de la page
-                                                            </a>
-                                                    @endif
+                                                                    Autorisations de la page
+                                                                </a>
+                                                            @endif
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <br>
                                         </div>
-                                    </div>
-                                    <br>
-                                </div>
+                                    @endif
                                 @endif
                             @endforeach
                         </div>

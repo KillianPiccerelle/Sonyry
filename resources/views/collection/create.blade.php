@@ -10,12 +10,12 @@
                       enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="title">Nom de la collection</label>
+                        <label for="title" style="color: white">Nom de la collection</label>
                         <input type="text" class="form-control" id="title" name="name"
                                placeholder="Nom de la collection" required>
                     </div>
                     <div class="form-group">
-                        <label for="description">Description de la collection</label>
+                        <label for="description" style="color: white">Description de la collection</label>
                         <textarea type="textarea" class="form-control" id="description" name="description"
                                   placeholder="Description de la collection" required></textarea>
                     </div>

@@ -1,7 +1,7 @@
 <!-- Header Section Begin -->
 <header class="header-section">
     <div class="container-fluid">
-        <div class="nav-menu">
+        <div class="nav-menu" >
             @if (Auth::check())
                 @include('incs.auth.header')
             @else
