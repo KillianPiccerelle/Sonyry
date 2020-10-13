@@ -28,13 +28,7 @@ class HomeController extends Controller
     {
         //$user = Auth::user()->id;
         if(Auth::check()){
-            $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
-            $teacher =$user[0]->role_id == 2;
-            $jury = $user[0]->role_id == 4;
-            return view('main.auth.home', [
-                'teacher'=>$teacher,
-                'jury'=>$jury
-            ]);
+            return view('main.auth.home');
         }else{
             return view('main.ano.home');
         }
