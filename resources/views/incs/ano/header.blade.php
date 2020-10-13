@@ -19,9 +19,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" style="color: white" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" style="color: white" href="{{ route('register') }}">{{ __("S'enregistrer") }}</a>
-                </li>
             </ul>
         </div>
     </div>

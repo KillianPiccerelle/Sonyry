@@ -85,10 +85,7 @@
                         <a class="dropdown-item" href="{{ route('group.index') }}">{{ __('Mes groupes')}}</a>
                     </div>
                 </li>
-                @php
-                    $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
-                @endphp
-                @if($user[0]->role_id == 2 or $user[0]->role_id == 4)
+                @if($teacher or $jury)
                     <li class="nav-item">
                         <a class="nav-link" style="text-decoration: none; color: #ffffff" href="{{route('teacher.index')}}">Espace professeur et jury</a>
                     </li>

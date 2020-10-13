@@ -16,23 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    if(Auth::check()){
-        return view('main.auth.home');
-    }else{
-        return view('main.ano.home');
-    }
+Route::get('/', 'HomeController@index')->name('home');
 
-})->name('home');
+//Can't register
+Auth::routes(['register' => false]);
 
-Auth::routes();
-
-Route::get('/logout', function() {
-    auth()->logout();
-    Session()->flush();
-
-    return Redirect::to('/');
-});
+Route::get('/logout', 'HomeController@logout');
 
 
 /**

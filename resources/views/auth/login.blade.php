@@ -39,9 +39,6 @@
                     <button type="submit" class="btn btn-lg btn-primary btn-block">
                         {{ __('Me connecter') }}
                     </button>
-                    <a class="ml-3 btn btn-link" href="{{ route('register') }}">
-                        Pas encore inscrit ?
-                    </a>
                     <a class="ml-3 btn btn-link" href="{{ 'password/reset' }}">
                         Mot de passe oublié ?
                     </a>
