@@ -25,9 +25,8 @@ body {
 .notification-wrapper .sidebar .nav {
     width: 100%;
     float: right;
-    height: 100%;
+    height: auto;
     border: none;
-    position: absolute;
 }
 
 .notification-wrapper .sidebar .nav .nav-item{
@@ -130,8 +129,4 @@ body {
 
 .notification-wrapper .notification-body .message-content {
     padding: 50px 15px;
-}
-
-p {
-    color: black;
 }
