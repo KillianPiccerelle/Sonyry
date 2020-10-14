@@ -1,8 +1,3 @@
-@php
-
-
-    @endphp
-
 <!-- Header Section Begin -->
 <header class="header-section">
     <div class="container-fluid">
