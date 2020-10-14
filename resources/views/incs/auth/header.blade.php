@@ -18,6 +18,7 @@
     }
 
 
+    /** Take the role of user and check if is 2 or 4 so professeur or jury */
     $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
     $teacher =$user[0]->role_id == 2;
     $jury = $user[0]->role_id == 4;
