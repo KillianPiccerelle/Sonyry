@@ -23,6 +23,8 @@
 
 
     <link rel="stylesheet" href="public/css/signin.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <title>{{ $title ?? env('APP_NAME')}}</title>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -41,6 +43,10 @@
 
     <link href="/css/Background.css" rel="stylesheet">
 
+    <!-- Extra-js -->
+    @yield('extra-js')
+
+
     @include('incs.header')
 </head>
 
@@ -57,10 +63,12 @@
 
 </body>
 
-<footer class="footerCopyright">
-    <small>Copyright 2020 ©
-        Sonyry</small>
-</footer>
+
+    <div class="footerCopyright" style="margin-top:20px">
+        <small>Copyright 2020 ©
+            Sonyry</small>
+    </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

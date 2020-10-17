@@ -137,6 +137,22 @@ Route::middleware('auth')->group(function(){
     Route::get('teacher', 'TeacherController@index')->name('teacher.index');
     Route::get('teacher/{id}/pages', 'TeacherController@viewPagesUser')->name('teacher.viewPages');
 
+    /**
+     * Forum topics
+     */
+    Route::get('topics', 'TopicController@index')->name('topics.index');
+    Route::get('/topics/create', 'TopicController@create')->name('topics.create');
+    Route::post('/topics/store', 'TopicController@store')->name('topics.store');
+    Route::get('/topics/{id}', 'TopicController@show')->name('topics.show');
+    Route::patch('/topics/{id}/update', 'TopicController@update')->name('topics.update');
+    Route::get('/topics/{id}/edit', 'TopicController@edit')->name('topics.edit');
+    Route::get('/topics/{id}/destroy', 'TopicController@destroy')->name('topics.destroy');
+
+    /**
+     * Forum comments
+     */
+    Route::post('/comments/{id}/store', 'CommentController@store')->name('comments.store');
+    Route::post('/commentReply/{id}/storeCommentReply', 'CommentController@storeCommentReply')->name('comments.storeReply');
 });
 
 

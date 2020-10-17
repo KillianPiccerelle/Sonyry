@@ -83,20 +83,23 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('group.index') }}">{{ __('Mes groupes')}}</a>
+                        <a class="dropdown-item" href="{{ route('topics.index') }}">{{ __('Forum')}}</a>
                     </div>
                 </li>
-                @php
-                    $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
-                @endphp
-                @if($user[0]->role_id == 2 or $user[0]->role_id == 4)
-                    <li class="nav-item">
-                        <a class="nav-link" style="text-decoration: none; color: #ffffff" href="{{route('teacher.index')}}">Espace professeur et jury</a>
+                @if(Request::is('topics*'))
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style="color: white"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Forum
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('topics.create') }}">{{ __('Créer un topic')}}</a>
+                        </div>
                     </li>
-                @else
-                    <li class="nav-item" style="display: none">
-                        <a class="nav-link" href="">Espace professeur et Jury</a>
-                    </li>
+
                 @endif
+
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
