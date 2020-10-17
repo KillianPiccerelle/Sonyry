@@ -320,31 +320,31 @@ class GroupController extends Controller
         return redirect()->route('group.show')->with('danger', 'Vous n\'avez pas les droits pour inviter une personne dans ce groupe.');
     }
 
-    public function accept($id)
+    public function accept($id, $notificationId)
     {
-
         $group = Group::find($id);
-        $userGroups = UserGroup::all();
+        $userGroup = UserGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->get();
 
+        $notification = Notification::find($notificationId);
+        $inbox = Inbox::where('notification_id', $notificationId)->get();
         // Retrieves invitations with a user_id corresponding to the connected person and the group in Question
-        $invitation = InvitationGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->get();
+        $invitationGroup = InvitationGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->get();
 
-        foreach ($userGroups as $userGroup) {
-            // Test if user have already join the group
-            if ($userGroup->user_id == Auth::user()->id) {
-                return redirect()->route('inbox.index', $group->id)->with('danger', 'Vous ne pouvez pas rejoindre ce groupe car vous l\'avez déjà rejoins');
-            } else {
-                // User joining the group
-                $userGroup = new UserGroup();
-                $userGroup->user_id = Auth::user()->id;
-                $userGroup->group_id = $group->id;
-                $userGroup->save();
-                // Delete the invitationGroup for clean the bdd and so as not to pollute
-                $invitation[0]->delete();
+        if (count($userGroup) == 0 ){
 
-                }
-            }
-        return redirect()->route('inbox.index', $group->id)->with('success', 'Vous avez rejoins le groupe');
+            // User joining the group
+            $newUserGroup = new UserGroup();
+            $newUserGroup->user_id = Auth::user()->id;
+            $newUserGroup->group_id = $group->id;
+            $newUserGroup->save();
+            // Delete the invitationGroup for clean the bdd and so as not to pollute
+            $invitationGroup[0]->delete();
+            $notification->delete();
+            $inbox[0]->delete();
+
+            return redirect()->route('inbox.index', $group->id)->with('success', 'Vous avez rejoins le groupe');
+        }
+        return redirect()->route('inbox.index', $group->id)->with('danger', 'Vous ne pouvez pas rejoindre ce groupe car vous l\'avez déjà rejoins');
     }
 
 }

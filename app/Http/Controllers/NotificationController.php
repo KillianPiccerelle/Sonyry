@@ -85,8 +85,13 @@ class NotificationController extends Controller
         $notification = new Notification();
         $notification->title = $title;
         $notification->paragraph = $paragraph;
-        $notification->link = route('group.accept', $group->id) ;
         $notification->save();
+
+        $updateNotification = Notification::latest()->first();
+        $updateNotification->link = route('group.accept', [
+            'id' => $group->id,
+            'notification' => $updateNotification->id ]);
+        $updateNotification->save();
 
         /** Generation of the notification link with the user in question */
         $inbox = New Inbox();

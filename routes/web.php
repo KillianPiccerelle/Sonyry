@@ -97,7 +97,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/group/{id}/destroy', 'GroupController@destroy')->name('group.destroy');
     Route::get('/group/{id}/kick/{user_id}', 'GroupController@kick')->name('group.kick');
     Route::get('/group/{id}/invite/{user_id}', 'GroupController@invite')->name('group.invite');
-    Route::get('/group/{id}/accept', 'GroupController@accept')->name('group.accept');
+    Route::get('/group/{id}/accept/{notification}', 'GroupController@accept')->name('group.accept');
 
     /**
      * Share
