@@ -317,7 +317,7 @@ class GroupController extends Controller
 
             return redirect(route('group.show', $group->id))->with('success', 'Votre invitation a était envoyée avec succès');
         }
-        return redirect()->route('group.show')->with('danger', 'Vous n\'avez pas les droits pour inviter une personne dans ce groupe.');
+        return redirect()->route('group.show', $group->id)->with('danger', 'Vous n\'avez pas les droits pour inviter une personne dans ce groupe.');
     }
 
     public function accept($id, $notificationId)

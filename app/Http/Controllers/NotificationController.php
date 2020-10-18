@@ -87,6 +87,7 @@ class NotificationController extends Controller
         $notification->paragraph = $paragraph;
         $notification->save();
 
+        // Take the last notification
         $updateNotification = Notification::latest()->first();
         $updateNotification->link = route('group.accept', [
             'id' => $group->id,
