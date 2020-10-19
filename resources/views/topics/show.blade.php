@@ -23,15 +23,34 @@
                 @if($topic->user_id == Auth::user()->id)
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <a href="{{ route('topics.edit', $topic->id) }}" class="btn btn-warning">Editer ce topic</a>
-                        <form action="{{ route('topics.destroy',$topic->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
-                        </form>
+                        <button type="submit" data-target="#staticBackdrop" data-toggle="modal" class="btn btn-danger">Supprimer</button>
+
                     </div>
                 @endif
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title" id="staticBackdropLabel">Supprimer un Topic</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Voulez vous vraiment supprimer ce topic ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <a href="{{ route('topics.destroy',$topic->id) }}" type="button" class="btn btn-danger">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <hr>
         <h5 style="color: white">Commentaires</h5>
         @forelse($topic->comments as $comment)

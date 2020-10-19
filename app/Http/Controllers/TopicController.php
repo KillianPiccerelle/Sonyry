@@ -23,7 +23,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::latest('created_at')->simplepaginate(5);
+        $topics = Topic::latest('created_at')->simplepaginate(8);
         return view('topics.index', [
             'topics' => $topics
         ]);
@@ -51,16 +51,11 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $request->validate([
             'title' => 'required|min:5',
             'content' => 'required|min:10',
-            'g-recaptcha-response' => 'required|captcha',
-            'custom' => [
-                'g-recaptcha-response' => [
-                    'required' => 'Prouvez nous que vous n\'êtes pas un robot.',
-                    'captcha' => 'Erreur de Captcha ! Recommencez ou contactez un administrateur du site.',
-                ],
-            ],
         ]);
 
         $topic = auth()->user()->topics()->create([
@@ -138,8 +133,21 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
+
         $topic = Topic::find($id);
         if (Auth::user()->can('delete', $topic)) {
+
+            if (count($topic->comments) > 0) {
+                foreach ($topic->comments as $comment) {
+                    if(count($comment->comments) > 0 ) {
+                        foreach ($comment->comments as $reply) {
+                            $reply->delete();
+                        }
+                    }
+                    $comment->delete();
+                }
+            }
+
             $topic->delete();
             return redirect()->route('topics.index');
         }

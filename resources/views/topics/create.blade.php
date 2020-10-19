@@ -6,6 +6,8 @@
 
 @section('content')
 
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
     <div class="container">
         <h1 style="color: white">Créer un topic</h1>
         <hr>
@@ -27,14 +29,6 @@
                 @error('content')
                 <div class="invalid-feedback">{{ $errors->first('content') }}</div>
                 @enderror
-            </div>
-            <div id="capatcha" >
-                {!! NoCaptcha::display() !!}
-                @if ($errors->has('g-recaptcha-response'))
-                    <span class="help-block">
-                        <strong><p style="color: white">Prouvez que vous n'êtes pas un Robot !</p></strong>
-                    </span>
-                @endif
             </div>
             <button class="btn btn-primary" type="submit">Créer mon topic</button>
         </form>
