@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
-@section('extra-js')
-    {!! NoCaptcha::renderJs() !!}
-@endsection
-
 @section('content')
-
-    <script src="https://www.google.com/recaptcha/api.js"></script>
 
     <div class="container">
         <h1 style="color: white">Créer un topic</h1>
@@ -21,6 +15,14 @@
                 @error('title')
                 <div class="invalid-feedback">{{ $errors->first('title') }}</div>
                 @enderror
+            </div>
+            <div class="form-group">
+                <label for="categorie_id" style="color: white">Choisir la catégorie : </label>
+                <select name="categorie_id">
+                    <option value="">Choisir une catégorie</option>
+                    @foreach($categories as $categorie)
+                        <option value="{{ $categorie->id }}">{{ $categorie->libelle }}</option>
+                    @endforeach
             </div>
             <div class="form-group">
                 <label style="color: white" for="content">Votre sujet</label>

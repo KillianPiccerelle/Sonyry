@@ -18,8 +18,10 @@ class CreateTopicsTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('categorie_id');
             $table->timestamps();
 
+            $table->foreign('categorie_id')->references('id')->on('categorie');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

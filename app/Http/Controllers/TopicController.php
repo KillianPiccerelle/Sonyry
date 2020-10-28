@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorie;
 use App\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +25,11 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::latest('created_at')->simplepaginate(8);
+        $categories = Categorie::all() ;
+
         return view('topics.index', [
-            'topics' => $topics
+            'topics' => $topics,
+            'categories' => $categories
         ]);
 
 
@@ -38,8 +42,10 @@ class TopicController extends Controller
      */
     public function create()
     {
-
-        return view('topics.create');
+        $categories = Categorie::all() ;
+        return view('topics.create', [
+            'categories' => $categories
+        ]);
 
     }
 
@@ -52,19 +58,25 @@ class TopicController extends Controller
     public function store(Request $request)
     {
 
-
-        $request->validate([
+        request()->validate([
             'title' => 'required|min:5',
             'content' => 'required|min:10',
+            'categorie_id'=>'required',
         ]);
 
-        $topic = auth()->user()->topics()->create([
-            'title' => request('title'),
-            'content' => request('content')
-        ]);
+
+
+        $topic = new Topic();
+        $topic->content = request()->input('content');
+        $topic->title = request()->input('title');
+        $topic->categorie_id = request()->input('categorie_id');
+        $topic->user_id = auth()->user()->id;
+
+        $topic->save();
 
         return redirect()->route('topics.show', $topic->id);
     }
+
 
     /**
      * Display the specified resource.

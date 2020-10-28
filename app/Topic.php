@@ -22,4 +22,10 @@ class Topic extends Model
         return $this->morphMany('App\Comment', 'commentable')->latest();
     }
 
+    public function categorie()
+    {
+        return $this->belongsTo('App\Categorie');
+    }
+
+
 }

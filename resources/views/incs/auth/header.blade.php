@@ -95,6 +95,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('topics.create') }}">{{ __('Créer un topic')}}</a>
+                            <a class="dropdown-item" href="{{ route('categorie.create') }}">{{ __('Créer une catégorie')}}</a>
                         </div>
                     </li>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Comment;
 use App\Topic;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class CommentController extends Controller
         $comment->user_id = auth()->user()->id;
         $comment->commentable_id = $topic->id;
         $topic->comments()->save($comment);
-        return redirect()->route('topics.show' , $topic->id);
+
+        return redirect()->route('topics.show', $topic->id);
     }
 
     public function storeCommentReply( $id)

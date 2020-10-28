@@ -54,7 +54,7 @@
 
     <h1 style="text-align: center; ; font-weight: bold;font-family: Courier New;">
         <p id="typewriter" class="typewrite" style="color: azure" data-period="2000"
-           data-type='[ "Bienvenue sur Sonyry {{ Auth::user()->firstName }}." ]'>
+           data-type='[ "Bienvenue sur Sonyry {{ Auth::User()->firstName }}." ]'>
             <span class="wrap"></span>
         </p>
     </h1>

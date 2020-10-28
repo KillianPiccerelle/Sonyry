@@ -93,5 +93,7 @@ class User extends Authenticatable
     public function topics()
     {
         return $this->hasMany('App\Topic');
+
     }
+
 }
