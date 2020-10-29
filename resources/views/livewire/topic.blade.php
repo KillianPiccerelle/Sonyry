@@ -41,7 +41,9 @@
                         </div>
                     @endforeach
                 @else
-                    <a href="{{ route('topics.create') }}" class="btn btn-primary h-50 text-center w-25" style="color: white" type="submit">Veuillez créer un topic</a>
+                    <div>
+                        <a href="{{ route('topics.create') }}" class="btn btn-primary h-50 text-center w-25" style="color: white" type="submit">Veuillez créer un topic</a>
+                    </div>
                 @endif
 
             </div>
