@@ -89,4 +89,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\RoleUser');
     }
+
+    public function topics()
+    {
+        return $this->hasMany('App\Topic');
+
+    }
+
 }

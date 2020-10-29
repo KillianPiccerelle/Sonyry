@@ -88,16 +88,32 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('group.index') }}">{{ __('Mes groupes')}}</a>
+                        <a class="dropdown-item" href="{{ route('topics.index') }}">{{ __('Forum')}}</a>
                     </div>
                 </li>
+                @if(Request::is('topics*','categorie*'))
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           style="color: white"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Forum
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item"
+                               href="{{ route('topics.create') }}">{{ __('Créer un topic')}}</a>
+                            <a class="dropdown-item"
+                               href="{{ route('categorie.create') }}">{{ __('Créer une catégorie')}}</a>
+                        </div>
+                    </li>
+                @endif
                 @if($teacher or $jury)
                     <li class="nav-item">
-                        <a class="nav-link" style="text-decoration: none; color: #ffffff" href="{{route('teacher.index')}}">Espace professeur et jury</a>
+                        <a class="nav-link" style="text-decoration: none; color: #ffffff"
+                           href="{{route('teacher.index')}}">Espace professeur et jury</a>
                     </li>
                 @else
                     <li class="nav-item" style="display: none">
                         <a class="nav-link" href="">Espace professeur et Jury</a>
-                    </li>
                 @endif
             </ul>
             <!-- Right Side Of Navbar -->

@@ -75,7 +75,7 @@
                     </div>
                 @endforeach
             @else
-                <p>Pas de pages.</p>
+                <p style="color:white">Pas de pages.</p>
             @endif
         </div>
     </div>

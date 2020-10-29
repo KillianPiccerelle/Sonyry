@@ -14,68 +14,24 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User();
-        $user->firstName = 'etudiant';
-        $user->name = 'etudiant';
-        $user->email = 'etudiant@gmail.com';
-        $user->password = Hash::make('password');
-        $user->description = 'etudiant';
-        $user->streetAddress = Str::random(10);
-        $user->postCodeAddress = Str::random(10);
-        $user->cityAddress = Str::random(10);
-        $user->country = Str::random(10);
-        $user->mobilePhone = Str::random(10);
-        $user->businessPhone = Str::random(10);
-        $user->job= Str::random(10);
-        $user->businessSegment= Str::random(10);
-        $user->save();
+        for($i = 0; $i < 101; $i++){
+            $user = new User();
+            $user->firstName = str::random(10);
+            $user->name = str::random(10);
+            $user->email = $user->name.'@gmail.com';
+            $user->password = Hash::make('password');
+            $user->description = 'etudiant';
+            $user->streetAddress = Str::random(10);
+            $user->postCodeAddress = Str::random(10);
+            $user->cityAddress = Str::random(10);
+            $user->country = Str::random(10);
+            $user->mobilePhone = Str::random(10);
+            $user->businessPhone = Str::random(10);
+            $user->job= Str::random(10);
+            $user->businessSegment= Str::random(10);
+            $user->save();
+        }
 
-        $user = new User();
-        $user->name = 'professeur';
-        $user->firstName = 'professeur';
-        $user->email = 'professeur@gmail.com';
-        $user->password = Hash::make('password');
-        $user->description = Str::random(10);
-        $user->streetAddress = Str::random(10);
-        $user->postCodeAddress = Str::random(10);
-        $user->cityAddress = Str::random(10);
-        $user->country = Str::random(10);
-        $user->mobilePhone = Str::random(10);
-        $user->businessPhone = Str::random(10);
-        $user->job= Str::random(10);
-        $user->businessSegment= Str::random(10);
-        $user->save();
 
-        $user = new User();
-        $user->name = 'administrateur';
-        $user->firstName = 'administrateur';
-        $user->email = 'administrateur@gmail.com';
-        $user->password = Hash::make('password');
-        $user->description = Str::random(10);
-        $user->streetAddress = Str::random(10);
-        $user->postCodeAddress = Str::random(10);
-        $user->cityAddress = Str::random(10);
-        $user->country = Str::random(10);
-        $user->mobilePhone = Str::random(10);
-        $user->businessPhone = Str::random(10);
-        $user->job= Str::random(10);
-        $user->businessSegment= Str::random(10);
-        $user->save();
-
-        $user = new User();
-        $user->name = 'jury';
-        $user->firstName = 'jury';
-        $user->email = 'jury@gmail.com';
-        $user->password = Hash::make('password');
-        $user->description = Str::random(10);
-        $user->streetAddress = Str::random(10);
-        $user->postCodeAddress = Str::random(10);
-        $user->cityAddress = Str::random(10);
-        $user->country = Str::random(10);
-        $user->mobilePhone = Str::random(10);
-        $user->businessPhone = Str::random(10);
-        $user->job= Str::random(10);
-        $user->businessSegment= Str::random(10);
-        $user->save();
     }
 }
