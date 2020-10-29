@@ -15,7 +15,6 @@
                     <a href="{{ route('categorie.index') }}" class="btn btn-primary h-75 text-center" style="margin-left: 26%" type="submit">Gérer les catégories</a>
                 </div>
 
-
                 @if(count($categories) > 0)
                     <li @if($current == 0) style="background-color: #A9A9A9" @endif wire:click="switchCategorie(0)"
                         class="list-group-item li"><p>Voir tout les topics</p></li>
@@ -42,7 +41,7 @@
                         </div>
                     @endforeach
                 @else
-                    <p style="color: white">Il n'y à pas de topic, veuillez en créer un </p>
+                    <a href="{{ route('topics.create') }}" class="btn btn-primary h-50 text-center w-25" style="color: white" type="submit">Veuillez créer un topic</a>
                 @endif
 
             </div>

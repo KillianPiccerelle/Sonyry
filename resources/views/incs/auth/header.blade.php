@@ -86,7 +86,8 @@
                         <a class="dropdown-item" href="{{ route('topics.index') }}">{{ __('Forum')}}</a>
                     </div>
                 </li>
-                @if(Request::is('topics*'))
+                @if(Request::is('topics*','categorie*'))
+
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style="color: white"

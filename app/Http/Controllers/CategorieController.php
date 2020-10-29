@@ -106,6 +106,5 @@ class CategorieController extends Controller
 
         $categorie->delete();
         return redirect()->route('categorie.index');
-
     }
 }

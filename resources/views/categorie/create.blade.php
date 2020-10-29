@@ -11,8 +11,8 @@
             <div class="form-group">
                 <label style="color: white" for="libelle">Nom de la nouvelle catégorie</label>
                 <input type="text" class="form-control @error('libelle') is-invalid @enderror"
-                       name="libelle" id="title">
-                @error('title')
+                       name="libelle" id="libelle" required>
+                @error('libelle')
                 <div class="invalid-feedback">{{ $errors->first('libelle') }}</div>
                 @enderror
 
