@@ -1,5 +1,9 @@
 <div class="notification-view d-none d-md-block col-md-9 col-lg-7 bg-white">
 
+
+    <div>
+        {{ $date }}
+    </div>
     <div class="tab-content" id="navTabSecondaryContent">
         <div class="tab-pane fade show active" id="welcome" role="tabpanel"
              aria-labelledby="welcome-tab">

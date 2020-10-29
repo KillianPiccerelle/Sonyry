@@ -14,6 +14,7 @@ class BodyNotification extends Component
         $inboxes = Inbox::where('user_id', Auth::user()->id)->get();
         return view('livewire.body-notification', [
             'inboxes' => $inboxes,
+            'date' => date('H:i:s')
         ]);
     }
 
