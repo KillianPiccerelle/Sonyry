@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -42,19 +43,18 @@
     <link href="/css/Background.css" rel="stylesheet">
 
     @include('incs.header')
+    @livewireStyles
 </head>
 
 <body>
-
-<div class="container">
-    <br>
-    @include('incs.messages')
-</div>
-
-    <main class="py-4">
-        @yield('content')
-    </main>
-
+    <div class="container">
+        <br>
+        @include('incs.messages')
+    </div>
+    @livewireScripts
+        <main class="py-4">
+            @yield('content')
+        </main>
 </body>
 
 <footer class="footerCopyright">

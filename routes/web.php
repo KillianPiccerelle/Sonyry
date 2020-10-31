@@ -118,10 +118,11 @@ Route::middleware('auth')->group(function(){
     Route::post('/share/{id}/page','ShareGroupController@sharePage')->name('share.page');
 
     /**
-     * Group policies
+     * Share directories
      */
-    Route::get('/share/{id}/page/policies/{page}', 'ShareGroupPoliciesController@edit')->name('policies.edit');
-    Route::post('/share/{id}/page/policies/{page}/store/{member}', 'ShareGroupPoliciesController@store')->name('policies.store');
+
+    Route::post('group/{id}/share/directory/store','ShareDirectoryController@store')->name('directory.store');
+
 
     /**
      * Inbox

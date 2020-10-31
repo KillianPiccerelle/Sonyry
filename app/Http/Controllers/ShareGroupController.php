@@ -62,18 +62,6 @@ class ShareGroupController extends Controller
 
                     $shareGroup->group_id = $group->id;
 
-                    $shareDirectory = new ShareDirectory();
-
-                    if($shareDirectory->haveDirectory(Auth::user()->id,$group->id)){
-
-                    }
-                    else{
-                        $shareDirectory->name = Auth::user()->name;
-                        $shareDirectory->user_id = Auth::user()->id;
-                        $shareDirectory->group_id = $group->id;
-
-                        $shareDirectory->save();
-                    }
                     $shareGroup->save();
                 }
             }
