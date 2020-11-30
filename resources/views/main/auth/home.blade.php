@@ -166,8 +166,7 @@
                                     <div class="list-group">
                                         <div class="post">
                                             <a href="#"
-                                               class="list-group-item list-group-item-action">voilà
-                                                1</a>
+                                               class="list-group-item list-group-item-action">Fonctionnalité non intégrée</a>
                                         </div>
                                     </div>
                                 </div>
@@ -192,8 +191,7 @@
                                     <div class="list-group">
                                         <div class="post">
                                             <a href="#"
-                                               class="list-group-item list-group-item-action">voilà
-                                                1</a>
+                                               class="list-group-item list-group-item-action">Fonctionnalité non intégrée</a>
                                         </div>
                                     </div>
                                 </div>
@@ -217,8 +215,7 @@
                                     <div class="list-group">
                                         <div class="post">
                                             <a href="#"
-                                               class="list-group-item list-group-item-action">voilà
-                                                1</a>
+                                               class="list-group-item list-group-item-action">Fonctionnalité non intégrée</a>
                                         </div>
                                     </div>
                                 </div>
