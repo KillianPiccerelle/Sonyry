@@ -116,7 +116,7 @@ class PagePolicy
     {
         if ($user->id == $page->user_id){
             return true;
-        }
+        }/*
         else{
             foreach ($page->sharesGroup as $share){
                 if (count($share->sharesAuth) > 0){
@@ -127,7 +127,7 @@ class PagePolicy
                     }
                 }
             }
-        }
+        }*/
         return false;
     }
 

@@ -3,7 +3,7 @@
 @section('content')
 
 
-    @livewire('topic')
+    @livewire('topics')
 
 
 @endsection

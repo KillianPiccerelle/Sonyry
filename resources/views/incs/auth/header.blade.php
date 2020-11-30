@@ -22,6 +22,7 @@
     $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
     $teacher =$user[0]->role_id == 2;
     $jury = $user[0]->role_id == 4;
+    $admin = $user[0]->role_id == 3;
 
 @endphp
 

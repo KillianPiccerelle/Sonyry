@@ -14,26 +14,20 @@ class ShareGroup extends Model
         return $this->belongsTo('App\Page');
     }
 
-    public function sharesAuth(){
-        return $this->hasMany('App\ShareGroupPolicies');
-    }
 
     public function group(){
         return $this->belongsTo('App\Group');
     }
 
-    public function deleteShares($shares, $group){
+    public function directories(){
+        return $this->hasMany('App\ShareDirectory');
+    }
 
-        $policiesGroup = new ShareGroupPolicies();
+    public function deleteShares($shares, $group){
 
         foreach ($shares as $share) {
 
             if ($share->group_id == $group->id) {
-
-                $policies = ShareGroupPolicies::where('share_group_id', $share->id)->get();
-
-                $policiesGroup->deletePolicies($policies);
-
 
                 $share->delete();
             }

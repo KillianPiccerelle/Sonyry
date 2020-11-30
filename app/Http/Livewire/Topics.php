@@ -18,7 +18,7 @@ class Topics extends Component
         $this->categories = Categorie::all();
         $this->topics();
 
-        return view('livewire.topic');
+        return view('livewire.topics');
     }
 
     public function switchCategorie($id)

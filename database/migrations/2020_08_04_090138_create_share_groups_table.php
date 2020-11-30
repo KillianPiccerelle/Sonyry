@@ -21,6 +21,7 @@ class CreateShareGroupsTable extends Migration
             $table->foreign('page_id')->references('id')->on('pages');
             $table->unsignedBigInteger('group_id');
             $table->foreign('group_id')->references('id')->on('groups');
+            $table->unsignedBigInteger('shareDirectory_id')->default(0);
             $table->timestamps();
         });
     }

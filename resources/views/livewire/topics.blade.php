@@ -1,3 +1,10 @@
+@php
+    /** Take the role of user and check if is 2 or 4 so professeur or jury */
+    $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
+    $teacher =$user[0]->role_id == 2;
+    $admin = $user[0]->role_id == 3;
+@endphp
+
 <div>
 
     <style>
@@ -12,7 +19,9 @@
             <div class="list-group" style="width: 20%; margin-right: 150px">
                 <div class="row ml-0 mr-0">
                     <p style="color: white; font-size: x-large">Catégories</p>
+                    @if ($admin or $teacher)
                     <a href="{{ route('categorie.index') }}" class="btn btn-primary h-75 text-center" style="margin-left: 26%" type="submit">Gérer les catégories</a>
+                        @endif
                 </div>
 
                 @if(count($categories) > 0)
