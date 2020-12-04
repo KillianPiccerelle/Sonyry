@@ -69,7 +69,7 @@
                         <a class="dropdown-item" href="{{ route('page.index') }}">{{ __('Modifier mes pages')}}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
-                           href="{{ route('collection.index') }}">{{ __('Modifier mes collection') }}</a>
+                           href="{{ route('collection.index') }}">{{ __('Modifier mes collections') }}</a>
 
                     </div>
                 </li>
