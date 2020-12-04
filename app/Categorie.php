@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categorie extends Model
 {
-    use HasFactory;
 
-        public function topics() {
+    public function topics()
+    {
 
-            return $this->hasMany('App\Topic');
-        }
+        return $this->hasMany('App\Topic');
+    }
 }
