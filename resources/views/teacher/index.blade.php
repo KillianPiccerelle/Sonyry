@@ -17,13 +17,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @forelse($users as $user)
                     <tr>
                         <th scope="row" style="color: #ffffff">{{ $user->user->name }}</th>
                         <th scope="row" style="color: #ffffff">{{ $user->user->firstName }}</th>
                         <th scope="row"><a href="{{route('teacher.viewPages', $user->id)}}" class="btn btn-primary">Consulter</a></th>
                     </tr>
-                @endforeach
+                @empty
+
+                @endforelse
                 </tbody>
             </table>
         </div>

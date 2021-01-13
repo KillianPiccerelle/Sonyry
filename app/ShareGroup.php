@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class ShareGroup extends Model
 {
@@ -32,5 +33,19 @@ class ShareGroup extends Model
                 $share->delete();
             }
         }
+    }
+
+    public static function isSharing($page){
+        $shareGroups = self::where('page_id',$page->id)->get();
+
+        if (count($shareGroups) > 0){
+            foreach ($shareGroups as $shareGroup){
+                $testUserGroup = UserGroup::where('user_id',Auth::user()->id)->where('group_id',$shareGroup->group_id);
+                if ($testUserGroup !== null){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

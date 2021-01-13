@@ -14,7 +14,7 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 101; $i++){
+        for($i = 0; $i < 1; $i++){
             $user = new User();
             $user->firstName = str::random(10);
             $user->name = str::random(10);

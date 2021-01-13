@@ -7,11 +7,9 @@ use App\CollectionsPage;
 use App\ImageAction;
 use App\Page;
 use App\ShareGroup;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
+
 
 class PageController extends Controller
 {
@@ -74,28 +72,32 @@ class PageController extends Controller
     {
         $page = Page::find($id);
 
-        //if (Auth::user()->can('update', $page)) {
+        if (Auth::user()->can('update', $page)) {
             return view('page.edit', [
                 'page' => $page,
             ]);
-            //return redirect()->route('home')->with('danger', 'Vous n\'avez pas accès à cette page');
-        //}
+        }
+        return redirect()->route('home')->with('danger', 'Vous n\'avez pas accès à cette page');
     }
 
     public function update(Request $request, $id)
     {
         $page = Page::find($id);
 
-        //if (Auth::user()->can('update', $page)) {
+        if (Auth::user()->can('update', $page)) {
 
             if ($request->input('title') != null) {
                 $page->title = $request->input('title');
             }
+
             if ($request->input('description') != null) {
                 $page->description = $request->input('description');
             }
+
             if ($request->file('image')) {
+
                 /** update de l'image */
+
                 /**  suppression de l'ancienne image */
                 $fileToDelete = 'public/pages/' . Auth::user()->id . '/' . $page->image;
 
@@ -114,10 +116,8 @@ class PageController extends Controller
 
             return redirect()->route('page.edit', $page->id)->with('success', 'Les informations de la page ont bien été modifiées');
 
-        //}
-
-        //return redirect()->route('home')->with('danger', 'Vous ne pouvez pas modifier cette page');
-
+        }
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas modifier cette page');
     }
 
     /**
@@ -127,32 +127,23 @@ class PageController extends Controller
     {
         $page = Page::find($id);
 
-        //if (Auth::user()->can('delete', $page)) {
+        if (Auth::user()->can('delete', $page)) {
 
-            $collectionPage = CollectionsPage::where('page_id', $id)->get();
+            CollectionsPage::where('page_id', $id)->delete();
 
             /** delete the page in the collection if they are in any collection */
-            if (count($collectionPage) > 0) {
-                foreach ($collectionPage as $item) {
-                    $item->delete();
+
+            ShareGroup::where('page_id', $page->id)->delete();
+
+            $blocs = Bloc::where('page_id',$page->id)->get();
+
+            if (count($blocs)>0){
+                foreach ($blocs as $bloc){
+                    Bloc::deleteFromStorage($bloc);
                 }
             }
 
-            $sharesGroups = ShareGroup::where('page_id', $page->id)->get();
-
-            if (count($sharesGroups) > 0) {
-                foreach ($sharesGroups as $item) {
-                    $item->delete();
-                }
-            }
-
-            $blocs = $page->blocs;
-
-            if (count($blocs) > 0){
-                foreach ($blocs as $bloc) {
-                    $bloc->delete();
-                }
-            }
+            Bloc::where('page_id',$page->id)->delete();
 
             $fileToDelete = 'public/pages/' . Auth::user()->id . '/' . $page->image;
 
@@ -162,26 +153,9 @@ class PageController extends Controller
 
             $page->delete();
 
-            if (count($page->blocs) > 0){
-                foreach ($page->blocs as $bloc){
-                    $bloc->delete();
-                }
-            }
-
-            if (count($page->sharesGroup) > 0){
-                foreach ($page->sharesGroup as $share){
-                    if (count($share->sharesAuth) > 0){
-                        foreach ($share->sharesAuth as $policies) {
-                            $policies->delete();
-                        }
-                    }
-                    $share->delete();
-                }
-            }
-
             return redirect()->route('page.index')->with('success', 'La page à bien été supprimée');
-        //}
-        //return redirect()->route('home')->with('danger', 'Vous ne pouvez pas supprimer cette page');
+        }
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
     }
 
     public function show($id)
@@ -189,17 +163,12 @@ class PageController extends Controller
         $page = Page::find($id);
         $blocs = Bloc::where('page_id', $page)->get();
 
-        //if (Auth::user()->can('view', $page)){
+        if (Auth::user()->can('view', $page)){
             return view('page.show', [
                 'page' => $page,
                 'blocs' => $blocs,
             ]);
-        //}
-
-        /**$pages = Page::where('user_id', Auth::user()->id)->get();
-        return redirect(route('page.index', [
-            'pages' => $pages,
-            'title' => 'Mes pages'
-        ]));**/
+        }
+        return redirect()->route('home')->with('danger','Vous ne pouvez pas effectuer cette action');
     }
 }

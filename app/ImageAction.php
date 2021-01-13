@@ -10,13 +10,14 @@ class ImageAction extends Model
 {
     public function store($image,$folder){
 
+        $path = 'public/'.$folder.'/'.Auth::user()->id;
         $imageFullName = $image->getClientOriginalName();
         $imageName = pathinfo($imageFullName, PATHINFO_FILENAME);
         $extension = $image->getClientOriginalExtension();
         $file = time() . '_' . $imageName . '.' . $extension;
-        $image->storeAs('public/'.$folder.'/' . Auth::user()->id, $file);
-
+        $image->storeAs($path, $file);
         return $file;
+
     }
 
     public function deleteImage($image)

@@ -5,6 +5,8 @@ namespace App\Policies;
 use App\Page;
 use App\Role;
 use App\RoleUser;
+use App\RoleUserPolicy;
+use App\ShareGroup;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +34,9 @@ class PagePolicy
     }
 
     public function access(User $user, Page $page){
+
         return $user->id == $page->user_id;
+
     }
 
     /**
@@ -44,28 +48,21 @@ class PagePolicy
      */
     public function view(User $user, Page $page)
     {
-        $role_user = RoleUser::where('user_id', $user->id)->get();
-        $roleProf = Role::where('libelle', 'Professeur')->get();
-        $roleJury = Role::where('libelle', 'Jury')->get();
-        if ($user->id == $page->user_id){
-            return true;
-        }elseif(Auth::user()->id == $role_user[0]->user_id && $roleProf[0]->id){
-            return true;
-        }elseif(Auth::user()->id == $role_user[0]->user_id && $roleJury[0]->id){
+        $rolePolicies = new RoleUserPolicy();
+
+        if ($user->id === $page->user_id) {
             return true;
         }
-        else{
-            foreach ($page->sharesGroup as $share){
-                if (count($share->sharesAuth) > 0){
-                    foreach ($share->sharesAuth as $policy){
-                        if ($user->id == $policy->member_id && $policy->read == 1){
-                            return true;
-                        }
-                    }
-                }
-            }
+
+        if ($rolePolicies->role($rolePolicies->getTeacher())) {
+            return true;
         }
-        return false;
+
+        if ($rolePolicies->role($rolePolicies->getJury())) {
+            return true;
+        }
+
+        return ShareGroup::isSharing($page);
     }
 
     /**
@@ -88,21 +85,8 @@ class PagePolicy
      */
     public function update(User $user, Page $page)
     {
-        if ($user->id == $page->user_id){
-            return true;
-        }
-        else{
-            foreach ($page->sharesGroup as $share){
-                if (count($share->sharesAuth) > 0){
-                    foreach ($share->sharesAuth as $policy){
-                        if ($user->id == $policy->member_id && $policy->write == 1){
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
+        return $this->view($user,$page);
+
     }
 
     /**
@@ -114,21 +98,7 @@ class PagePolicy
      */
     public function delete(User $user, Page $page)
     {
-        if ($user->id == $page->user_id){
-            return true;
-        }/*
-        else{
-            foreach ($page->sharesGroup as $share){
-                if (count($share->sharesAuth) > 0){
-                    foreach ($share->sharesAuth as $policy){
-                        if ($user->id == $policy->member_id && $policy->execute == 1){
-                            return true;
-                        }
-                    }
-                }
-            }
-        }*/
-        return false;
+        return $user->id == $page->user_id;
     }
 
     /**

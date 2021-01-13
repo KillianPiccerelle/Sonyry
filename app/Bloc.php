@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Bloc extends Model
 {
@@ -24,5 +25,12 @@ class Bloc extends Model
 
     public function video(){
         return $this->type = 'video';
+    }
+
+    public static function deleteFromStorage(Bloc $bloc){
+        $path = 'public/bloc/'.$bloc->page_id;
+        if (Storage::exists($path)) {
+            Storage::deleteDirectory($path);
+        }
     }
 }

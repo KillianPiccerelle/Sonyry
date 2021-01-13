@@ -82,12 +82,11 @@
                             <div class="form-group">
                                 <label for="title">Titre de la page</label>
                                 <input type="text" class="form-control" id="title" name="title"
-                                       placeholder="{{ $page->title }}">
+                                       value="{{ $page->title }}">
                             </div>
                             <div class="form-group">
                                 <label for="description">Description de la page</label>
-                                <textarea type="textarea" class="form-control" id="description" name="description"
-                                          placeholder="{{$page->description}}"></textarea>
+                                <textarea type="textarea" class="form-control" id="description" name="description">{{$page->description}}</textarea>
                             </div>
                             <div class="form-group">
                                 <input type="file" name="image"/>
