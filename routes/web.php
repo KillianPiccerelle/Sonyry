@@ -99,19 +99,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/group/{id}/invite/{user_id}', 'GroupController@invite')->name('group.invite');
     Route::get('/group/{id}/accept/{notification}', 'GroupController@accept')->name('group.accept');
 
-    /**
-     * Share
-     */
-
-    Route::get('/share/indexPage','ShareGroupController@indexPage')->name('share.indexPage');
-    Route::post('/share/{id}/page','ShareGroupController@sharePage')->name('share.page');
-
-    /**
-     * Share directories
-     */
-
-    Route::post('group/{id}/share/directory/store','ShareDirectoryController@store')->name('directory.store');
-
 
     /**
      * Inbox

@@ -17,6 +17,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $topic->title }}</h5>
                 <div class="d-flex justify-content-between align-items-center">
+                    <p>{{ $topic->content }}</p>
                     <small>Posté le {{ $topic->created_at->format('d/m/Y à H:m') }}</small>
                     <span class="badge badge-primary">{{ $topic->user->name }}</span>
                 </div>
@@ -55,7 +56,7 @@
         <h5 style="color: white">Commentaires</h5>
         @forelse($topic->comments as $comment)
             <div class="card mb-2">
-                <div class="card-body d-flex">
+                <div class="card-body">
                     {{ $comment->content }}
                     <div class="d-flex justify-content-between align-items-center">
                         <small>Posté le {{ $comment->created_at->format('d/m/Y') }}</small>
@@ -63,17 +64,20 @@
                     </div>
                 </div>
             </div>
-            @foreach($comment->comments as $replyComment)
+            @forelse($comment->comments as $replyComment)
                 <div class="card mb-2 ml-5">
                     <div class="card-body">
                         {{ $replyComment->content }}
                         <div class="d-flex justify-content-between align-items-center">
                             <small>Posté le {{ $replyComment->created_at->format('d/m/Y') }}</small>
-                            <span class="badge badge-primary">{{ $comment->user->name }}</span>
+                            <span class="badge badge-primary">{{ $replyComment->user->name }}</span>
                         </div>
                     </div>
                 </div>
-            @endforeach
+
+            @empty
+
+            @endforelse
 
             @auth
                 <button class="btn btn-info mb-3" onclick="toggleReplyComment({{ $comment->id }})">Répondre</button>

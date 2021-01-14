@@ -24,11 +24,9 @@ class ProfilController extends Controller
             $group->members = count(UserGroup::where('group_id', $group->group_id)->get());
         }
 
-
         /** query that retrieves all rows of the friend table if the user matches the sender or the target */
 
         $friends = Friend::where('sender', Auth::user()->id)->orWhere('target', Auth::user()->id)->get();
-
 
         $count = 0;
         foreach ($friends as $friend) {

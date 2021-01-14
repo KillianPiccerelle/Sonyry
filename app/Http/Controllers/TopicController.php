@@ -9,13 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class TopicController extends Controller
 {
-    public function __construct()
-
-    {
-
-
-    }
-
 
     /**
      * Display a listing of the resource.
@@ -74,7 +67,7 @@ class TopicController extends Controller
 
         $topic->save();
 
-        return redirect()->route('topics.show', $topic->id);
+        return redirect()->route('topics.show', $topic->id)->with('success','Création du topic avec succès');
     }
 
 
@@ -102,6 +95,7 @@ class TopicController extends Controller
     {
 
         $topic = Topic::find($id);
+
         if (Auth::user()->can('update', $topic)) {
 
             return view('topics.edit', [
@@ -122,6 +116,7 @@ class TopicController extends Controller
     {
 
         $topic = Topic::find($id);
+
         if (Auth::user()->can('update', $topic)) {
 
             $data = $request->validate([
@@ -132,7 +127,7 @@ class TopicController extends Controller
 
             $topic->update($data);
 
-            return redirect()->route('topics.show', $topic->id);
+            return redirect()->route('topics.show', $topic->id)->with('success','Topic mis à jour');
         }
         return redirect()->route('topics.index')->with('danger', 'Vous ne pouvez pas modifier ce topic');
     }
@@ -147,7 +142,9 @@ class TopicController extends Controller
     {
 
         $topic = Topic::find($id);
+
         if (Auth::user()->can('delete', $topic)) {
+
 
             if (count($topic->comments) > 0) {
                 foreach ($topic->comments as $comment) {
@@ -161,7 +158,7 @@ class TopicController extends Controller
             }
 
             $topic->delete();
-            return redirect()->route('topics.index');
+            return redirect()->route('topics.index')->with('success', 'Topic supprimé');
         }
         return redirect()->route('topics.index')->with('danger', 'Vous ne pouvez pas supprimer ce topic');
     }

@@ -15,7 +15,7 @@ class BlocPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -26,8 +26,8 @@ class BlocPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\Bloc  $bloc
+     * @param \App\User $user
+     * @param \App\Bloc $bloc
      * @return mixed
      */
     public function view(User $user, Bloc $bloc)
@@ -38,10 +38,11 @@ class BlocPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
+     * @param Page $page
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Page $page)
     {
         //
     }
@@ -49,40 +50,33 @@ class BlocPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\Bloc  $bloc
+     * @param \App\User $user
+     * @param \App\Bloc $bloc
      * @return mixed
      */
     public function update(User $user, Bloc $bloc)
     {
-        $page = Page::find($bloc->page->id);
-        if (Auth::user()->can('update',$page)){
-            return true;
-        }
-        return false;
+        return $user->id == $bloc->page->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\Bloc  $bloc
+     * @param \App\User $user
+     * @param \App\Bloc $bloc
      * @return mixed
      */
     public function delete(User $user, Bloc $bloc)
     {
-        $page = Page::find($bloc->page->id);
-        if (Auth::user()->can('update',$page)){
-            return true;
-        }
-        return false;
+        return $user->id == $bloc->page->user_id;
+
     }
 
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\Bloc  $bloc
+     * @param \App\User $user
+     * @param \App\Bloc $bloc
      * @return mixed
      */
     public function restore(User $user, Bloc $bloc)
@@ -93,8 +87,8 @@ class BlocPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\Bloc  $bloc
+     * @param \App\User $user
+     * @param \App\Bloc $bloc
      * @return mixed
      */
     public function forceDelete(User $user, Bloc $bloc)

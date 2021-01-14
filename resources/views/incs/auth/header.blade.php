@@ -18,11 +18,7 @@
     }
 
 
-    /** Take the role of user and check if is 2 or 4 so professeur or jury */
-    $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
-    $teacher =$user[0]->role_id == 2;
-    $jury = $user[0]->role_id == 4;
-    $admin = $user[0]->role_id == 3;
+$rolePolicy = new \App\RoleUserPolicy();
 
 @endphp
 
@@ -76,15 +72,6 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style="color: white"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Partager
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('share.indexPage') }}">{{ __('Partager mes pages')}}</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style="color: white"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Collaborer
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -102,12 +89,14 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
                                href="{{ route('topics.create') }}">{{ __('Créer un topic')}}</a>
-                            <a class="dropdown-item"
-                               href="{{ route('categorie.create') }}">{{ __('Créer une catégorie')}}</a>
+                            @if($rolePolicy->role($rolePolicy->getAdmin()) || $rolePolicy->role($rolePolicy->getTeacher()))
+                                <a class="dropdown-item"
+                                   href="{{ route('categorie.create') }}">{{ __('Créer une catégorie')}}</a>
+                            @endif
                         </div>
                     </li>
                 @endif
-                @if($teacher or $jury)
+                @if($rolePolicy->role($rolePolicy->getAdmin()) || $rolePolicy->role($rolePolicy->getTeacher()))
                     <li class="nav-item">
                         <a class="nav-link" style="text-decoration: none; color: #ffffff"
                            href="{{route('teacher.index')}}">Espace professeur et jury</a>

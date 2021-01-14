@@ -11,35 +11,43 @@ class FriendController extends Controller
 {
     public function destroy($id)
     {
-      $friend=Friend::find($id);
-      $friend->delete();
-
+      Friend::find($id)->delete();
       return redirect()->route('profil.index');
 
     }
 
     public function add($id)
     {
+
         $friend=Friend::find($id);
-        $friend->is_pending=0;
 
-        $friend->save();
+        if (Friend::where('target',$friend->sender)->where('sender',Auth::user()->id)->get() === null) {
 
-        return redirect()->route('profil.index');
+            $friend->is_pending = 0;
+            $friend->save();
 
+            return redirect()->route('profil.index');
+        }
+
+        $friend->delete();
+
+        return redirect()->route('home')->with('danger','Vous ne pouvez pas effectuer cette action, cette personne vous à déjà envoyé une demande d\'amis');
     }
 
     public function request($id)
     {
-        $friend= new Friend();
-        $friend->sender=Auth::user()->id;
-        $friend->target=$id;
-        $friend->is_pending=1;
+        if (Friend::where('target',Auth::user()->id)->where('sender',$id)->get() === null){
+            $friend= new Friend();
+            $friend->sender=Auth::user()->id;
+            $friend->target=$id;
+            $friend->is_pending=1;
 
-        $friend->save();
+            $friend->save();
 
-        $user=User::find($id);
-        return redirect()->route('profil.index')->with('success','Vous avez envoyé une demande d\'ami à '.$user->firstName);
+            $user=User::find($id);
+            return redirect()->route('profil.index')->with('success','Vous avez envoyé une demande d\'ami à '.$user->firstName);
+        }
+       return redirect()->route('home')->with('danger','Vous ne pouvez pas effectuer cette action, cette personne vous à déja envoyer une demande d\'amis');
 
     }
 }

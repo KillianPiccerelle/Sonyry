@@ -124,4 +124,9 @@ class PagePolicy
     {
         //
     }
+
+    public function createBloc(User $user, Page $page)
+    {
+        return $user->id == $page->user_id;
+    }
 }

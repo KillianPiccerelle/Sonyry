@@ -31,11 +31,9 @@ class NotificationController extends Controller
     {
 
         $notification = Notification::find($id);
-        $inbox = Inbox::where('notification_id', $notification->id)->get();
-
+        Inbox::where('notification_id', $notification->id)->delete();
         /** Delete the notification and the link of notification with the user */
         $notification->delete();
-        $inbox[0]->delete();
 
         return redirect()->route('inbox.index');
     }

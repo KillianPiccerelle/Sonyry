@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Group;
 use App\User;
+use App\UserGroup;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class GroupPolicy
@@ -76,6 +77,21 @@ class GroupPolicy
     public function delete(User $user, Group $group)
     {
         return $user->id == $group->user_id;
+    }
+
+    public function kick(User $user, Group $group)
+    {
+        return $user->id == $group->user_id;
+
+    }
+
+    public function exit(User $user, Group $group){
+        return UserGroup::where('user_id',$user->id)->where('group_id',$group->id)->get() !== null && $group->user_id != $user->id;
+    }
+
+    public function invite(User $user, Group $group)
+    {
+        return $group->user_id == $user->id;
     }
 
     /**

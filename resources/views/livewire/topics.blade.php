@@ -1,10 +1,3 @@
-@php
-    /** Take the role of user and check if is 2 or 4 so professeur or jury */
-    $user = \App\RoleUser::where('user_id', Auth::user()->id)->get();
-    $teacher =$user[0]->role_id == 2;
-    $admin = $user[0]->role_id == 3;
-@endphp
-
 <div>
 
     <style>
@@ -13,15 +6,15 @@
             background-color: #A9A9A9;
         }
     </style>
-
     <div class="container-fluid pl-5">
         <div class="row">
             <div class="list-group" style="width: 20%; margin-right: 150px">
                 <div class="row ml-0 mr-0">
                     <p style="color: white; font-size: x-large">Catégories</p>
-                    @if ($admin or $teacher)
-                    <a href="{{ route('categorie.index') }}" class="btn btn-primary h-75 text-center" style="margin-left: 26%" type="submit">Gérer les catégories</a>
-                        @endif
+                    @if ($rolePolicy->role($rolePolicy->getAdmin()) || $rolePolicy->role($rolePolicy->getTeacher()))
+                        <a href="{{ route('categorie.index') }}" class="btn btn-primary h-75 text-center"
+                           style="margin-left: 26%" type="submit">Gérer les catégories</a>
+                    @endif
                 </div>
 
                 @if(count($categories) > 0)
@@ -51,7 +44,8 @@
                     @endforeach
                 @else
                     <div>
-                        <a href="{{ route('topics.create') }}" class="btn btn-primary h-50 text-center w-25" style="color: white" type="submit">Veuillez créer un topic</a>
+                        <a href="{{ route('topics.create') }}" class="btn btn-primary h-50 text-center w-25"
+                           style="color: white" type="submit">Veuillez créer un topic</a>
                     </div>
                 @endif
 

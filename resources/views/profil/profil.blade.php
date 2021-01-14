@@ -4,7 +4,6 @@
 @section('content')
 
 
-
     <link rel="stylesheet" href="/css/profil.css"></link>
 
     <!------ Include the above in your HEAD tag ---------->

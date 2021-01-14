@@ -148,12 +148,8 @@ class CollectionController extends Controller
         if (Auth::user()->can('delete', $collection)) {
 
             // delete all the link between the page in the collection and the colletion
-            $collectionPage = CollectionsPage::where('collection_id', $collection->id)->get();
-            if (count($collectionPage) > 0) {
-                foreach ($collectionPage as $item) {
-                    $item->delete();
-                }
-            }
+
+            $collectionPage = CollectionsPage::where('collection_id', $collection->id)->delete();
 
             $imageAction = new ImageAction();
 

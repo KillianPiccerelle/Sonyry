@@ -28,7 +28,7 @@
         @forelse($content as $item)
             @if($item->type == 'page')
                 <div class="row ml-sm-1 justify-content-between">
-                    <a href="{{ route('page.edit',$item->page->id) }}" style="width: 90%" class="list-group-item list-group-item-action">
+                    <a href="{{ route('page.show',$item->page->id) }}" style="width: 90%" class="list-group-item list-group-item-action">
                         <i class="fas fa-file"></i>
                         {{ $item->page->title }}
                         <i class="float-right">De : {{ $item->page->user->name }}</i>

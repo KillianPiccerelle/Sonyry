@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategorieController extends Controller
 {
@@ -14,10 +15,15 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $categories = Categorie::all();
-        return view('categorie.index', [
-            'categories' => $categories
-        ]);
+        $cat = new Categorie();
+        if (Auth::user()->can('viewAny', $cat)) {
+            $categories = Categorie::all();
+            return view('categorie.index', [
+                'categories' => $categories
+            ]);
+        }
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
+
     }
 
     /**
@@ -27,7 +33,11 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        return view('categorie.create');
+        $cat = new Categorie();
+        if (Auth::user()->can('update', $cat)) {
+            return view('categorie.create');
+        }
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
     }
 
     /**
@@ -44,12 +54,16 @@ class CategorieController extends Controller
         ]);
 
         $categorie = new Categorie();
+
         $categorie->libelle = request()->input('libelle');
 
-        $categorie->save();
+        if (Auth::user()->can('update', $categorie)) {
 
-        return redirect()->route('topics.index', $categorie->id);
+            $categorie->save();
 
+            return redirect()->route('topics.index', $categorie->id);
+        }
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
 
     }
 
@@ -61,7 +75,7 @@ class CategorieController extends Controller
      */
     public function show($id)
     {
-       //
+        //
     }
 
     /**
@@ -97,14 +111,31 @@ class CategorieController extends Controller
     {
         $categorie = Categorie::find($id);
 
-        if (count($categorie->topics) > 0) {
-            foreach ($categorie->topics as $topic) {
+        if (Auth::user()->can('delete', $categorie)) {
 
-                $topic->delete();
+            if (count($categorie->topics) > 0) {
+                foreach ($categorie->topics as $topic) {
+
+                    if (count($topic->comments) > 0) {
+                        foreach ($topic->comments as $comment) {
+                            if (count($comment->comments) > 0) {
+                                foreach ($comment->comments as $reply) {
+                                    $reply->delete();
+                                }
+                            }
+                            $comment->delete();
+                        }
+                    }
+
+                    $topic->delete();
+                }
             }
+
+            $categorie->delete();
+
+            return redirect()->route('categorie.index');
         }
 
-        $categorie->delete();
-        return redirect()->route('categorie.index');
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
     }
 }

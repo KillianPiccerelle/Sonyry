@@ -124,6 +124,7 @@ class Shares extends Component
 
 
     public function store(){
+
         if ($this->directoryName != ""){
 
 
