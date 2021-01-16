@@ -138,6 +138,7 @@ Route::middleware('auth')->group(function(){
     Route::post('categorie/store', 'CategorieController@store')->name('categorie.store');
     Route::get('categorie/index', 'CategorieController@index')->name('categorie.index');
     Route::get('categorie/{id}/destroy', 'CategorieController@destroy')->name('categorie.destroy');
+
 });
 
 
