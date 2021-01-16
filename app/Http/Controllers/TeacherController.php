@@ -6,6 +6,7 @@ use App\Collection;
 use App\Page;
 use App\Role;
 use App\RoleUser;
+use App\RoleUserPolicy;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,8 @@ class TeacherController extends Controller
 {
     public function index(){
 
-        if (Auth::user()->can('view',Auth::user())){
+        $rolePolicy = new RoleUserPolicy();
+        if ($rolePolicy->role($rolePolicy->getJury()) || $rolePolicy->role($rolePolicy->getTeacher())){
             $users = RoleUser::where('role_id', 1 )->get();
             return view('teacher.index', [
                 'users' => $users
@@ -28,7 +30,8 @@ class TeacherController extends Controller
     public function viewPagesUser($id)
     {
 
-        if (Auth::user()->can('view',Auth::user())){
+        $rolePolicy = new RoleUserPolicy();
+        if ($rolePolicy->role($rolePolicy->getJury()) || $rolePolicy->role($rolePolicy->getTeacher())){
             $user = User::find($id);
             $pages = Page::where('user_id', $user->id)->get();
             return view('page.index', [

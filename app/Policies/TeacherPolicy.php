@@ -25,12 +25,12 @@ class TeacherPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\User  $model
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user)
     {
         $rolePolicy = new RoleUserPolicy();
+
         return $rolePolicy->role($rolePolicy->getJury()) || $rolePolicy->role($rolePolicy->getTeacher());
     }
 
