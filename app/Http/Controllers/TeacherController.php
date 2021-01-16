@@ -14,21 +14,29 @@ class TeacherController extends Controller
 {
     public function index(){
 
-        $users = RoleUser::where('role_id', 1 )->get();
-        return view('teacher.index', [
-            'users' => $users
-        ]);
+        if (Auth::user()->can('view',Auth::user())){
+            $users = RoleUser::where('role_id', 1 )->get();
+            return view('teacher.index', [
+                'users' => $users
+            ]);
+        }
+
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
+
     }
 
     public function viewPagesUser($id)
     {
-        $user = User::find($id);
 
-        $pages = Page::where('user_id', $user->id)->get();
-        return view('page.index', [
-            'pages' => $pages,
-            'title' => 'Des pages'
-        ]);
+        if (Auth::user()->can('view',Auth::user())){
+            $user = User::find($id);
+            $pages = Page::where('user_id', $user->id)->get();
+            return view('page.index', [
+                'pages' => $pages,
+                'title' => 'Des pages'
+            ]);
+        }
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
     }
 
 }

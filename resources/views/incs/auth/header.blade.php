@@ -101,9 +101,6 @@ $rolePolicy = new \App\RoleUserPolicy();
                         <a class="nav-link" style="text-decoration: none; color: #ffffff"
                            href="{{route('teacher.index')}}">Espace professeur et jury</a>
                     </li>
-                @else
-                    <li class="nav-item" style="display: none">
-                        <a class="nav-link" href="">Espace professeur et Jury</a>
                 @endif
             </ul>
             <!-- Right Side Of Navbar -->

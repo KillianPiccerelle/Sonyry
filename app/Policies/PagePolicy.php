@@ -85,7 +85,7 @@ class PagePolicy
      */
     public function update(User $user, Page $page)
     {
-        return $this->view($user,$page);
+        return $user->id == $page->user_id;
 
     }
 
