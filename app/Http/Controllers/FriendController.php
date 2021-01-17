@@ -21,7 +21,7 @@ class FriendController extends Controller
 
         $friend=Friend::find($id);
 
-        if (Friend::where('target',$friend->sender)->where('sender',Auth::user()->id)->get() === null) {
+        if (count(Friend::where('target',$friend->sender)->where('sender',Auth::user()->id)->get()) === 0) {
 
             $friend->is_pending = 0;
             $friend->save();
@@ -31,12 +31,12 @@ class FriendController extends Controller
 
         $friend->delete();
 
-        return redirect()->route('home')->with('danger','Vous ne pouvez pas effectuer cette action, cette personne vous à déjà envoyé une demande d\'amis');
+        return redirect()->route('home')->with('danger','Vous ne pouvez pas effectuer cette action, cette personne vous a déjà envoyé une demande d\'amis');
     }
 
     public function request($id)
     {
-        if (Friend::where('target',Auth::user()->id)->where('sender',$id)->get() === null){
+        if (count(Friend::where('target',Auth::user()->id)->where('sender',$id)->get()) === 0){
             $friend= new Friend();
             $friend->sender=Auth::user()->id;
             $friend->target=$id;
@@ -47,7 +47,7 @@ class FriendController extends Controller
             $user=User::find($id);
             return redirect()->route('profil.index')->with('success','Vous avez envoyé une demande d\'ami à '.$user->firstName);
         }
-       return redirect()->route('home')->with('danger','Vous ne pouvez pas effectuer cette action, cette personne vous à déja envoyer une demande d\'amis');
+       return redirect()->route('home')->with('danger','Vous ne pouvez pas effectuer cette action, cette personne vous a déjà envoyé une demande d\'amis');
 
     }
 }
