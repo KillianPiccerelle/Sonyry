@@ -24,6 +24,7 @@ class FriendController extends Controller
         if (count(Friend::where('target',$friend->sender)->where('sender',Auth::user()->id)->get()) === 0) {
 
             $friend->is_pending = 0;
+
             $friend->save();
 
             return redirect()->route('profil.index');
