@@ -9,8 +9,8 @@
             <h5 style="color: white;">Titre de la collection : <b>{{ $collection->name }}</b></h5>
         </div>
         <div>
-            <p>Description :</p>
-            <p>{{ $collection->description }}</p>
+            <p style="color: white">Description :</p>
+            <p style="color: white">{{ $collection->description }}</p>
         </div>
         <br>
         <div class="text-center">
@@ -65,7 +65,7 @@
                     </div>
                 @endforeach
             @else
-                <p>Pas de pages.</p>
+                <p style="color: white">Pas de pages.</p>
             @endif
         </div>
     </div>
