@@ -65,7 +65,7 @@
                 </x-forms.form>
             @else
                 <div class="text-center">
-                    <h5 >Commencez par créer une nouvelle page : </h5>
+                    <h5 style="color: white">Commencez par créer une nouvelle page : </h5>
                     <a href="{{ route('page.create') }}" class="btn btn-outline-dark">Ici</a>
                 </div>
             @endif
