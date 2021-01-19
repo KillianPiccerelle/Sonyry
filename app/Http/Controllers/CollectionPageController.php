@@ -24,14 +24,16 @@ class CollectionPageController extends Controller
 
 
         if (Auth::user()->can('update', $collection)) {
+
             $pagesInCollection = CollectionsPage::where('collection_id', $id)->get();
+
             $pagesAvailables = Page::where('user_id', Auth::user()->id)->get();
 
             $count = 0;
 
             foreach ($pagesAvailables as $page) {
                 foreach ($pagesInCollection as $pageChecking) {
-                    if ($pageChecking->page_id === $page->id) {
+                    if ($pageChecking->page_id == $page->id) {
                         unset($pagesAvailables[$count]);
                     }
                 }
