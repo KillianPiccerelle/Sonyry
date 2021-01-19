@@ -7,8 +7,6 @@ use App\CollectionsPage;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen;
 
 class CollectionPageController extends Controller
 {
@@ -21,7 +19,6 @@ class CollectionPageController extends Controller
     public function add($id)
     {
         $collection = Collection::find($id);
-
 
         if (Auth::user()->can('update', $collection)) {
 

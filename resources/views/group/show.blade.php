@@ -24,7 +24,7 @@
                     <th scope="col">Prénom</th>
                     <th scope="col">Statut</th>
                     <th scope="col">Date d'arrivée dans le groupe</th>
-                    @can('can-edit-group',$group)
+                    @can('update',$group)
                         <th scope="col">Action</th>
                     @endcan
                 </tr>
@@ -33,7 +33,7 @@
                 @foreach($members as $member)
                     <tr>
                         <th scope="row">{{ $member->user->name }}</th>
-                        <td>@if($member->user->id === $group->user_id)
+                        <td>@if($member->user->id == $group->user_id)
                                 Propriétaire
                             @else
                                 Membre
@@ -42,7 +42,7 @@
                         <td>{{ $member->created_at->format('d/m/y') }}</td>
                         @can('can-edit-group',$group)
                             <td>
-                                @if($member->user->id !== $group->user_id)
+                                @if($member->user->id != $group->user_id)
                                     <button class="btn btn-danger" data-toggle="modal"
                                             data-target="#kick-{{ $member->user->id }}">
                                         Exclure
