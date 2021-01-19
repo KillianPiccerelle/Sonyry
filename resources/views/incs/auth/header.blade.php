@@ -96,7 +96,7 @@ $rolePolicy = new \App\RoleUserPolicy();
                         </div>
                     </li>
                 @endif
-                @if($rolePolicy->role($rolePolicy->getAdmin()) || $rolePolicy->role($rolePolicy->getTeacher()))
+                @if($rolePolicy->role($rolePolicy->getJury()) || $rolePolicy->role($rolePolicy->getTeacher()))
                     <li class="nav-item">
                         <a class="nav-link" style="text-decoration: none; color: #ffffff"
                            href="{{route('teacher.index')}}">Espace professeur et jury</a>
