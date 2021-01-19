@@ -106,11 +106,12 @@ class GroupController extends Controller
         }
 
         if (Auth::user()->can('view', $group)) {
-            $members = UserGroup::where('group_id', $group->id)->get();
+
             return view('group.show', [
                 'group' => $group,
                 'members' => $members,
                 'users' => $users
+
             ]);
         }
 
