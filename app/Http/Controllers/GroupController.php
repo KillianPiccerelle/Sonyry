@@ -299,7 +299,7 @@ class GroupController extends Controller
         $group = Group::find($id);
         $userGroup = UserGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->get();
 
-        if ($userGroup === null) {
+        if (count($userGroup) == 0) {
             // User joining the group
             $newUserGroup = new UserGroup();
             $newUserGroup->user_id = Auth::user()->id;

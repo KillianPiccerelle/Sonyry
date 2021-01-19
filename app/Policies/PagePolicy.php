@@ -50,7 +50,7 @@ class PagePolicy
     {
         $rolePolicies = new RoleUserPolicy();
 
-        if ($user->id === $page->user_id) {
+        if ($user->id == $page->user_id) {
             return true;
         }
 
