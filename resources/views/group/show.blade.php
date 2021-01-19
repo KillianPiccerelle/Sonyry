@@ -40,7 +40,7 @@
                             @endif
                         </td>
                         <td>{{ $member->created_at->format('d/m/y') }}</td>
-                        @can('can-edit-group',$group)
+                        @can('update',$group)
                             <td>
                                 @if($member->user->id != $group->user_id)
                                     <button class="btn btn-danger" data-toggle="modal"

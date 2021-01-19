@@ -149,7 +149,7 @@ class CollectionController extends Controller
 
             // delete all the link between the page in the collection and the colletion
 
-            $collectionPage = CollectionsPage::where('collection_id', $collection->id)->delete();
+            CollectionsPage::where('collection_id', $collection->id)->delete();
 
             $imageAction = new ImageAction();
 

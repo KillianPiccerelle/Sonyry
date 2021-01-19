@@ -80,8 +80,7 @@ class UserGroupController extends Controller
      */
     public function destroy($id)
     {
-        $userGroup = UserGroup::find($id);
-        $userGroup->delete();
+        UserGroup::find($id)->delete();
         return redirect()->route('profil.index');
     }
 }
