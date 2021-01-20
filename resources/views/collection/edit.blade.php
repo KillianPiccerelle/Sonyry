@@ -87,11 +87,11 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="name">Nom de la collection</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="{{ $collection->name }}">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $collection->name }}">
                             </div>
                             <div class="form-group">
                                 <label for="description">Description de la collection</label>
-                                <textarea type="textarea" class="form-control" id="description" name="description" placeholder="{{$collection->description}}"></textarea>
+                                <textarea type="textarea" class="form-control" id="description" name="description">{{$collection->description}}</textarea>
                             </div>
                             <div class="form-group">
                                 <input type="file" name="image"/>

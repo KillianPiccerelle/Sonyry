@@ -104,9 +104,6 @@ class BlocController extends Controller
 
                     $size = $fileInput->getSize();
 
-
-                    //dd(\Illuminate\Support\Facades\Request::server());
-
                     //if (1===1){
                         $fileFullName = $fileInput->getClientOriginalName();
                         $fileName = pathinfo($fileFullName, PATHINFO_FILENAME);
