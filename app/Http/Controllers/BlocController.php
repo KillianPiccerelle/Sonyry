@@ -156,8 +156,14 @@ class BlocController extends Controller
                     Storage::delete($fileToDelete);
                 }
             } elseif ($bloc->type == 'image') {
-                $fileToDelete = 'public/bloc/' . $bloc->id . '/image/' . $bloc->content;
+                $fileToDelete = 'public/bloc/' . $bloc->page_id . '/image/' . $bloc->content;
 
+                if (Storage::exists($fileToDelete)) {
+                    Storage::delete($fileToDelete);
+                }
+            }
+            elseif ($bloc->type == 'file'){
+                $fileToDelete = 'public/bloc/' . $bloc->page_id . '/file/' . $bloc->content;
                 if (Storage::exists($fileToDelete)) {
                     Storage::delete($fileToDelete);
                 }
