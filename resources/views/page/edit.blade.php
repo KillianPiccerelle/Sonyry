@@ -128,7 +128,7 @@
             <button class="btn btn-dark" id="btnBlocImage">Image</button>
             <button class="btn btn-dark" id="btnBlocVideo">Video</button>
             <button class="btn btn-dark" id="btnBlocScript">Script</button>
-            <button class="btn btn-dark mt-1" id="btnBlocFile">Script</button>
+            <button class="btn btn-dark mt-1" id="btnBlocFile">Fichier</button>
             <hr>
             <!-- ZONE DE RECUP DU CONTENU DU BLOC-->
             <div id="blocContent">
