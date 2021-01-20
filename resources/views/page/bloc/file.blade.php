@@ -1,28 +1,24 @@
 <div class="container text-center">
-    <i>Bloc script</i>
+    <i>Bloc Fichier</i>
 </div>
 <hr>
+<label for="title">Titre du bloc :</label>
 <div class="form-group">
-    <label for="title">Titre du bloc :</label>
     <input id="titleNewBloc" name="title" class="form-control" placeholder="Titre..." type="text">
     <br>
-    <label for="content"> Contenu du bloc :</label>
-    <textarea id="contentNewBloc" class="form-control" name="content" placeholder="Saisissez votre code"></textarea>
+    <label for="content">Ajoutez un fichier :</label>
+    <input type="file" id="contentNewBloc" name="content" required/>
 </div>
-<input type="hidden" id="typeNewBloc" name="type" value="script"/>
+
+<input type="hidden" id="typeNewBloc" name="type" value="file"/>
 
 <button class="btn btn-primary" id="btnAddBlocAjax" onclick="addBlocs()">
     Valider
     <i class="fas fa-check"></i>
 </button>
 
-
 <style>
     #titleNewBloc {
         border: solid black 1px;
     }
-    #contentNewBloc {
-        border: solid black 1px;
-    }
 </style>
-

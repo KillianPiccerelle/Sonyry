@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function(){
     Route::get('page/{id}/bloc/image','BlocController@image')->name('bloc.image');
     Route::get('page/{id}/bloc/video','BlocController@video')->name('bloc.video');
     Route::get('page/{id}/bloc/script','BlocController@script')->name('bloc.script');
+    Route::get('page/{id}/bloc/file','BlocController@file')->name('bloc.file');
 
     /**
      * Collection route

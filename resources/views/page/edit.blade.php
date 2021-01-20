@@ -123,11 +123,12 @@
     <div id="sidenavCreate" class="sidenavCreate">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNavCreate()">&times;</a>
         <h4>Type du bloc :</h4>
-        <div class="container" id="buttonsBlocs">
+        <div class="raw ml-1 " id="buttonsBlocs">
             <button class="btn btn-dark" id="btnBlocText">Texte</button>
             <button class="btn btn-dark" id="btnBlocImage">Image</button>
             <button class="btn btn-dark" id="btnBlocVideo">Video</button>
             <button class="btn btn-dark" id="btnBlocScript">Script</button>
+            <button class="btn btn-dark mt-1" id="btnBlocFile">Script</button>
             <hr>
             <!-- ZONE DE RECUP DU CONTENU DU BLOC-->
             <div id="blocContent">
@@ -185,6 +186,16 @@
                     }
                 };
                 xhttp.open("GET", '{{ route('bloc.script', $page->id) }}', true);
+                xhttp.send();
+            });
+            $('#btnBlocFile').click(function () {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("blocContent").innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", '{{ route('bloc.file', $page->id) }}', true);
                 xhttp.send();
             });
             $('#btnSaveBloc').click(function () {
@@ -245,7 +256,7 @@
             const title = document.getElementById("titleNewBloc").value;
             const type = document.getElementById("typeNewBloc").value;
 
-            if (type === 'video' || type === 'image'){
+            if (type == 'video' || type == 'image' || type == 'file'){
                 content = document.getElementById("contentNewBloc").files[0];
             }
             else{

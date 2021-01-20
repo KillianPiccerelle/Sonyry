@@ -28,6 +28,9 @@
                             <source src="/storage/bloc/{{ $bloc->page_id }}/video/{{ $bloc->content }}">
                         </video>
                     @endif
+                    @if($bloc->type == 'file')
+                       <a href="/storage/bloc/{{ $bloc->page_id }}/file/{{ $bloc->content }}" download>{{ $bloc->content }}</a>
+                    @endif
                 </div>
             </div>
             <br>

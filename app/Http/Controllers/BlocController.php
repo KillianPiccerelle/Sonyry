@@ -26,6 +26,8 @@ class BlocController extends Controller
 
         $page = Page::find($id);
 
+
+
         if (Auth::user()->can('createBloc', $page)) {
             $bloc = new Bloc();
 
@@ -93,9 +95,30 @@ class BlocController extends Controller
                 } else {
                     return redirect()->route('page.edit')->with('danger', 'Veuillez insérer un fichier video');
                 }
-            } else {
-                return redirect()->route('page.edit')->with('danger', 'Le type de bloc que vous essayer de créer est introuvable');
             }
+            elseif($type == 'file') {
+                $bloc->file();
+                if ($request->file('content')) {
+
+                    $fileInput = $request->file('content');
+
+                    $size = $fileInput->getSize();
+
+
+                    //dd(\Illuminate\Support\Facades\Request::server());
+
+                    //if (1===1){
+                        $fileFullName = $fileInput->getClientOriginalName();
+                        $fileName = pathinfo($fileFullName, PATHINFO_FILENAME);
+                        $extension = $fileInput->getClientOriginalExtension();
+                        $file = time() . '_' . $fileName . '.' . $extension;
+                    //}
+                    $fileInput->storeAs('public/bloc/' . $page->id . '/file/', $file);
+                    $bloc->content = $file;
+                }
+
+            }
+
             $bloc->page_id = $page->id;
 
             $bloc->title = $request->input('title');
@@ -177,6 +200,14 @@ class BlocController extends Controller
     {
         $page = Page::find($id);
         return view('page.bloc.script', [
+            'page' => $page
+        ]);
+    }
+
+    public function file($id)
+    {
+        $page = Page::find($id);
+        return view('page.bloc.file', [
             'page' => $page
         ]);
     }
