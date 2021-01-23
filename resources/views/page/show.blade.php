@@ -109,10 +109,7 @@
                                 <div id="card-header">
                                     <h5 class="text-center-center">{{ $bloc->title }}</h5>
                                 </div>
-                                <video style="margin-bottom: 5px" controls>
-                                    <source
-                                        src="/storage/bloc/{{ $bloc->page_id }}/file/{{ $bloc->content }}">
-                                </video>
+                                <a style="margin-bottom: 5px" download href="/storage/bloc/{{ $bloc->page_id }}/file/{{ $bloc->content }}">{{ $bloc->content }}</a>
                             </div>
                         @endif
                 @endforeach
