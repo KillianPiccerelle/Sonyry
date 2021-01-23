@@ -111,12 +111,12 @@
                                 $collections  = Auth::user()->collections
                             @endphp
                             @for($i = 0; $i < $limite; $i++)
-                                @if(isset($collection[$i]))
+                                @if(isset($collections[$i]))
                                     <div class="list-group">
                                         <div class="post">
-                                            <a href="{{ route('collection.edit', $collection[$i]->id) }}"
-                                               class="list-group-item list-group-item-action">{{ $collection[$i]->title }}
-                                                édité le {{ $collection[$i]->updated_at }}</a>
+                                            <a href="{{ route('collection.edit', $collections[$i]->id) }}"
+                                               class="list-group-item list-group-item-action">{{ $collections[$i]->name }}
+                                                édité le {{ $collections[$i]->updated_at }}</a>
                                         </div>
                                     </div>
                                 @endif
@@ -275,14 +275,14 @@
                          aria-labelledby="collection-tab">
                         @if(count(Auth::user()->collections) > 0)
                             @php
-                                $collections  = Auth::user()->collections
+                                $collections = Auth::user()->collections;
                             @endphp
                             @for($i = 0; $i < $limite; $i++)
-                                @if(isset($collection[$i]))
+                                @if(isset($collections[$i]))
                                     <div class="list-group">
                                         <div class="post">
-                                            <a href="{{ route('collection.edit', $collection[$i]->id) }}"
-                                               class="list-group-item list-group-item-action">{{ $collection[$i]->title }}</a>
+                                            <a href="{{ route('collection.edit', $collections[$i]->id) }}"
+                                               class="list-group-item list-group-item-action">{{ $collections[$i]->name }}</a>
                                         </div>
                                     </div>
                                 @endif
