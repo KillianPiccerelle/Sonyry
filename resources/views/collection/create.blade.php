@@ -10,14 +10,14 @@
                       enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="title" style="color: white">Nom de la collection</label>
+                        <label for="title" style="color: white">Nom de la rubrique</label>
                         <input type="text" class="form-control" id="title" name="name"
-                               placeholder="Nom de la collection" required>
+                               placeholder="Nom de la rubrique" required>
                     </div>
                     <div class="form-group">
-                        <label for="description" style="color: white">Description de la collection</label>
+                        <label for="description" style="color: white">Description de la rubrique</label>
                         <textarea type="textarea" class="form-control" id="description" name="description"
-                                  placeholder="Description de la collection" required></textarea>
+                                  placeholder="Description de la rubrique" required></textarea>
                     </div>
                     <div class="form-group float-left">
                         <input type="file" id="monInputFile" name="image" style="visibility:hidden"/>
@@ -29,7 +29,7 @@
                     <div style="float: right;">
                         <button type="submit"  class="btn btn-primary"><i
                                 class="fa fa-check" aria-hidden="true"></i>
-                            Créer la collection
+                            Créer la rubrique
                         </button>
                     </div>
                 </form>

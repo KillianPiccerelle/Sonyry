@@ -52,71 +52,52 @@
 
     </style>
 
-    <h1 style="text-align: center; ; font-weight: bold;font-family: Courier New;">
-        <p id="typewriter" class="typewrite" style="color: azure" data-period="2000"
-           data-type='[ "Bienvenue sur Sonyry {{ Auth::User()->firstName }}." ]'>
-            <span class="wrap"></span>
-        </p>
-    </h1>
-
+    <div>
+        <h1 style="text-align: center; ; font-weight: bold;font-family: Courier New;">
+            <p id="typewriter" class="typewrite" style="color: azure" data-period="2000"
+               data-type='[ "Bienvenue sur Sonyry {{ Auth::User()->firstName }}." ]'>
+                <span class="wrap"></span>
+            </p>
+        </h1>
+    </div>
 
     <div class="flex">
+
         <div class="flex1">
             <div class="card card-default" style="max-width: 100%">
                 <!--card header-->
                 <div class="card-header">
                     <h5 class="card-title">
-                        Modifications récentes
+                        Mon portfolio
                     </h5>
                 </div>
                 <!--card body-->
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="page-tab" data-toggle="tab" href="#pageModif"
-                           role="tab" aria-controls="page" aria-selected="true">Page</a>
+                        <a class="nav-link" id="collection-tab" data-toggle="tab"
+                           href="#rubriquesPortfolio" role="tab" aria-controls="rubriques"
+                           aria-selected="true">Rubriques</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="collection-tab" data-toggle="tab"
-                           href="#collectionModif" role="tab" aria-controls="collection"
-                           aria-selected="true">Collection</a>
+                        <a class="nav-link active" id="page-tab" data-toggle="tab"
+                           href="#pagePortfolio" role="tab" aria-controls="page"
+                           aria-selected="true">Pages</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="pageModif" role="tabpanel"
-                         aria-labelledby="page-tab">
-                        @if(count(Auth::user()->pages) > 0)
-                            @php
-                                $pages  = Auth::user()->pages
-                            @endphp
-                            @for($i = 0; $i < $limite; $i++)
-                                @if(isset($pages[$i]))
-                                    <div class="list-group">
-                                        <div class="post">
-                                            <a href="{{ route('page.edit', $pages[$i]->id) }}"
-                                               class="list-group-item list-group-item-action">{{ $pages[$i]->title }}
-                                                édité le {{ $pages[$i]->updated_at }}</a>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endfor
-                        @else
-                            <p>Aucun élément modifié dernièrement.</p>
-                        @endif
-                    </div>
-                    <div class="tab-pane fade" id="collectionModif" role="tabpanel"
+                    <div class="tab-pane fade" id="rubriquesPortfolio" role="tabpanel"
                          aria-labelledby="collection-tab">
                         @if(count(Auth::user()->collections) > 0)
                             @php
-                                $collections  = Auth::user()->collections
+                                $collections = Auth::user()->collections;
                             @endphp
                             @for($i = 0; $i < $limite; $i++)
                                 @if(isset($collections[$i]))
                                     <div class="list-group">
                                         <div class="post">
                                             <a href="{{ route('collection.edit', $collections[$i]->id) }}"
-                                               class="list-group-item list-group-item-action">{{ $collections[$i]->name }}
-                                                édité le {{ $collections[$i]->updated_at }}</a>
+                                               class="list-group-item list-group-item-action">{{ $collections[$i]->name }}</a>
                                         </div>
                                     </div>
                                 @endif
@@ -125,133 +106,7 @@
                             <p>Aucun élément modifié dernièrement.</p>
                         @endif
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex1">
-
-
-            <div class="col-xs-12" style="width: 100%">
-                <nav>
-                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-sujet-tab" data-toggle="tab"
-                           href="#nav-sujet"
-                           role="tab" aria-controls="nav-sujet" aria-selected="true">Sujets</a>
-                        <a class="nav-item nav-link" id="nav-page-tab" data-toggle="tab"
-                           href="#nav-page"
-                           role="tab" aria-controls="nav-page" aria-selected="false">Pages</a>
-                        <a class="nav-item nav-link" id="nav-collection-tab" data-toggle="tab"
-                           href="#nav-collection"
-                           role="tab" aria-controls="nav-collection">Collections
-                        </a>
-                    </div>
-                </nav>
-
-                <div class="tab-content px-sm-0" id="nav-tabContent">
-
-                    <div class="tab-pane fade show active" id="nav-sujet" role="tabpanel"
-                         aria-labelledby="nav-sujet-tab">
-                        <!--Sujets que je suis-->
-                        <div class="row row-cols-2">
-                            <div class="col">
-                                <div class="card card-default">
-                                    <!--card header-->
-                                    <div class="card-header">
-                                        <h5 class="card-title">
-                                            Sujets que je suis
-                                        </h5>
-                                    </div>
-                                    <!--card body-->
-                                    <div class="list-group">
-                                        <div class="post">
-                                            <a href="#"
-                                               class="list-group-item list-group-item-action">Fonctionnalité non intégrée</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="nav-page" role="tabpanel"
-                         aria-labelledby="nav-page-tab">
-                        <!--Pages suivies-->
-
-                        <div class="row row-cols-2">
-                            <div class="col">
-                                <div class="card card-default">
-                                    <!--card header-->
-                                    <div class="card-header">
-                                        <h5 class="card-title">
-                                            Pages suivies
-                                        </h5>
-                                    </div>
-                                    <!--card body-->
-                                    <div class="list-group">
-                                        <div class="post">
-                                            <a href="#"
-                                               class="list-group-item list-group-item-action">Fonctionnalité non intégrée</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="nav-collection" role="tabpanel"
-                         aria-labelledby="nav-collection-tab">
-                        <!--Collections suivies-->
-                        <div class="row row-cols-2">
-                            <div class="col">
-                                <div class="card card-default">
-                                    <!--card header-->
-                                    <div class="card-header">
-                                        <h5 class="card-title">
-                                            Collections suivies
-                                        </h5>
-                                    </div>
-                                    <!--card body-->
-                                    <div class="list-group">
-                                        <div class="post">
-                                            <a href="#"
-                                               class="list-group-item list-group-item-action">Fonctionnalité non intégrée</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-
-        <div class="flex1">
-            <div class="card card-default" style="max-width: 100%">
-                <!--card header-->
-                <div class="card-header">
-                    <h5 class="card-title">
-                        Mes portfolios
-                    </h5>
-                </div>
-                <!--card body-->
-
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="page-tab" data-toggle="tab"
-                           href="#pagePortfolios" role="tab" aria-controls="page"
-                           aria-selected="true">Page</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="collection-tab" data-toggle="tab"
-                           href="#collectionPortfolios" role="tab" aria-controls="collection"
-                           aria-selected="true">Collection</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="pagePortfolios" role="tabpanel"
+                    <div class="tab-pane fade show active" id="pagePortfolio" role="tabpanel"
                          aria-labelledby="page-tab">
                         @if(count(Auth::user()->pages) > 0)
                             @php
@@ -271,18 +126,40 @@
                             <p>Aucun élément modifié dernièrement.</p>
                         @endif
                     </div>
-                    <div class="tab-pane fade" id="collectionPortfolios" role="tabpanel"
-                         aria-labelledby="collection-tab">
-                        @if(count(Auth::user()->collections) > 0)
+                </div>
+            </div>
+        </div>
+
+        <div class="flex1">
+            <div class="card card-default" style="max-width: 70%">
+                <!--card header-->
+                <div class="card-header">
+                    <h5 class="card-title">
+                        Modifications récentes
+                    </h5>
+                </div>
+                <!--card body-->
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="page-tab" data-toggle="tab" href="#pageModif"
+                           role="tab" aria-controls="page" aria-selected="true">Page</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="pageModif" role="tabpanel"
+                         aria-labelledby="page-tab">
+                        @if(count(Auth::user()->pages) > 0)
                             @php
-                                $collections = Auth::user()->collections;
+                                $pages  = Auth::user()->pages
                             @endphp
                             @for($i = 0; $i < $limite; $i++)
-                                @if(isset($collections[$i]))
+                                @if(isset($pages[$i]))
                                     <div class="list-group">
                                         <div class="post">
-                                            <a href="{{ route('collection.edit', $collections[$i]->id) }}"
-                                               class="list-group-item list-group-item-action">{{ $collections[$i]->name }}</a>
+                                            <a href="{{ route('page.edit', $pages[$i]->id) }}"
+                                               class="list-group-item list-group-item-action">{{ $pages[$i]->title }}
+                                                édité le {{ $pages[$i]->updated_at }}</a>
                                         </div>
                                     </div>
                                 @endif
@@ -326,8 +203,7 @@
                 setTimeout(function () {
                     that.tick();
                 }, delta);
-            }
-            else {
+            } else {
                 document.getElementById("typewriter").className = "";
             }
         };

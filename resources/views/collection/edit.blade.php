@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/collections/index.css">
     <div class="container text-center">
         <div class="text-center">
-            <h5 style="color: white;">Titre de la collection : <b>{{ $collection->name }}</b></h5>
+            <h5 style="color: white;">Titre de la rubrique : <b>{{ $collection->name }}</b></h5>
         </div>
         <div>
             <p style="color: white">Description :</p>
@@ -15,18 +15,18 @@
         <br>
         <div class="text-center">
             <a class="btn btn-outline-info" href="{{ route('collection.addPages', $collection->id) }}">
-                Ajouter
+                Ajouter une page
             </a>
             -
             <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalUpdate">
-                Modifier
+                Modifier les caractéristiques de la rubrique
             </button>
             <div class="float-right">
                 <button class="btn btn-outline-danger" style="width: 200px"  data-toggle="modal" data-target="#modalDelete">
-                    Supprimer
+                    Supprimer la rubrique
                 </button>
             </div>
-            <a style="width: 200px" class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
+            <a style="width: 200px" class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux rubriques</a>
         </div>
         <hr>
         <div class="form-row">
@@ -78,7 +78,7 @@
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title">Modifier les informations de la collection</h5>
+                        <h5 class="modal-title">Modifier les caractéristiques de la rubrique</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -86,11 +86,11 @@
                     <div class="modal-body">
                         <div class="container">
                             <div class="form-group">
-                                <label for="name">Nom de la collection</label>
+                                <label for="name">Nom de la rubrique</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ $collection->name }}">
                             </div>
                             <div class="form-group">
-                                <label for="description">Description de la collection</label>
+                                <label for="description">Description de la rubrique</label>
                                 <textarea type="textarea" class="form-control" id="description" name="description">{{$collection->description}}</textarea>
                             </div>
                             <div class="form-group">
@@ -121,13 +121,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Supprimer la collection</h5>
+                    <h5 class="modal-title">Supprimer la rubrique</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Voulez-vous vraiment supprimer la collection ?</p>
+                    <p>Voulez-vous vraiment supprimer la rubrique ?</p>
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('collection.destroy.fix', $collection->id) }}" type="button" class="btn btn-danger">
@@ -142,7 +142,6 @@
     <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
-<<<<<<< HEAD
                 var input, filter, cards, cardContainer, h5, title, i;
                 input = document.getElementById("myInput");
                 filter = input.value.toUpperCase();
@@ -156,7 +155,6 @@
                         cards[i].style.display = "none";
                     }
                 }
-=======
                 var value = $(this).val().toLowerCase();
                 $(".col-md-4").filter(function() {
                     if (this.id == "add"){
@@ -167,7 +165,6 @@
                     }
 
                 });
->>>>>>> 4710292ae95812d7015c448e95176db12035be09
             });
         });
     </script>

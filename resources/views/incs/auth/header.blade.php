@@ -47,10 +47,10 @@ $rolePolicy = new \App\RoleUserPolicy();
                         Créer
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('page.create') }}">{{ __('Créer une page')}}</a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
-                           href="{{ route('collection.create') }}">{{ __('Créer une collection') }}</a>
+                           href="{{ route('collection.create') }}">{{ __('Créer une rubrique') }}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('page.create') }}">{{ __('Créer une page')}}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('group.create') }}">{{ __('Créer un groupe') }}</a>
 
@@ -62,10 +62,10 @@ $rolePolicy = new \App\RoleUserPolicy();
                         Modifier
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('page.index') }}">{{ __('Modifier mes pages')}}</a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
-                           href="{{ route('collection.index') }}">{{ __('Modifier mes collections') }}</a>
+                           href="{{ route('collection.index') }}">{{ __('Modifier mes rubriques') }}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('page.index') }}">{{ __('Modifier mes pages')}}</a>
 
                     </div>
                 </li>
@@ -135,7 +135,7 @@ $rolePolicy = new \App\RoleUserPolicy();
                                 {{__('Mes pages')}}
                             </a>
                             <a class="dropdown-item" href="{{ route('collection.index') }}">
-                                {{__('Mes collections')}}
+                                {{__('Mes rubriques')}}
                             </a>
                             <a class="dropdown-item" href="#">
                                 {{__('Documents partagés avec moi')}}
@@ -160,7 +160,7 @@ $rolePolicy = new \App\RoleUserPolicy();
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            style="color: white"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            {{ Auth::user()->firstName }} <span class="caret"></span>
                         </a>
                     </li>
                 @endguest

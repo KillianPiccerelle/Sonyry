@@ -7,14 +7,14 @@
         <!-- header of this page -->
         <div class="container">
             <div class="text-center">
-                <b><h1 style="color: white">Gestion des pages dans la collection :</h1></b>
+                <b><h1 style="color: white">Gestion des pages dans la rubrique :</h1></b>
                 <button class="btn btn-outline-warning float-right" data-toggle="modal" data-target="#helpModal">
                     <i class="fas fa-info-circle"></i>
                     Aide
                 </button>
                 <a class="btn btn-outline-primary float-left" href="{{ route('collection.edit', $collection->id) }}">
                     <i class="fas fa-arrow-circle-left"></i>
-                    Revenir à la collection
+                    Revenir à la rubrique
                 </a>
             </div>
         </div>
@@ -29,7 +29,7 @@
                         <x-forms.button text="Ajouter" id="btnAddPages"></x-forms.button>
                     @endif
                 </div>
-                <i><h3 style="color: white">Pages disponibles pour ajouter dans la collection :</h3></i>
+                <i><h3 style="color: white">Pages disponibles pour ajouter dans la rubrique :</h3></i>
                 <hr style="color: white">
                 @if(count($pagesAvailables) > 0)
                 <div class="text-center">
@@ -80,7 +80,7 @@
                         <x-forms.button text="Supprimer" id="btnDeletePages" class="danger float-right" classIcon="trash"></x-forms.button>
                     @endif
                 </div>
-                <i><h3 style="color: white">Pages déjà présentes dans la collection :</h3></i>
+                <i><h3 style="color: white">Pages déjà présentes dans la rubrique :</h3></i>
                 <hr>
                 @if(count($pagesInCollection) > 0)
                 <div class="text-center">
@@ -116,7 +116,7 @@
                 </x-forms.form>
             @else
                 <div class="text-center">
-                    <h5 style="color: white">Aucune page ajoutée dans la collection.</h5>
+                    <h5 style="color: white">Aucune page ajoutée dans la rubrique.</h5>
 
                 </div>
             @endif
@@ -135,8 +135,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Pour ajouter une page dans la collection veuillez cocher la page et cliquer sur le bouton <i>ajouter</i>.</p>
-                    <p>Pour supprimer une page de la collection veuillez cocher la page et cliquer sur le bouton <i>supprimer</i>.</p>
+                    <p>Pour ajouter une page dans la rubrique veuillez cocher la page et cliquer sur le bouton <i>ajouter</i>.</p>
+                    <p>Pour supprimer une page de la rubrique veuillez cocher la page et cliquer sur le bouton <i>supprimer</i>.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

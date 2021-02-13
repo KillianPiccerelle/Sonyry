@@ -5,13 +5,13 @@
 
     <div class="container">
         <div class=" text-center">
-            <h1 style="color: white; margin-bottom: 33px">Liste de mes collections :</h1>
+            <h1 style="color: white; margin-bottom: 33px">Liste de mes rubriques :</h1>
         </div>
         <div class="text-center">
-            <input class="form-control" id="myInput" type="text" placeholder="Rechercher une collection..">
+            <input class="form-control" id="myInput" type="text" placeholder="Rechercher une rubrique..">
         </div>
         <br>
-        <div class="row" id="collections">
+        <div class="row" id="rubriques">
             @if(count($collections) > 0)
                 @foreach($collections as $collection)
                     <div class="col-md-4">
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-center">
-                                <p>Nombre de pages dans la collection : <span>{{ count($collection->pages) }}</span></p>
+                                <p>Nombre de pages dans la rubrique : <span>{{ count($collection->pages) }}</span></p>
                             </div>
                         </div>
                         <br>
@@ -44,7 +44,7 @@
                 @endforeach
             @else
                 <div class="container text-center">
-                    <h5><i  style="color: white">Vous ne possédez pas de collections, veuillez en créer une : </i></h5><a href="{{ route('collection.create') }}" class="btn btn-info"> Ici </a>
+                    <h5><i  style="color: white">Vous ne possédez pas de rubriques, veuillez en créer une : </i></h5><a href="{{ route('collection.create') }}" class="btn btn-info"> Ici </a>
                 </div>
             @endif
         </div>
@@ -55,7 +55,7 @@
                 var input, filter, cards, cardContainer, h5, title, i;
                 input = document.getElementById("myInput");
                 filter = input.value.toUpperCase();
-                cardContainer = document.getElementById("collections");
+                cardContainer = document.getElementById("rubriques");
                 cards = cardContainer.getElementsByClassName("col-md-4");
                 for (i = 0; i < cards.length; i++) {
                     title = cards[i].querySelector(".card .card-header h5 span");
