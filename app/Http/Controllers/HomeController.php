@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\HttpRequest;
 use Illuminate\Http\Request;
 use App\Page;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,9 @@ class HomeController extends Controller
     public function index()
     {
         //$user = Auth::user()->id;
+
+        //dd(session()->get('api_token'));
+
         if(Auth::check()){
             return view('main.auth.home');
         }else{
@@ -34,7 +38,8 @@ class HomeController extends Controller
         }
     }
 
-    public function logout(){
+    public function logout(Request $request){
+
         auth()->logout();
         Session()->flush();
 

@@ -6,10 +6,12 @@ use App\Bloc;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class BlocController extends Controller
 {
+
     public function index($id)
     {
 
@@ -20,13 +22,10 @@ class BlocController extends Controller
         ]);
     }
 
-
     public function create(Request $request, $id)
     {
 
         $page = Page::find($id);
-
-
 
         if (Auth::user()->can('createBloc', $page)) {
             $bloc = new Bloc();
