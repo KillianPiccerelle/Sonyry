@@ -18,10 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 
+
+Route::post('/logout/api', [\App\Http\Controllers\HomeController::class , 'logout'])->name('api.logout');
+
 //Can't register
 Auth::routes(['register' => false]);
 
-Route::get('/logout', 'HomeController@logout');
+
 
 
 /**
