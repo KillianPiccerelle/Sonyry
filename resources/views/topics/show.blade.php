@@ -18,7 +18,7 @@
                 <h5 class="card-title">{{ $topic->title }}</h5>
                 <div class="d-flex justify-content-between align-items-center">
                     <p>{{ $topic->content }}</p>
-                    <small>Posté le {{ $topic->created_at->format('d/m/Y à H:m') }}</small>
+                    <small>Posté le {{ date('d/m/Y à H:m', strtotime($topic->created_at)) }}</small>
                     <span class="badge badge-primary">{{ $topic->user->name }}</span>
                 </div>
                 @if($topic->user_id == Auth::user()->id)
@@ -59,7 +59,7 @@
                 <div class="card-body">
                     {{ $comment->content }}
                     <div class="d-flex justify-content-between align-items-center">
-                        <small>Posté le {{ $comment->created_at->format('d/m/Y') }}</small>
+                        <small>Posté le {{ date('d/m/Y', strtotime($comment->created_at)) }}</small>
                         <span class="badge badge-primary">{{ $comment->user->name }}</span>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     <div class="card-body">
                         {{ $replyComment->content }}
                         <div class="d-flex justify-content-between align-items-center">
-                            <small>Posté le {{ $replyComment->created_at->format('d/m/Y') }}</small>
+                            <small>Posté le {{ date('d/m/Y', strtotime($replyComment->created_at)) }}</small>
                             <span class="badge badge-primary">{{ $replyComment->user->name }}</span>
                         </div>
                     </div>

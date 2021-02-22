@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categorie;
+use App\HttpRequest;
 use App\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +18,10 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::latest('created_at')->simplepaginate(8);
-        $categories = Categorie::all() ;
+        $apiRequest = HttpRequest::makeRequest('topics');
+
+        $topics = $apiRequest->object()->topics->data;
+        $categories = $apiRequest->object()->categories;
 
         return view('topics.index', [
             'topics' => $topics,
@@ -35,7 +38,10 @@ class TopicController extends Controller
      */
     public function create()
     {
-        $categories = Categorie::all() ;
+        $apiRequest = HttpRequest::makeRequest('topics/create');
+
+        $categories = $apiRequest->object()->categories ;
+
         return view('topics.create', [
             'categories' => $categories
         ]);
@@ -50,24 +56,11 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
+        $apiRequest = HttpRequest::makeRequest('topics/store','post',['title'=>$request->input('title'),'categorie_id'=>$request->input('categorie_id'),'content'=>$request->input('content')]);
 
-        request()->validate([
-            'title' => 'required|min:5',
-            'content' => 'required|min:10',
-            'categorie_id'=>'required',
-        ]);
+        dd($apiRequest->object());
 
-
-
-        $topic = new Topic();
-        $topic->content = request()->input('content');
-        $topic->title = request()->input('title');
-        $topic->categorie_id = request()->input('categorie_id');
-        $topic->user_id = auth()->user()->id;
-
-        $topic->save();
-
-        return redirect()->route('topics.show', $topic->id)->with('success','Création du topic avec succès');
+        return redirect()->route('topics.index',$apiRequest->object())->with('success','Création du topic avec succès');
     }
 
 
@@ -79,7 +72,10 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        $topic = Topic::find($id);
+        $apiRequest = HttpRequest::makeRequest('topics/'.$id.'/show');
+
+        $topic = $apiRequest->object()->topic;
+
         return view('topics.show', [
             'topic' => $topic
         ]);
@@ -93,9 +89,10 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
-
-        $topic = Topic::find($id);
-
+        $apiRequest = HttpRequest::makeRequest('topics/'.$id.'/edit');
+        //dd($apiRequest->object()->topic);
+        $topic = $apiRequest->object()->topic;
+        //dd($topic);
         if (Auth::user()->can('update', $topic)) {
 
             return view('topics.edit', [
