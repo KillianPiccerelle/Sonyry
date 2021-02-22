@@ -18,7 +18,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $apiRequest = HttpRequest::makeRequest('topics');
+        $apiRequest = HttpRequest::makeRequest('/topics');
+
+        //dd($apiRequest->object());
 
         $topics = $apiRequest->object()->topics->data;
         $categories = $apiRequest->object()->categories;
@@ -38,7 +40,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        $apiRequest = HttpRequest::makeRequest('topics/create');
+        $apiRequest = HttpRequest::makeRequest('/topics/create');
 
         $categories = $apiRequest->object()->categories ;
 
@@ -56,11 +58,10 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        $apiRequest = HttpRequest::makeRequest('topics/store','post',['title'=>$request->input('title'),'categorie_id'=>$request->input('categorie_id'),'content'=>$request->input('content')]);
+        $apiRequest = HttpRequest::makeRequest('/topics/store','post',['title'=>$request->input('title'),'categorie_id'=>$request->input('categorie_id'),'content'=>$request->input('content')]);
 
-        dd($apiRequest->object());
 
-        return redirect()->route('topics.index',$apiRequest->object())->with('success','Création du topic avec succès');
+        return redirect()->route('topics.show',$apiRequest->object()->id)->with('success','Création du topic avec succès');
     }
 
 
@@ -72,7 +73,7 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        $apiRequest = HttpRequest::makeRequest('topics/'.$id.'/show');
+        $apiRequest = HttpRequest::makeRequest('/topics/'.$id.'/show');
 
         $topic = $apiRequest->object()->topic;
 
@@ -89,16 +90,18 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
-        $apiRequest = HttpRequest::makeRequest('topics/'.$id.'/edit');
-        //dd($apiRequest->object()->topic);
-        $topic = $apiRequest->object()->topic;
-        //dd($topic);
-        if (Auth::user()->can('update', $topic)) {
+        $apiRequest = HttpRequest::makeRequest('/topics/'.$id.'/edit');
+
+        if ($apiRequest->status() != 401){
+
+            $topic = $apiRequest->object()->topic;
 
             return view('topics.edit', [
                 'topic' => $topic
             ]);
+
         }
+
         return redirect()->route('topics.index')->with('danger', 'Vous ne pouvez pas modifier ce topic');
     }
 
@@ -111,21 +114,17 @@ class TopicController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $params = ['title'=>$request->input('title'),'categorie_id'=>$request->input('categorie_id'),'content'=>$request->input('content')];
 
-        $topic = Topic::find($id);
+        $apiRequest = HttpRequest::makeRequest('/topics/'.$id.'/update','put',$params);
 
-        if (Auth::user()->can('update', $topic)) {
+        if ($apiRequest->status() != 401){
 
-            $data = $request->validate([
-                'title' => 'required|min:5',
-                'content' => 'required|min:10'
-
-            ]);
-
-            $topic->update($data);
+            $topic = $apiRequest->object()->topic;
 
             return redirect()->route('topics.show', $topic->id)->with('success','Topic mis à jour');
         }
+
         return redirect()->route('topics.index')->with('danger', 'Vous ne pouvez pas modifier ce topic');
     }
 
@@ -137,25 +136,12 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
+        $apiRequest = HttpRequest::makeRequest('/topics/'.$id.'/destroy','delete');
 
-        $topic = Topic::find($id);
+        if ($apiRequest->status() != 401){
 
-        if (Auth::user()->can('delete', $topic)) {
-
-
-            if (count($topic->comments) > 0) {
-                foreach ($topic->comments as $comment) {
-                    if(count($comment->comments) > 0 ) {
-                        foreach ($comment->comments as $reply) {
-                            $reply->delete();
-                        }
-                    }
-                    $comment->delete();
-                }
-            }
-
-            $topic->delete();
             return redirect()->route('topics.index')->with('success', 'Topic supprimé');
+
         }
         return redirect()->route('topics.index')->with('danger', 'Vous ne pouvez pas supprimer ce topic');
     }
