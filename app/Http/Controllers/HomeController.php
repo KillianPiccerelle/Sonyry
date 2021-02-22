@@ -39,7 +39,7 @@ class HomeController extends Controller
     }
 
     public function logout(Request $request){
-
+        HttpRequest::makeRequest('/auth/logout','post');
         auth()->logout();
         Session()->flush();
 
