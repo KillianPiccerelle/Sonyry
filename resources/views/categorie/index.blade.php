@@ -44,8 +44,7 @@
                                     Voulez vous vraiment supprimer cette catégorie ?
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler
-                                    </button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                                     <a href="{{ route('categorie.destroy',$categorie->id) }}" type="button"
                                        class="btn btn-danger">Supprimer</a>
                                 </div>

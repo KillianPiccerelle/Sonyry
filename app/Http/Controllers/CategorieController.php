@@ -102,31 +102,11 @@ class CategorieController extends Controller
      */
     public function destroy($id)
     {
-        $categorie = Categorie::find($id);
+        $apiRequest = HttpRequest::makeRequest('/categorie/'.$id.'/destroy','delete');
+        //dd($apiRequest->status());
+        if ($apiRequest->status() != 401){
 
-        if (Auth::user()->can('delete', $categorie)) {
-
-            if (count($categorie->topics) > 0) {
-                foreach ($categorie->topics as $topic) {
-
-                    if (count($topic->comments) > 0) {
-                        foreach ($topic->comments as $comment) {
-                            if (count($comment->comments) > 0) {
-                                foreach ($comment->comments as $reply) {
-                                    $reply->delete();
-                                }
-                            }
-                            $comment->delete();
-                        }
-                    }
-
-                    $topic->delete();
-                }
-            }
-
-            $categorie->delete();
-
-            return redirect()->route('categorie.index');
+            return redirect()->route('categorie.index')->with('success', 'Categorie supprimée');
         }
 
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');

@@ -35,7 +35,7 @@
                             <h4><a href="{{ route('topics.show',$topic['id']) }}">{{ $topic->title }}</a></h4>
                             <p>{{ $topic->content }}</p>
                             <div class="align-items-center">
-                                <small>Posté le {{ $topic->created_at->format('d/m/Y à H:m') }}</small>
+                                <small>Posté le {{ date('d/m/Y à H:m', strtotime($topic->created_at)) }}</small>
                                 <span class="badge badge-primary float-right">{{ $topic->user->name }}</span>
                                 @if($current == 0) <span
                                     class="badge badge-warning float-right">{{ $topic->categorie->libelle}}</span> @endif
