@@ -34,8 +34,9 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        $cat = new Categorie();
-        if (Auth::user()->can('update', $cat)) {
+        $apiRequest = HttpRequest::makeRequest('/categorie/create');
+
+        if ($apiRequest->status() != 401){
             return view('categorie.create');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
