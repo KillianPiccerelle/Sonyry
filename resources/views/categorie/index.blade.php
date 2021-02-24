@@ -18,7 +18,7 @@
                 @forelse($categories as $categorie)
                     <div class="list-group-item">
                         <h5 class="card-title">{{ $categorie->libelle }}</h5>
-                        <small>Posté le {{ $categorie->created_at->format('d/m/Y à H:m') }}</small>
+                        <small>Posté le {{ date('d/m/Y à H:m', strtotime($categorie->created_at)) }}</small>
                         <div class="align-items-center float-right">
                             <button type="submit" data-target="#staticBackdrop" data-toggle="modal"
                                     class="btn btn-danger">

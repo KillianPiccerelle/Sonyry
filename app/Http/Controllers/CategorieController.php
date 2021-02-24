@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categorie;
+use App\HttpRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +16,9 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $cat = new Categorie();
-        if (Auth::user()->can('viewAny', $cat)) {
-            $categories = Categorie::all();
+        $apiRequest = HttpRequest::makeRequest('/categorie/index');
+        if ($apiRequest->status() != 401){
+            $categories = $apiRequest->object()->categories;
             return view('categorie.index', [
                 'categories' => $categories
             ]);
