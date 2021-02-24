@@ -50,20 +50,11 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
+        $apiRequest = HttpRequest::makeRequest('/categorie/store','post',['libelle'=>$request->input('libelle')]);
 
-        request()->validate([
-            'libelle' => 'required|min:5',
-        ]);
+        if ($apiRequest->status() != 401){
 
-        $categorie = new Categorie();
-
-        $categorie->libelle = request()->input('libelle');
-
-        if (Auth::user()->can('update', $categorie)) {
-
-            $categorie->save();
-
-            return redirect()->route('topics.index', $categorie->id);
+            return redirect()->route('topics.index', $apiRequest->object()->id);
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
 
