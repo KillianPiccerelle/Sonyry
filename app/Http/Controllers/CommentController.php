@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\HttpRequest;
 use App\User;
 use App\Comment;
 use App\Topic;
@@ -16,40 +17,16 @@ class CommentController extends Controller
 
     public function store (Request $request,$id)
     {
-        request()->validate([
-            'content' => 'required|min:5'
-        ]);
+        $apiRequest = HttpRequest::makeRequest('/comments/'.$id.'/store','post',['content'=>$request->input('content')]);
 
-        $topic = Topic::find($id);
-
-        $comment = new Comment();
-        $comment->content = request()->input('content');
-
-        $comment->user_id = auth()->user()->id;
-        $comment->commentable_id = $topic->id;
-        $topic->comments()->save($comment);
-
-        return redirect()->route('topics.show', $topic->id);
+        return redirect()->route('topics.show', $apiRequest->object()->id);
     }
 
-    public function storeCommentReply( $id)
+    public function storeCommentReply(Request $request, $id)
     {
-       request()->validate([
-            'replyComment' => 'required|min:3'
-        ]);
+       $apiRequest = HttpRequest::makeRequest('/commentReply/'.$id.'/storeCommentReply','post',['replyComment'=>$request->input('replyComment')]);
 
-        $comment = Comment::find($id);
-        $commentReply = new Comment();
-        $commentReply->content = request()->input('replyComment');
-        $commentReply->user_id = auth()->user()->id;
-        $commentReply->commentable_id = $id;
-        $comment->comments()->save($commentReply);
-
-
-        return redirect()->back();
+       return redirect()->back();
     }
-
-
-
 
 }
