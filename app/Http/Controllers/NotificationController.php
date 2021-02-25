@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\HttpRequest;
 use App\Inbox;
 use App\Notification;
 use App\UserGroup;
@@ -29,72 +30,11 @@ class NotificationController extends Controller
      */
     public function destroy($id)
     {
-
-        $notification = Notification::find($id);
-        Inbox::where('notification_id', $notification->id)->delete();
+        $apiRequest = HttpRequest::makeRequest('/inbox/'.$id.'/destroy');
         /** Delete the notification and the link of notification with the user */
-        $notification->delete();
 
         return redirect()->route('inbox.index');
     }
 
-    /**
-     * Auto-generation of notification
-     */
-    public static function notificationAuto($title, $paragraph) {
 
-        /** Generating the content of the notification */
-        $notification = new Notification();
-        $notification->title = $title;
-        $notification->paragraph = $paragraph;
-        $notification->save();
-
-        /** Generation of the notification link with the user in question */
-        $inbox = New Inbox();
-        $inbox->notification_id = $notification->id;
-        $inbox->user_id = Auth::user()->id;
-        $inbox->save();
-    }
-
-    /**
-     * Auto-generation of notification kicking
-     */
-    public static function notificationAutoKick($title, $paragraph, $member) {
-
-        /** Generating the content of the notification */
-        $notification = new Notification();
-        $notification->title = $title;
-        $notification->paragraph = $paragraph;
-        $notification->save();
-
-        /** Generation of the notification link with the user in question */
-        $inbox = New Inbox();
-        $inbox->notification_id = $notification->id;
-        $inbox->user_id = $member;
-        $inbox->save();
-    }
-
-    /**
-     * Auto-generation of notification for invitation in group
-     */
-    public static function notificationAutoInviteGroup($title, $paragraph, $user_id, $group) {
-
-        /** Generating the content of the notification */
-        $notification = new Notification();
-        $notification->title = $title;
-        $notification->paragraph = $paragraph;
-        $notification->save();
-
-        $updateNotification = Notification::latest()->first();
-        $updateNotification->link = route('group.accept', [
-            'id' => $group->id,
-            'notification' => $updateNotification->id ]);
-        $updateNotification->save();
-
-        /** Generation of the notification link with the user in question */
-        $inbox = New Inbox();
-        $inbox->notification_id = $notification->id;
-        $inbox->user_id = $user_id;
-        $inbox->save();
-    }
 }
