@@ -133,7 +133,7 @@
                                             <img class="img-sm rounded-circle mr-3" width="100" height="100"
                                                  src="/img/avatar.default.jpg" alt="">
                                             <div class="details">
-                                                <p class="msg-subject">{{ $inbox->notification->title }} {{ $inbox->notification->created_at->format('d/m/y à H\hi') }}</p>
+                                                <p class="msg-subject">{{ $inbox->notification->title }} {{ date('d/m/y à H\hi', strtotime($inbox->notification->created_at)) }}</p>
                                                 <p class="sender-notification">Système</p>
                                             </div>
                                         </div>

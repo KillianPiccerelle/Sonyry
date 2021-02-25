@@ -21,7 +21,6 @@ class ProfilController extends Controller
     public function index()
     {
         $apiRequest = HttpRequest::makeRequest('/profil');
-        //dd($apiRequest->object());
 
         $groups = $apiRequest->object()->groups;
         $friends = $apiRequest->object()->friends;
