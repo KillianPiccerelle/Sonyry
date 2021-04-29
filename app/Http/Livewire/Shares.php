@@ -157,8 +157,6 @@ class Shares extends Component
 
         $http = HttpRequest::makeRequest('/shares/'. $id . '/directory/' . $this->groupId , 'delete');
 
-        dd($http);
-
         session()->flash('livewire', 'Dossier supprimé !');
 
     }
