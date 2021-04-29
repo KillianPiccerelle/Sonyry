@@ -3,39 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\HttpRequest;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Page;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index()
     {
-        //$user = Auth::user()->id;
+        $http = HttpRequest::makeRequest('/dashboard');
 
-        //dd(session()->get('api_token'));
+        return view('main.auth.home' , [
+            'pages' => $http->object()->pages,
+            'collections' => $http->object()->collections
+        ]);
+    }
 
-        if(Auth::check()){
-            return view('main.auth.home');
-        }else{
-            return view('main.ano.home');
+    public function ano()
+    {
+        return view('auth.login');
+    }
+
+    public function login()
+    {
+        $params = [
+            'email'=>request()->input('email'),
+            'password'=>request()->input('password')
+        ];
+
+        $http = HttpRequest::makeRequest('/auth/login','post',$params);
+
+        if ($http->status() != 401){
+            session(['api_token'=>$http->object()->access_token]);
+
+            $http = HttpRequest::makeRequest('/auth/me','post');
+
+            session(['id' => $http->object()->id]);
+
+            session(['roles' => $http->object()->roles]);
+
+            session(['firstname' => $http->object()->firstName]);
+
+            return redirect()->route('home');
         }
+        return redirect()->route('login');
     }
 
     public function logout(Request $request){
@@ -43,6 +61,6 @@ class HomeController extends Controller
         auth()->logout();
         Session()->flush();
 
-        return Redirect::to('/');
+        return redirect()->route('login');
     }
 }

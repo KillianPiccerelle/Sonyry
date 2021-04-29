@@ -18,7 +18,7 @@ class HttpRequest extends Model
                 if ($file !== null){
                     $http = Http::withHeaders([
                         'Authorization' => 'Bearer ' . session()->get('api_token')
-                    ])->attach('content',$file->get() , $file->getClientOriginalName())->post(env('API_BASE_URL') . $url, $params);
+                    ])->attach($file->getKey() ,$file->getContent()->get() , $file->getName())->post(env('API_BASE_URL') . $url, $params);
                 }
                 else{
                     $http = Http::withHeaders([
@@ -28,9 +28,16 @@ class HttpRequest extends Model
 
                 break;
             case 'put':
-                $http = Http::withHeaders([
-                    'Authorization' => 'Bearer ' . session()->get('api_token')
-                ])->put(env('API_BASE_URL') . $url, $params);
+                if ($file !== null){
+                    $http = Http::withHeaders([
+                        'Authorization' => 'Bearer ' . session()->get('api_token')
+                    ])->attach($file->getKey() ,$file->getContent()->get() , $file->getName())->put(env('API_BASE_URL') . $url, $params);
+                }
+                else{
+                    $http = Http::withHeaders([
+                        'Authorization' => 'Bearer ' . session()->get('api_token')
+                    ])->put(env('API_BASE_URL') . $url, $params);
+                }
                 break;
             case 'delete':
                 $http = Http::withHeaders([

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bloc;
+use App\File;
 use App\HttpRequest;
 use App\Page;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class BlocController extends Controller
         $file = null;
 
         if ($request->file('content')){
-            $file = $request->file('content');
+            $file = new File('content' , $request->file('content') , $request->file('content')->getClientOriginalName());
         }
 
         $http  = HttpRequest::makeRequest('/blocs/'.$id , 'post' , $request->all() , $file);
@@ -42,47 +43,20 @@ class BlocController extends Controller
 
     public function update(Request $request, $id)
     {
-        $bloc = Bloc::find($id);
-        if (Auth::user()->can('update', $bloc)) {
-            if ($request->input('title')) {
-                $bloc->title = $request->input('title');
-            } elseif ($request->input('content')) {
-                $bloc->content = $request->input('content');
-            }
 
-            $bloc->save();
-        }
+        $http = HttpRequest::makeRequest('/blocs/'.$id , 'put' , $request->all());
+
+        $bloc = $http->object();
+
         return redirect()->route('bloc.index', $bloc->page->id);
     }
 
     public function delete($id)
     {
 
-        $bloc = Bloc::find($id);
+        $http = HttpRequest::makeRequest('/blocs/'.$id , 'delete');
 
-        if (Auth::user()->can('delete', $bloc)) {
-            if ($bloc->type == 'video') {
-                $fileToDelete = 'public/bloc/' . $bloc->page_id . '/video/' . $bloc->content;
-
-                if (Storage::exists($fileToDelete)) {
-                    Storage::delete($fileToDelete);
-                }
-            } elseif ($bloc->type == 'image') {
-                $fileToDelete = 'public/bloc/' . $bloc->page_id . '/image/' . $bloc->content;
-
-                if (Storage::exists($fileToDelete)) {
-                    Storage::delete($fileToDelete);
-                }
-            }
-            elseif ($bloc->type == 'file'){
-                $fileToDelete = 'public/bloc/' . $bloc->page_id . '/file/' . $bloc->content;
-                if (Storage::exists($fileToDelete)) {
-                    Storage::delete($fileToDelete);
-                }
-            }
-
-            $bloc->delete();
-        }
+        $bloc = $http->object();
 
         return redirect()->route('bloc.index', $bloc->page->id);
     }

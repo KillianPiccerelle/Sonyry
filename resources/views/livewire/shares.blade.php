@@ -84,7 +84,7 @@
                     <form>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Nom du dossier</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom..." wire:model="directoryName">
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom..." wire:model.defer="directoryName">
                         </div>
                     </form>
                 </div>
@@ -110,7 +110,7 @@
                                 @if($page->isShared)
                                     <p><i>Déjà partagée</i></p>
                                 @else
-                                    <input wire:model="pagesShared" value="{{ $page->id }}" type="checkbox">
+                                    <input wire:model.defer="pagesShared" value="{{ $page->id }}" type="checkbox">
 
                                 @endif
                             </div>
@@ -140,8 +140,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" wire:click="resetShares" data-dismiss="modal" class="btn btn-danger">Annuler</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" wire:click="sharePages">Ajouter !</button>
+                    <button type="button" wire:click.prevent="resetShares" data-dismiss="modal" class="btn btn-danger">Annuler</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" wire:click.prevent="sharePages">Ajouter !</button>
                 </div>
             </div>
         </div>

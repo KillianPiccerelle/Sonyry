@@ -8,7 +8,7 @@
         </div>
         <div class="container text-center" style="color: white">
             <h1>{{ $group->name }}</h1>
-            <p>Crée le : {{ $group->created_at->format('d/m/y') }}</p>
+            <p>Crée le : {{ \Carbon\Carbon::make($group->created_at)->format('d/m/y') }}</p>
             <hr>
             <h5 class="text-center">Membre(s) du groupe :</h5>
             <br>
@@ -24,9 +24,9 @@
                     <th scope="col">Prénom</th>
                     <th scope="col">Statut</th>
                     <th scope="col">Date d'arrivée dans le groupe</th>
-                    @can('update',$group)
+                    @if(session()->get('id') == $group->user_id)
                         <th scope="col">Action</th>
-                    @endcan
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -39,8 +39,8 @@
                                 Membre
                             @endif
                         </td>
-                        <td>{{ $member->created_at->format('d/m/y') }}</td>
-                        @can('update',$group)
+                        <td>{{ \Carbon\Carbon::make($member->created_at)->format('d/m/y') }}</td>
+                        @if(session()->get('id') == $group->user_id)
                             <td>
                                 @if($member->user->id != $group->user_id)
                                     <button class="btn btn-danger" data-toggle="modal"
@@ -80,7 +80,7 @@
                                     </div>
                                 @endif
                             </td>
-                        @endcan
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

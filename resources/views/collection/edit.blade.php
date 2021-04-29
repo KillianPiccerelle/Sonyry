@@ -22,11 +22,13 @@
                 Modifier
             </button>
             <div class="float-right">
-                <button class="btn btn-outline-danger" style="width: 200px"  data-toggle="modal" data-target="#modalDelete">
+                <button class="btn btn-outline-danger" style="width: 200px" data-toggle="modal"
+                        data-target="#modalDelete">
                     Supprimer
                 </button>
             </div>
-            <a style="width: 200px" class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir aux collections</a>
+            <a style="width: 200px" class="btn btn-outline-primary float-left" href="{{ route('collection.index') }}">Revenir
+                aux collections</a>
         </div>
         <hr>
         <div class="form-row">
@@ -34,8 +36,8 @@
         </div>
         <br>
         <div class="row" id="pages">
-            @if(count($pages) > 0)
-                @foreach($pages as $page)
+            @if(count($collection->pages) > 0)
+                @foreach($collection->pages as $page)
                     <div class="col-md-4">
                         <div class="card text-center">
                             <div class="card-header">
@@ -43,11 +45,7 @@
                             </div>
                             <div class="card-body">
                                 <div>
-                                    @if($page->page->image === 'default_page.png')
-                                        <img src="/storage/default/{{ $page->page->image }}" height="150px">
-                                    @else
-                                        <img src="/storage/pages/{{ $page->page->user_id }}/{{ $page->page->image }}" height="150px">
-                                    @endif
+                                    <img src="{{ env('API_BASE_URL') . '/../' . $page->page->link }}" height="150px">
                                 </div>
                                 <br>
                                 <div class="text-center">
@@ -58,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <small>Dernière modification : {{ $page->updated_at->format('d/m/y à H\hi') }}</small>
+                                <small>Dernière modification : {{ $page->page->updated_at_ }}</small>
                             </div>
                         </div>
                         <br>
@@ -74,7 +72,8 @@
     <div class="modal fade bd-example-modal-lg" tabindex="-2" role="dialog" id="modalUpdate">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form method="post" action="{{ route('collection.update', $collection->id) }}" class="comment-form contact-form" enctype="multipart/form-data">
+                <form method="post" action="{{ route('collection.update', $collection->id) }}"
+                      class="comment-form contact-form" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
@@ -87,11 +86,13 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="name">Nom de la collection</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ $collection->name }}">
+                                <input type="text" class="form-control" id="name" name="name"
+                                       value="{{ $collection->name }}">
                             </div>
                             <div class="form-group">
                                 <label for="description">Description de la collection</label>
-                                <textarea type="textarea" class="form-control" id="description" name="description">{{$collection->description}}</textarea>
+                                <textarea type="textarea" class="form-control" id="description"
+                                          name="description">{{$collection->description}}</textarea>
                             </div>
                             <div class="form-group">
                                 <input type="file" name="image"/>
@@ -99,11 +100,9 @@
                             <div class="form-group">
                                 <label for="image"><i>Image actuelle :</i></label>
                                 <br>
-                                @if($collection->image === 'default_collection.jpg')
-                                    <img src="/storage/default/{{ $collection->image }}" height="300px">
-                                @else
-                                    <img src="/storage/collections/{{ $collection->user_id }}/{{ $collection->image }}" height="300px">
-                                @endif
+
+                                <img src="{{ env('API_BASE_URL') . '/../' . $collection->link }}"
+                                     height="300px">
                             </div>
                         </div>
                     </div>
@@ -130,7 +129,8 @@
                     <p>Voulez-vous vraiment supprimer la collection ?</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ route('collection.destroy.fix', $collection->id) }}" type="button" class="btn btn-danger">
+                    <a href="{{ route('collection.destroy.fix', $collection->id) }}" type="button"
+                       class="btn btn-danger">
                         Supprimer
                     </a>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
@@ -140,9 +140,8 @@
     </div>
 
     <script>
-        $(document).ready(function(){
-            $("#myInput").on("keyup", function() {
-<<<<<<< HEAD
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
                 var input, filter, cards, cardContainer, h5, title, i;
                 input = document.getElementById("myInput");
                 filter = input.value.toUpperCase();
@@ -156,18 +155,6 @@
                         cards[i].style.display = "none";
                     }
                 }
-=======
-                var value = $(this).val().toLowerCase();
-                $(".col-md-4").filter(function() {
-                    if (this.id == "add"){
-
-                    }
-                    else {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                    }
-
-                });
->>>>>>> 4710292ae95812d7015c448e95176db12035be09
             });
         });
     </script>

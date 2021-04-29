@@ -16,10 +16,10 @@
                 <tbody>
                 @foreach($groups as $group)
                     <tr>
-                        <td  style="color: white">{{ $group->group->name }}</td>
+                        <td  style="color: white">{{ $group->name }}</td>
                         <td  style="color: white">{{ $group->members }}</td>
                         <td>
-                            <a href="{{ route('group.show', $group->group->id) }}" class="btn btn-primary">Voir</a>
+                            <a href="{{ route('group.show', $group->id) }}" class="btn btn-primary">Voir</a>
                         </td>
                     </tr>
                 @endforeach

@@ -25,11 +25,11 @@
 
                     @if($bloc->type == 'video')
                         <video id="content" controls>
-                            <source src="{{ env('API_BASE_URL') . '../' . $bloc->link }}">
+                            <source src="{{ env('API_BASE_URL') . '/../' . $bloc->link }}">
                         </video>
                     @endif
                     @if($bloc->type == 'file')
-                       <a href="{{ env('API_BASE_URL') . '../' . $bloc->link }}" download>{{ $bloc->content }}</a>
+                       <a target="_blank" href="{{ env('API_BASE_URL') . '/../' . $bloc->link }}" download>{{ $bloc->content }}</a>
                     @endif
                 </div>
             </div>

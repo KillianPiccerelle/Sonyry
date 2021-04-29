@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Collection;
 use App\CollectionsPage;
+use App\HttpRequest;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,31 +19,28 @@ class CollectionPageController extends Controller
      */
     public function add($id)
     {
-        $collection = Collection::find($id);
+        $http = HttpRequest::makeRequest('/collectionPages/' . $id);
 
-        if (Auth::user()->can('update', $collection)) {
+        if ($http->status() != 401) {
 
-            $pagesInCollection = CollectionsPage::where('collection_id', $id)->get();
+            $collection = $http->object();
 
-            $pagesAvailables = Page::where('user_id', Auth::user()->id)->get();
+
 
             $count = 0;
+            foreach ($collection->availables as $available){
 
-            foreach ($pagesAvailables as $page) {
-                foreach ($pagesInCollection as $pageChecking) {
-                    if ($pageChecking->page_id == $page->id) {
-                        unset($pagesAvailables[$count]);
-                    }
+                if (!$available->available){
+                    unset($collection->availables[$count]);
                 }
+
                 $count++;
             }
 
             return view('collection.addPages', [
-                'collection' => $collection,
-                'pagesAvailables' => $pagesAvailables,
-                'pagesInCollection' => $pagesInCollection
-            ]);
+                'collection' => $collection]);
         }
+
         return redirect()->route('home')->with('danger', 'Vous n\'avez pas accès à cette collection');
     }
 
@@ -59,18 +57,13 @@ class CollectionPageController extends Controller
         if ($request->input('checkbox') == null) {
             return redirect()->route('collection.addPages', $id)->with('danger', 'Veuillez séléctionner au minimum une page !');
         }
-        $collection = Collection::find($id);
-        if (Auth::user()->can('update', $collection)) {
-            foreach ($request->input('checkbox') as $item) {
-                $collectionPage = new CollectionsPage();
 
-                $collectionPage->collection_id = $id;
-                $collectionPage->page_id = $item;
+        $http = HttpRequest::makeRequest('/collectionPages/' . $id, 'post', $request->all());
 
-                $collectionPage->save();
-            }
+        if ($http->status() != 401) {
             return redirect()->route('collection.addPages', $id)->with('success', 'Page(s) ajoutée(s) à la collection avec succès !');
         }
+
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
 
     }
@@ -87,17 +80,11 @@ class CollectionPageController extends Controller
             return redirect()->route('collection.addPages', $id)->with('danger', 'Veuillez séléctionner au minimum une page !');
         }
 
-        $collection = Collection::find($id);
+        $http = HttpRequest::makeRequest('/collectionPages/delete/' . $id, 'post', $request->all());
 
-        if (Auth::user()->can('delete', $collection)) {
-            foreach ($request->input('checkbox') as $item) {
-                CollectionsPage::where('page_id', $item)->delete();
-            }
+        if ($http->status() != 401) {
             return redirect()->route('collection.addPages', $id)->with('success', 'Page(s) suprimée(s) de la collection avec succès !');
-
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
-
-
     }
 }

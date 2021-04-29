@@ -10,7 +10,7 @@
         <div class="col-md-3">
             <div class="shadow p-3 mb-5 bg-white rounded">
 
-                <form class="card-body" method="POST" action="{{ route('login') }}">
+                <form class="card-body" method="POST" action="{{ route('api.login') }}">
                     @csrf
 
                     <img class="mb-4" src="https://media.discordapp.net/attachments/718040099618685009/718041074169413775/unknown.png" alt="" width="72" height="72">

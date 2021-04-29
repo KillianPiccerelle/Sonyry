@@ -16,26 +16,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/login' , [\App\Http\Controllers\HomeController::class , 'ano'])->name('login');
+Route::post('/login' , [\App\Http\Controllers\HomeController::class , 'login'])->name('api.login');
+Route::get('/logout', [\App\Http\Controllers\HomeController::class , 'logout'])->name('logout');
 
 
-Route::post('/logout/api', [\App\Http\Controllers\HomeController::class , 'logout'])->name('api.logout');
+Route::middleware([\App\Http\Middleware\TokenMiddleware::class])->group(function(){
 
-//Can't register
-Auth::routes(['register' => false]);
-
-
-
-
-/**
- * Pages
- */
-
-Route::middleware('auth')->group(function(){
     /**
      * Nécessite l'authentification
      * Le Route::ressource gère toutes les routes présentes dans un controller
      */
+
+    Route::get('/', 'HomeController@index')->name('home');
 
     /**
      * Page route

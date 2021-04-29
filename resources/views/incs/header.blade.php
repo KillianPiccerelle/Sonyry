@@ -2,7 +2,7 @@
 <header class="header-section">
     <div class="container-fluid">
         <div class="nav-menu" >
-            @if (Auth::check())
+            @if(session()->get('api_token'))
                 @include('incs.auth.header')
             @else
                 @include('incs.ano.header')

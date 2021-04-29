@@ -3,14 +3,20 @@
 namespace App\Http\Livewire;
 
 use App\Group;
+use App\HttpRequest;
 use App\Page;
 use App\ShareDirectory;
 use App\ShareGroup;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class Shares extends Component
 {
+
+    use AuthorizesRequests;
 
     protected $listeners = ['refreshParent'=>'$refresh'];
 
@@ -18,7 +24,7 @@ class Shares extends Component
     public $content;
 
     //Group object
-    public $group;
+    public $groupId;
 
     //Actual directory id
     public $idDirectory;
@@ -46,21 +52,40 @@ class Shares extends Component
     private function getContent(){
         $this->content = [];
 
-        $directories = ShareDirectory::where('group_id',$this->group->id)->get();
-        $shares = ShareGroup::where('group_id',$this->group->id)->get();
+        $http = HttpRequest::makeRequest('/shares/'. $this->groupId);
 
-        foreach ($directories as $directory) {
-            if ($directory->shareDirectory_id == $this->idDirectory){
-                $directory->type = 'directory';
-                $this->content []= $directory;
+        if ($http->object()->directories != null){
+            $directories = $http->object()->directories;
+        }
+        else{
+            $directories = [];
+        }
+
+        if ($http->object()->shares != null){
+            $shares = $http->object()->shares;
+        }
+        else{
+            $shares = [];
+        }
+
+        if (count($directories) > 0){
+            foreach ($directories as $directory) {
+                if ($directory->shareDirectory_id == $this->idDirectory){
+                    $directory->type = 'directory';
+                    $this->content []= $directory;
+                }
             }
         }
-        foreach ($shares as $share){
-            if ($share->shareDirectory_id == $this->idDirectory){
-                $share->type = 'page';
-                $this->content []= $share;
+
+        if (count($shares) > 0){
+            foreach ($shares as $share){
+                if ($share->shareDirectory_id == $this->idDirectory){
+                    $share->type = 'page';
+                    $this->content []= $share;
+                }
             }
         }
+
     }
 
     /**
@@ -72,13 +97,7 @@ class Shares extends Component
             $this->links = [];
         }
         else{
-            $this->links = [];
-            while ($this->current->shareDirectory_id != 0){
-                $this->links []= $this->current;
-                $this->current = ShareDirectory::find($this->current->shareDirectory_id);
-            }
-            $this->links []= $this->current;
-            $this->links = array_reverse($this->links);
+            $this->links = HttpRequest::makeRequest('/shares/links/'.$this->current['id'])->object();
         }
     }
 
@@ -87,7 +106,7 @@ class Shares extends Component
      */
     public function getCurrentDirectory(){
 
-        $test = ShareDirectory::find($this->idDirectory);
+        $test = HttpRequest::makeRequest('/shares/directory/' . $this->idDirectory)->json();
         if ($test != null){
             $this->current = $test;
         }
@@ -98,19 +117,13 @@ class Shares extends Component
     }
 
     private function checkPages(){
-        $this->pages = [];
-        $pages = Page::where('user_id',Auth::user()->id)->get();
+        $http = HttpRequest::makeRequest('/shares/pages/'. $this->groupId);
 
-        foreach ($pages as $page) {
-            $test = ShareGroup::where('page_id',$page->id)->where('group_id',$this->group->id)->get();
-            if (count($test) > 0){
-                $page->isShared = true;
-            }
-            else{
-                $page->isShared = false;
-            }
-
-            $this->pages []= $page;
+        if($http->object() !== null){
+            $this->pages = $http->object();
+        }
+        else{
+            $this->pages = [];
         }
     }
 
@@ -127,43 +140,24 @@ class Shares extends Component
 
         if ($this->directoryName != ""){
 
+            $params = [
+                'name' => $this->directoryName,
+                'group_id' => $this->groupId,
+                'directory_id' => $this->idDirectory,
+            ];
 
-            $newDirectory = new ShareDirectory;
-            $newDirectory->name = $this->directoryName;
-            $newDirectory->group_id = $this->group->id;
-            $newDirectory->shareDirectory_id = $this->idDirectory;
+            HttpRequest::makeRequest('/shares' , 'post' , $params);
 
-            $newDirectory->save();
         }
         $this->directoryName = "";
 
     }
 
     public function deleteDirectory($id){
-        $oldDirectory = ShareDirectory::find($id);
-        $oldDirectory->delete();
 
-        $allDirectories = ShareDirectory::where('group_id',$this->group->id)->get();
+        $http = HttpRequest::makeRequest('/shares/'. $id . '/directory/' . $this->groupId , 'delete');
 
-        foreach ($allDirectories as $one){
-            if ($one->shareDirectory_id != 0){
-                $test = ShareDirectory::find($one->shareDirectory_id);
-                if ($test == null){
-                    $one->delete();
-                }
-            }
-        }
-
-        $allShares = ShareGroup::where('group_id',$this->group->id)->get();
-
-        foreach ($allShares as $one) {
-            if ($one->shareDirectory_id != 0) {
-                $test = ShareDirectory::find($one->shareDirectory_id);
-                if ($test == null) {
-                    $one->delete();
-                }
-            }
-        }
+        dd($http);
 
         session()->flash('livewire', 'Dossier supprimé !');
 
@@ -171,17 +165,14 @@ class Shares extends Component
 
     public function sharePages(){
         if (count($this->pagesShared)>0){
-            foreach ($this->pagesShared as $share){
-                $shareGroup = new ShareGroup();
 
-                $shareGroup->user_id = Auth::user()->id;
-                $shareGroup->page_id = $share;
-                $shareGroup->group_id = $this->group->id;
-                $shareGroup->shareDirectory_id = $this->idDirectory;
+            $params = [
+                'shares' => $this->pagesShared,
+                'group_id' => $this->groupId,
+                'directory_id' => $this->idDirectory
+            ];
 
-                $shareGroup->save();
-            }
-
+            HttpRequest::makeRequest('/shares/pages' , 'post' , $params);
         }
         $this->pagesShared = [];
     }
@@ -191,9 +182,7 @@ class Shares extends Component
     }
 
     public function deleteShare($id){
-        $shareGroup = ShareGroup::find($id);
-
-        $shareGroup->delete();
+        HttpRequest::makeRequest('/shares/'. $id , 'delete');
     }
 
     //-------------------------------------------------------------------------------------------------------------
@@ -201,7 +190,7 @@ class Shares extends Component
 
     public function mount($id)
     {
-        $this->group = Group::find($id);
+        $this->groupId = $id;
         $this->idDirectory = 0;
     }
 
