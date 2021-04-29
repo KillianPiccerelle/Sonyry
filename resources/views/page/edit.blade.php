@@ -25,12 +25,10 @@
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Nouveau bloc
             </button>
-            @if(Auth::user()->can('delete',$page))
             <button class="btn btn-danger text-right" id="btnDelete" data-toggle="modal" data-target="#modalDelete">
                 <i class="fa fa-ban" aria-hidden="true"></i>
                 Supprimer la page
             </button>
-            @endif
         </div>
     </div>
     <div class="container">
@@ -94,11 +92,7 @@
                             <div class="form-group">
                                 <label for="image"><i>Image actuelle :</i></label>
                                 <br>
-                                @if($page->image === 'default_page.png')
-                                    <img src="/storage/default/{{ $page->image }}" height="300px">
-                                @else
-                                    <img src="/storage/pages/{{ $page->user_id }}/{{ $page->image }}" height="300px">
-                                @endif
+                                    <img src="{{ env('API_BASE_URL') . '/../' . $page->link }}" height="300px">
                             </div>
                         </div>
                     </div>

@@ -88,7 +88,7 @@
                                 <h5 class="text-center-center">{{ $bloc->title }}</h5>
                             </div>
                             <img id="img" class="text-center" style="margin-top: 5px; margin-bottom: 5px"
-                                 src="/storage/bloc/{{ $bloc->page_id }}/image/{{ $bloc->content }}"
+                                 src="{{ env('API_BASE_URL') . '/../' . $bloc->link }}"
                                  width="300px"
                                  height="180"/>
                         </div>
@@ -100,7 +100,7 @@
                             </div>
                             <video style="margin-bottom: 5px" controls>
                                 <source
-                                    src="/storage/bloc/{{ $bloc->page_id }}/video/{{ $bloc->content }}">
+                                    src="{{ env('API_BASE_URL') . '/../' . $bloc->link }}">
                             </video>
                         </div>
                     @endif
@@ -109,7 +109,7 @@
                                 <div id="card-header">
                                     <h5 class="text-center-center">{{ $bloc->title }}</h5>
                                 </div>
-                                <a style="margin-bottom: 5px" download href="/storage/bloc/{{ $bloc->page_id }}/file/{{ $bloc->content }}">{{ $bloc->content }}</a>
+                                <a style="margin-bottom: 5px" download href="{{ env('API_BASE_URL') . '/../' . $bloc->link }}">{{ $bloc->content }}</a>
                             </div>
                         @endif
                 @endforeach

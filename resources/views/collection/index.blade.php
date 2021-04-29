@@ -21,11 +21,7 @@
                             </div>
                             <div class="card-body">
                                 <div>
-                                    @if($collection->image === 'default_collection.jpg')
-                                    <img src="/storage/default/{{ $collection->image }}" height="150px">
-                                    @else
-                                        <img src="/storage/collections/{{ Auth::user()->id  }}/{{ $collection->image }}" height="150px">
-                                    @endif
+                                    <img src="{{ env('API_BASE_URL') . '/../' . $collection->link }}" height="150px">
                                 </div>
                                 <br>
                                 <div class="container text-center">

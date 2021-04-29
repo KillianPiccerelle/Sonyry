@@ -54,7 +54,7 @@
 
     <h1 style="text-align: center; ; font-weight: bold;font-family: Courier New;">
         <p id="typewriter" class="typewrite" style="color: azure" data-period="2000"
-           data-type='[ "Bienvenue sur Sonyry {{ Auth::User()->firstName }}." ]'>
+           data-type='[ "Bienvenue sur Sonyry {{ session()->get('firstname') }}." ]'>
             <span class="wrap"></span>
         </p>
     </h1>
@@ -85,10 +85,7 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="pageModif" role="tabpanel"
                          aria-labelledby="page-tab">
-                        @if(count(Auth::user()->pages) > 0)
-                            @php
-                                $pages  = Auth::user()->pages
-                            @endphp
+                        @if(count($pages) > 0)
                             @for($i = 0; $i < $limite; $i++)
                                 @if(isset($pages[$i]))
                                     <div class="list-group">
@@ -106,10 +103,7 @@
                     </div>
                     <div class="tab-pane fade" id="collectionModif" role="tabpanel"
                          aria-labelledby="collection-tab">
-                        @if(count(Auth::user()->collections) > 0)
-                            @php
-                                $collections  = Auth::user()->collections
-                            @endphp
+                        @if(count($collections) > 0)
                             @for($i = 0; $i < $limite; $i++)
                                 @if(isset($collections[$i]))
                                     <div class="list-group">
@@ -253,10 +247,7 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="pagePortfolios" role="tabpanel"
                          aria-labelledby="page-tab">
-                        @if(count(Auth::user()->pages) > 0)
-                            @php
-                                $pages  = Auth::user()->pages
-                            @endphp
+                        @if(count($pages) > 0)
                             @for($i = 0; $i < $limite; $i++)
                                 @if(isset($pages[$i]))
                                     <div class="list-group">
@@ -273,10 +264,7 @@
                     </div>
                     <div class="tab-pane fade" id="collectionPortfolios" role="tabpanel"
                          aria-labelledby="collection-tab">
-                        @if(count(Auth::user()->collections) > 0)
-                            @php
-                                $collections = Auth::user()->collections;
-                            @endphp
+                        @if(count($collections) > 0)
                             @for($i = 0; $i < $limite; $i++)
                                 @if(isset($collections[$i]))
                                     <div class="list-group">
