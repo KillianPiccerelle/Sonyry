@@ -50,11 +50,10 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        $apiRequest = HttpRequest::makeRequest('/categorie/store','post',['libelle'=>$request->input('libelle')]);
+        $apiRequest = HttpRequest::makeRequest('/categorie/store','post',$request->all());
 
         if ($apiRequest->status() != 401){
-
-            return redirect()->route('topics.index', $apiRequest->object()->id);
+            return redirect()->route('topics.index');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
 

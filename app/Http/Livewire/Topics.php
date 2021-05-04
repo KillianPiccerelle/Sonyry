@@ -3,7 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Categorie;
+use App\HttpRequest;
 use App\RoleUserPolicy;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use App\Topic as ModelTopic;
 
@@ -17,7 +19,7 @@ class Topics extends Component
 
     public function render()
     {
-        $this->categories = Categorie::all();
+        $this->categories = HttpRequest::makeRequest('/categorie/index')->object()->categories;
         $this->topics();
         $this->rolePolicy = new RoleUserPolicy();
 
@@ -27,17 +29,24 @@ class Topics extends Component
     public function switchCategorie($id)
     {
         $this->current = $id;
-
     }
 
     public function topics()
     {
         if( $this->current == 0) {
-            $this->topics = ModelTopic::all();
+            $this->topics = HttpRequest::makeRequest('/topics')->object()->topics->data;
+
+            if ($this->topics == null){
+                $this->topics = [];
+            }
+
         }
         else {
-                $this->topics = ModelTopic::where('categorie_id',$this->current)->get();
-            //dd($this->topics);
+            $this->topics = HttpRequest::makeRequest('/topics/category/' . $this->current)->object();
+
+            if ($this->topics == null){
+                $this->topics = [];
+            }
         }
     }
 

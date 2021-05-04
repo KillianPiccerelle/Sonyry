@@ -54,14 +54,13 @@ class TopicController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $apiRequest = HttpRequest::makeRequest('/topics/store','post',['title'=>$request->input('title'),'categorie_id'=>$request->input('categorie_id'),'content'=>$request->input('content')]);
+        HttpRequest::makeRequest('/topics/store','post',$request->all())->object();
 
-
-        return redirect()->route('topics.show',$apiRequest->object()->id)->with('success','Création du topic avec succès');
+        return redirect()->route('topics.index')->with('success','Création du topic avec succès');
     }
 
 

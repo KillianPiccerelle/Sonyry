@@ -1,8 +1,8 @@
 @php
 
     /** Récup les notif */
-        $inboxes = \App\Inbox::where('user_id',session()->get('id'))->get();
-        $count = 0;
+    $inboxes = App\HttpRequest::makeRequest('/inbox')->object()->inboxes;
+    $count = 0;
 
         /** si y'a des notifs */
     if (count($inboxes) >0)
@@ -141,7 +141,7 @@ $rolePolicy = new \App\RoleUserPolicy();
                             <a class="dropdown-item" href="#">
                                 {{__('Préférence')}}
                             </a>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            <a class="dropdown-item" href="{{ route('logout') }}">
                                 {{ __('Se déconnecter') }}
                             </a>
                         </div>
