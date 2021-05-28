@@ -33,10 +33,6 @@
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"  >
                         <form method="post" action="#">
 
-                            @php
-                                $user = Auth::user();
-                            @endphp
-
                             <div class="row">
                                 <div class="col-md-4 pt-3 ">
                                     Nom :<br>
@@ -311,34 +307,11 @@
 
                             <div class="tab-pane fade show active " id="nav-pages" role="tabpanel "
                                  aria-labelledby="nav-collections-tab">
-
-                                @if(count(Auth::user()->pages) > 0)
-                                    @foreach(Auth::user()->pages as $page)
-                                        <div class="list-group" style="margin-left: -900px" >
-                                            <div class="post">
-                                                <p> {{ ucfirst($page->title) }}<p>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @else
-                                    <p>Vous n'avez aucune page.</p>
-                                @endif
                             </div>
 
                             <div class="tab-pane fade show " id="nav-collections" role="tabpanel"
                                  aria-labelledby="nav-collections-tab">
 
-                                @if(count(Auth::user()->collections) > 0)
-                                    @foreach(Auth::user()->collections as $collection)
-
-                                        <div class="post" style="margin-left: 900px">
-                                            <p> {{ ucfirst($collection->name) }}<p>
-                                        </div>
-
-                                    @endforeach
-                                @else
-                                    <p>Vous n'avez aucune collection.</p>
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -371,10 +344,6 @@
                     <!------ Edit ---------->
 
                     <div class="tab-pane fade" id="nav-Edit" role="tabpanel" aria-labelledby="nav-Edit-tab">
-                        @php
-                            $user = Auth::user();
-                        @endphp
-
                         <form method="POST" action="{{route('profil.update',$user->id)}}">
                             @csrf
                             @method('PUT')

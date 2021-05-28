@@ -27,7 +27,10 @@ class ProfilController extends Controller
         $friendRequests = $apiRequest->object()->friendRequests;
         $valableUsers = $apiRequest->object()->valableUsers;
 
+        $http = HttpRequest::makeRequest('/auth/me' , 'post');
+
         return view('profil.profil', [
+            'user' => $http->object(),
             'groups' => $groups,
             'friends' => $friends,
             'friendRequests' => $friendRequests,
