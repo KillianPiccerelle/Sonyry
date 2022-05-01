@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categorie;
+use App\HttpRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +16,9 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $cat = new Categorie();
-        if (Auth::user()->can('viewAny', $cat)) {
-            $categories = Categorie::all();
+        $apiRequest = HttpRequest::makeRequest('/categorie/index');
+        if ($apiRequest->status() != 401){
+            $categories = $apiRequest->object()->categories;
             return view('categorie.index', [
                 'categories' => $categories
             ]);
@@ -33,8 +34,9 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        $cat = new Categorie();
-        if (Auth::user()->can('update', $cat)) {
+        $apiRequest = HttpRequest::makeRequest('/categorie/create');
+
+        if ($apiRequest->status() != 401){
             return view('categorie.create');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
@@ -48,20 +50,10 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
+        $apiRequest = HttpRequest::makeRequest('/categorie/store','post',$request->all());
 
-        request()->validate([
-            'libelle' => 'required|min:5',
-        ]);
-
-        $categorie = new Categorie();
-
-        $categorie->libelle = request()->input('libelle');
-
-        if (Auth::user()->can('update', $categorie)) {
-
-            $categorie->save();
-
-            return redirect()->route('topics.index', $categorie->id);
+        if ($apiRequest->status() != 401){
+            return redirect()->route('topics.index');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
 
@@ -109,31 +101,11 @@ class CategorieController extends Controller
      */
     public function destroy($id)
     {
-        $categorie = Categorie::find($id);
+        $apiRequest = HttpRequest::makeRequest('/categorie/'.$id.'/destroy','delete');
+        //dd($apiRequest->status());
+        if ($apiRequest->status() != 401){
 
-        if (Auth::user()->can('delete', $categorie)) {
-
-            if (count($categorie->topics) > 0) {
-                foreach ($categorie->topics as $topic) {
-
-                    if (count($topic->comments) > 0) {
-                        foreach ($topic->comments as $comment) {
-                            if (count($comment->comments) > 0) {
-                                foreach ($comment->comments as $reply) {
-                                    $reply->delete();
-                                }
-                            }
-                            $comment->delete();
-                        }
-                    }
-
-                    $topic->delete();
-                }
-            }
-
-            $categorie->delete();
-
-            return redirect()->route('categorie.index');
+            return redirect()->route('categorie.index')->with('success', 'Categorie supprimée');
         }
 
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');

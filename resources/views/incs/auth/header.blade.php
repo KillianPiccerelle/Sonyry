@@ -1,8 +1,8 @@
 @php
 
     /** Récup les notif */
-        $inboxes = \App\Inbox::where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->get();
-        $count = 0;
+    $inboxes = App\HttpRequest::makeRequest('/inbox')->object()->inboxes;
+    $count = 0;
 
         /** si y'a des notifs */
     if (count($inboxes) >0)
@@ -115,15 +115,10 @@ $rolePolicy = new \App\RoleUserPolicy();
                 </li>
 
                 <!-- Authentication Links -->
-                @guest
+                @if(!session()->get('api_token'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
                     </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
                 @else
                     <li class="nav-item dropdown">
 
@@ -146,24 +141,17 @@ $rolePolicy = new \App\RoleUserPolicy();
                             <a class="dropdown-item" href="#">
                                 {{__('Préférence')}}
                             </a>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item" href="{{ route('logout') }}">
                                 {{ __('Se déconnecter') }}
                             </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-
                         </div>
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            style="color: white"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            {{ session()->get('firstname') }} <span class="caret"></span>
                         </a>
                     </li>
-                @endguest
+                @endif
             </ul>
         </div>
     </div>

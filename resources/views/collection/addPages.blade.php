@@ -25,34 +25,30 @@
         <div class="col-lg-5 float-left ml-5" id="divFreePage">
             <div class="text-center">
                 <div class="float-left">
-                    @if(count($pagesAvailables) > 0)
+                    @if(count($collection->availables) > 0)
                         <x-forms.button text="Ajouter" id="btnAddPages"></x-forms.button>
                     @endif
                 </div>
                 <i><h3 style="color: white">Pages disponibles pour ajouter dans la collection :</h3></i>
                 <hr style="color: white">
-                @if(count($pagesAvailables) > 0)
+                @if(count($collection->availables) > 0)
                 <div class="text-center">
                     <input class="form-control" id="pageFreeInput" type="text" placeholder="Rechercher une page..">
                 </div>
                 @endif
             </div>
-            @if(count($pagesAvailables) > 0)
+            @if(count($collection->availables) > 0)
                 <br>
                 <x-forms.form route="collection.storePages" parameters="{{ $collection->id }}" noButton="true" id="formAddPages">
                     <div class="row">
-                        @foreach($pagesAvailables as $page)
+                        @foreach($collection->availables as $page)
                             <div class="col-md-4">
                                 <div class="card text-center">
                                     <div class="card-header">
                                         <h5 class="card-title">{{ $page->title }}</h5>
                                     </div>
                                     <div class="card-body">
-                                        @if($page->image === 'default_page.png')
-                                            <img src="/storage/default/{{ $page->image }}" height="100px">
-                                        @else
-                                            <img src="/storage/pages/{{ $page->user_id }}/{{ $page->image }}" height="100px">
-                                        @endif
+                                            <img src="{{ env('API_BASE_URL') . '/../' . $page->link }}" height="100px">
                                     </div>
                                     <div class="card-footer">
                                         <x-forms.input type="checkbox" name="checkbox[]" id="checkboxAddPages" value="{{$page->id}}"></x-forms.input>
@@ -76,34 +72,30 @@
         <div class="col-lg-5 float-right mr-5" id="divUsedPages">
             <div class="text-center">
                 <div class="float-left">
-                    @if(count($pagesInCollection) > 0)
+                    @if(count($collection->pages) > 0)
                         <x-forms.button text="Supprimer" id="btnDeletePages" class="danger float-right" classIcon="trash"></x-forms.button>
                     @endif
                 </div>
                 <i><h3 style="color: white">Pages déjà présentes dans la collection :</h3></i>
                 <hr>
-                @if(count($pagesInCollection) > 0)
+                @if(count($collection->pages) > 0)
                 <div class="text-center">
                     <input class="form-control" id="pageUsedInput" type="text" placeholder="Rechercher une page..">
                 </div>
                 @endif
             </div>
             <br>
-            @if(count($pagesInCollection) > 0)
+            @if(count($collection->pages) > 0)
                 <x-forms.form route="collection.deletePages" parameters="{{ $collection->id }}" noButton="true" id="formDeletePages">
                     <div class="row">
-                        @foreach($pagesInCollection as $page)
+                        @foreach($collection->pages as $page)
                             <div class="col-md-4">
                                 <div class="card text-center">
                                     <div class="card-header">
                                         <h5 class="card-title">{{ $page->page->title }}</h5>
                                     </div>
                                     <div class="card-body">
-                                        @if($page->page->image === 'default_page.png')
-                                            <img src="/storage/default/{{ $page->page->image }}" height="100px">
-                                        @else
-                                            <img src="/storage/pages/{{ $page->page->user_id }}/{{ $page->page->image }}" height="100px">
-                                        @endif
+                                        <img src="{{ env('API_BASE_URL') . '/../' . $page->page->link }}" height="100px">
                                     </div>
                                     <div class="card-footer">
                                         <x-forms.input type="checkbox" name="checkbox[]" value="{{$page->page->id}}"></x-forms.input>

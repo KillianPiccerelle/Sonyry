@@ -19,17 +19,17 @@
 
                     @if($bloc->type == 'image')
                         <img class="text-center" id="content"
-                             src="/storage/bloc/{{ $bloc->page_id }}/image/{{ $bloc->content }}"
+                             src="{{ env('API_BASE_URL') . '/../' . $bloc->link }}"
                              onclick="openModalImage(this,'{{$bloc->title}}')"/>
                     @endif
 
                     @if($bloc->type == 'video')
                         <video id="content" controls>
-                            <source src="/storage/bloc/{{ $bloc->page_id }}/video/{{ $bloc->content }}">
+                            <source src="{{ env('API_BASE_URL') . '/../' . $bloc->link }}">
                         </video>
                     @endif
                     @if($bloc->type == 'file')
-                       <a href="/storage/bloc/{{ $bloc->page_id }}/file/{{ $bloc->content }}" download>{{ $bloc->content }}</a>
+                       <a target="_blank" href="{{ env('API_BASE_URL') . '/../' . $bloc->link }}" download>{{ $bloc->content }}</a>
                     @endif
                 </div>
             </div>

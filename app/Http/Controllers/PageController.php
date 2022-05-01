@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Bloc;
 use App\CollectionsPage;
+use App\File;
+use App\HttpRequest;
 use App\ImageAction;
 use App\Page;
 use App\ShareGroup;
@@ -14,14 +16,13 @@ use Illuminate\Support\Facades\Auth;
 class PageController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        $pages = Page::where('user_id', Auth::user()->id)->get();
+
+        $http = HttpRequest::makeRequest('/pages');
+
+        $pages = $http->object();
+
 
         return view('page.index', [
             'pages' => $pages,
@@ -43,36 +44,28 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        $page = new Page();
-
-        $page->title = $request->input('title');
-        $page->description = $request->input('description');
-        $page->user_id = Auth::user()->id;
-
+        $file = null;
         if ($request->file('image')) {
-            $image = $request->file('image');
-
-            $imageAction = new ImageAction();
-
-            $file = $imageAction->store($image, 'pages');
-
-
-        } else {
-            $file = 'default_page.png';
+            $file = new File('image' , $request->file('image') , $request->file('image')->getClientOriginalName());
         }
 
-        $page->image = $file;
+        $http = HttpRequest::makeRequest('/pages' , 'post' , $request->all() , $file);
 
-        $page->save();
+        if ($http->status() !== 500){
+            return redirect()->route('page.index')->with('success', 'La page a bien été créée');
+        }
+        return redirect()->route('page.index')->with('danger', 'Une erreur est survenue veuillez réessayer');
 
-        return redirect()->route('page.index')->with('success', 'La page a bien été créée');
     }
 
     public function edit($id)
     {
-        $page = Page::find($id);
+        $http = HttpRequest::makeRequest('/pages/edit/'.$id);
 
-        if (Auth::user()->can('update', $page)) {
+        if ($http->status() !== 401) {
+
+            $page = $http->object();
+
             return view('page.edit', [
                 'page' => $page,
             ]);
@@ -82,37 +75,19 @@ class PageController extends Controller
 
     public function update(Request $request, $id)
     {
-        $page = Page::find($id);
+        $file = null;
 
-        if (Auth::user()->can('update', $page)) {
+        if ($request->file('image')){
+            $file = new File('image', $request->file('image') , $request->file('image')->getClientOriginalName() );
+        }
 
-            if ($request->input('title') != null) {
-                $page->title = $request->input('title');
-            }
 
-            if ($request->input('description') != null) {
-                $page->description = $request->input('description');
-            }
+        $http = HttpRequest::makeRequest('/pages/'.$id , 'post' , $request->all() , $file);
 
-            if ($request->file('image')) {
 
-                /** update de l'image */
+        if ($http->status() !== 401){
 
-                /**  suppression de l'ancienne image */
-                $fileToDelete = 'public/pages/' . Auth::user()->id . '/' . $page->image;
-
-                $imageAction = new ImageAction();
-
-                $imageAction->deleteImage($fileToDelete);
-
-                $image = $request->file('image');
-
-                $file = $imageAction->store($image, 'pages');
-
-                $page->image = $file;
-            }
-
-            $page->save();
+            $page = $http->object();
 
             return redirect()->route('page.edit', $page->id)->with('success', 'Les informations de la page ont bien été modifiées');
 
@@ -125,34 +100,9 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        $page = Page::find($id);
+        $http = HttpRequest::makeRequest('/pages/'.$id , 'delete');
 
-        if (Auth::user()->can('delete', $page)) {
-
-            CollectionsPage::where('page_id', $id)->delete();
-
-            /** delete the page in the collection if they are in any collection */
-
-            ShareGroup::where('page_id', $page->id)->delete();
-
-            $blocs = Bloc::where('page_id',$page->id)->get();
-
-            if (count($blocs)>0){
-                foreach ($blocs as $bloc){
-                    Bloc::deleteFromStorage($bloc);
-                }
-            }
-
-            Bloc::where('page_id',$page->id)->delete();
-
-            $fileToDelete = 'public/pages/' . Auth::user()->id . '/' . $page->image;
-
-            $imageAction = new ImageAction();
-
-            $imageAction->deleteImage($fileToDelete);
-
-            $page->delete();
-
+        if ($http->status() != 401){
             return redirect()->route('page.index')->with('success', 'La page à bien été supprimée');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
@@ -160,15 +110,16 @@ class PageController extends Controller
 
     public function show($id)
     {
-        $page = Page::find($id);
-        $blocs = Bloc::where('page_id', $page)->get();
+        $http = HttpRequest::makeRequest('/pages/'.$id);
 
-        if (Auth::user()->can('view', $page)){
+        if ($http->status() !== 401) {
+
+            $page = $http->object();
+
             return view('page.show', [
                 'page' => $page,
-                'blocs' => $blocs,
             ]);
         }
-        return redirect()->route('home')->with('danger','Vous ne pouvez pas effectuer cette action');
+        return redirect()->route('home')->with('danger', 'Vous n\'avez pas accès à cette page');
     }
 }

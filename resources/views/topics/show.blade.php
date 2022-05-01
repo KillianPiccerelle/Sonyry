@@ -18,10 +18,10 @@
                 <h5 class="card-title">{{ $topic->title }}</h5>
                 <div class="d-flex justify-content-between align-items-center">
                     <p>{{ $topic->content }}</p>
-                    <small>Posté le {{ $topic->created_at->format('d/m/Y à H:m') }}</small>
+                    <small>Posté le {{ date('d/m/Y à H:m', strtotime($topic->created_at)) }}</small>
                     <span class="badge badge-primary">{{ $topic->user->name }}</span>
                 </div>
-                @if($topic->user_id == Auth::user()->id)
+                @if($topic->user_id == session()->get('id'))
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <a href="{{ route('topics.edit', $topic->id) }}" class="btn btn-warning">Editer ce topic</a>
                         <button type="submit" data-target="#staticBackdrop" data-toggle="modal" class="btn btn-danger">Supprimer</button>
@@ -59,7 +59,7 @@
                 <div class="card-body">
                     {{ $comment->content }}
                     <div class="d-flex justify-content-between align-items-center">
-                        <small>Posté le {{ $comment->created_at->format('d/m/Y') }}</small>
+                        <small>Posté le {{ date('d/m/Y', strtotime($comment->created_at)) }}</small>
                         <span class="badge badge-primary">{{ $comment->user->name }}</span>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     <div class="card-body">
                         {{ $replyComment->content }}
                         <div class="d-flex justify-content-between align-items-center">
-                            <small>Posté le {{ $replyComment->created_at->format('d/m/Y') }}</small>
+                            <small>Posté le {{ date('d/m/Y', strtotime($replyComment->created_at)) }}</small>
                             <span class="badge badge-primary">{{ $replyComment->user->name }}</span>
                         </div>
                     </div>
@@ -79,23 +79,23 @@
 
             @endforelse
 
-            @auth
-                <button class="btn btn-info mb-3" onclick="toggleReplyComment({{ $comment->id }})">Répondre</button>
-                <form action="{{ route('comments.storeReply' ,$comment->id) }}" class="mb-3 ml-5 d-none"
-                      id="replyComment-{{$comment->id}}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label style="color: white" for="replyComment">Ma réponse</label>
-                        <textarea name="replyComment" class="form-control @error('replyComment') is-invalid @enderror "
-                                  id="replyComment" cols="30" rows="5"></textarea>
-                        @error('replyComment')
-                        <div class="invalid-feedback">{{ $errors->first('replyComment') }}</div>
 
-                        @enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary">Répondre à ce commentaire</button>
-                </form>
-            @endauth
+            <button class="btn btn-info mb-3" onclick="toggleReplyComment({{ $comment->id }})">Répondre</button>
+            <form action="{{ route('comments.storeReply' ,$comment->id) }}" class="mb-3 ml-5 d-none"
+                  id="replyComment-{{$comment->id}}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label style="color: white" for="replyComment">Ma réponse</label>
+                    <textarea name="replyComment" class="form-control @error('replyComment') is-invalid @enderror "
+                              id="replyComment" cols="30" rows="5"></textarea>
+                    @error('replyComment')
+                    <div class="invalid-feedback">{{ $errors->first('replyComment') }}</div>
+
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">Répondre à ce commentaire</button>
+            </form>
+
 
         @empty
             <div class="alert alert-info">Aucun commentaire pour ce topic</div>

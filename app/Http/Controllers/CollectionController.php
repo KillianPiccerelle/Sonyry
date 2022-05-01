@@ -4,27 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Collection;
 use App\CollectionsPage;
+use App\File;
+use App\HttpRequest;
 use App\ImageAction;
 use App\Page;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class CollectionController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      * return the view to create a collection
      */
     public function create()
     {
-        $pages = Page::where('user_id', Auth::user()->id)->get();
-
-            return view('collection.create', [
-                'pages' => $pages
-            ]);
-
+        return view('collection.create');
     }
 
     /**
@@ -34,39 +34,28 @@ class CollectionController extends Controller
      */
     public function store(Request $request)
     {
-        $collection = new Collection();
+        $file = null;
 
-        $collection->name = $request->input('name');
-        $collection->description = $request->input('description');
-        $collection->user_id = Auth::user()->id;
-
-
-        if ($request->file('image')) {
-
-            $imageAction = new ImageAction();
-
-            $image = $request->file('image');
-
-            $file = $imageAction->store($image, 'collections');
-
-
-        } else {
-            $file = 'default_collection.jpg';
+        if ($request->file('image')){
+            $file = new File('image', $request->file('image') , $request->file('image')->getClientOriginalName() );
         }
-        $collection->image = $file;
 
-        $collection->save();
+        if (HttpRequest::makeRequest('/collections' , 'post' , $request->all() , $file)->object()){
 
-        return redirect()->route('collection.index');
+            return redirect()->route('collection.index');
+        }
+
+        return redirect()->route('collection.create')->with('danger' , 'Une erreur est survenue veuillez réessayer');
+
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      * return a view with all the collection of the user connected
      */
     public function index()
     {
-        $collections = Collection::where('user_id', Auth::user()->id)->get();
+        $collections = HttpRequest::makeRequest('/collections')->object();
 
         return view('collection.index', [
             'collections' => $collections
@@ -76,21 +65,20 @@ class CollectionController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      * return a view with all page in the collection
      */
     public function edit($id)
     {
-        $collection = Collection::find($id);
+        $http = HttpRequest::makeRequest('/collections/'.$id);
+        $collection = $http->object();
 
-        if (Auth::user()->can('update', $collection)) {
-            $pages = CollectionsPage::where('collection_id', $id)->get();
-
+        if ($http->status() == 200){
             return view('collection.edit', [
-                'collection' => $collection,
-                'pages' => $pages
+                'collection' => $collection
             ]);
         }
+
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas gérer les pages de cette collection collection');
     }
 
@@ -102,35 +90,22 @@ class CollectionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $file = null;
 
-        $collection = Collection::find($id);
 
-        if (Auth::user()->can('update', $collection)) {
 
-            if ($request->input('name') != null) {
-                $collection->name = $request->input('name');
+        if ($request->file('image')){
+            $file = new File('image', $request->file('image') , $request->file('image')->getClientOriginalName() );
+        }
+
+        $http = HttpRequest::makeRequest('/collections/'.$id , 'post' , $request->all() , $file);
+
+        if ($http->status() == 200){
+
+            if ($http->object()){
+                return redirect()->route('collection.edit', $id)->with('success', 'Les informations de la collection ont bien été modifiées');
             }
-            if ($request->input('description') != null) {
-                $collection->description = $request->input('description');
-            }
-            if ($request->file('image')) {
-                //delete old image
-                $fileToDelete = 'public/collections/' . Auth::user()->id . '/' . $collection->image;
-
-                $image = $request->file('image');
-
-                $imageAction = new ImageAction();
-
-                //Delete the old image
-                $imageAction->deleteImage($fileToDelete);
-
-                //Add the new image
-
-                $collection->image = $imageAction->store($image,'collections');
-            }
-            $collection->save();
-
-            return redirect()->route('collection.edit', $collection->id)->with('success', 'Les informations de la collection ont bien été modifiées');
+            return redirect()->route('collection.edit', $id)->with('danger', 'Une erreur est survenue veuillez réessayer');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas modifier cette collection');
 
@@ -143,23 +118,15 @@ class CollectionController extends Controller
      */
     public function destroy($id)
     {
-        $collection = Collection::find($id);
+        $http =  HttpRequest::makeRequest('/collections/'.$id , 'delete');
 
-        if (Auth::user()->can('delete', $collection)) {
+        if ($http->status() == 200){
 
-            // delete all the link between the page in the collection and the colletion
+            if ($http->object()){
 
-            CollectionsPage::where('collection_id', $collection->id)->delete();
-
-            $imageAction = new ImageAction();
-
-            $fileToDelete = 'public/collections/' . Auth::user()->id . '/' . $collection->image;
-
-            $imageAction->deleteImage($fileToDelete);
-
-            $collection->delete();
-
-            return redirect()->route('collection.index')->with('success', 'La collection a bien été supprimée');
+                return redirect()->route('collection.index')->with('success', 'La collection a bien été supprimée');
+            }
+            return redirect()->route('collection.edit' , $id)->with('danger', 'Une erreur est survenue veuillez réessayer');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas supprimer cette collection');
     }

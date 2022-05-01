@@ -64,11 +64,7 @@
                                 <h5 id="title"><span>{{ $page->title }}</span></h5>
                             </div>
                             <div class="card-body container-fluid" id="card-body">
-                                @if($page->image === 'default_page.png')
-                                    <img src="/storage/default/{{ $page->image }}" id="img">
-                                @else
-                                    <img src="/storage/pages/{{ $page->user_id }}/{{ $page->image }}" id="img">
-                                @endif
+                                    <img src="{{ env('API_BASE_URL') . '/../' . $page->link }}" id="img">
                                 <br>
                                 <br>
                                 <div class="container-fluid text-center" id="buttons">
@@ -84,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="card-footer" id="card-footer" style="background: linear-gradient({{$deg}}deg, black, lightgrey);">
-                                <small>Dernière modification : {{ $page->updated_at->format('d/m/y à H\hi') }}</small>
+                                <small>Dernière modification : {{ $page->updated_at_ }}</small>
                             </div>
                         </div>
                         <br>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\HttpRequest;
 use App\Inbox;
 use App\Notification;
 use App\User;
@@ -17,7 +18,9 @@ class InboxController extends Controller
      */
     public function index()
     {
-        $inboxes = Inbox::where('user_id', Auth::user()->id)->get();
+        $apiRequest = HttpRequest::makeRequest('/inbox');
+        //dd($apiRequest->object());
+        $inboxes = $apiRequest->object()->inboxes;
 
         return view('inbox.index', [
             'inboxes' => $inboxes
@@ -38,10 +41,7 @@ class InboxController extends Controller
     public function toTrash($id)
     {
         /** Set the notification to trash */
-
-        $notification = Notification::find($id);
-        $notification->trash = 1;
-        $notification->save();
+        $apiRequest = HttpRequest::makeRequest('/inbox/'.$id.'/toTrash');
 
         return redirect()->route('inbox.index');
     }

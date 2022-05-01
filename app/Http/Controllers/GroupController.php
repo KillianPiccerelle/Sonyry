@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\Http\Controllers\NotificationController;
+use App\HttpRequest;
 use App\Inbox;
 use App\InvitationGroup;
 use App\Notification;
@@ -12,7 +13,12 @@ use App\ShareGroup;
 use App\ShareGroupPolicies;
 use App\User;
 use App\UserGroup;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use PhpParser\Node\Expr\New_;
@@ -22,16 +28,13 @@ class GroupController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|Response
      */
     public function index()
     {
-        $groups = UserGroup::where('user_id', Auth::user()->id)->get();
-        if (count($groups) > 0) {
-            foreach ($groups as $group) {
-                $group->members = count(UserGroup::where('group_id', $group->group_id)->get());
-            }
-        }
+        $http = HttpRequest::makeRequest('/groups');
+
+        $groups = $http->object()->groups;
 
         return view('group.index', [
             'groups' => $groups
@@ -41,7 +44,7 @@ class GroupController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -52,64 +55,43 @@ class GroupController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
 
-        $group = new Group();
-        $group->name = $request->input('name');
-        $group->user_id = Auth::user()->id;
-        $group->save();
+        $http = HttpRequest::makeRequest('/groups' , 'post' , $request->all());
 
-        $userGroup = new UserGroup();
-        $userGroup->user_id = Auth::user()->id;
-        $userGroup->group_id = $group->id;
-        $userGroup->save();
+        if ($http->object()){
+            return redirect()->route('group.index')->with('success'  ,'Groupe créé avec succès');
 
-        return redirect()->route('group.index');
+        }
+        return redirect()->route('group.create')->with('danger' , 'Une erreur est survenue, veuillez réessayer');
+
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|RedirectResponse
      */
     public function show($id)
     {
-        $group = Group::find($id);
 
-        $users = User::all();
+        $http = HttpRequest::makeRequest('/groups/' . $id);
 
-        $members = UserGroup::where('group_id', $group->id)->get();
+        if ($http->status() != 401 && $http->status() == 200){
 
-        $invitations = InvitationGroup::where('group_id', $group->id)->get();
+            $users = $http->object()->users;
 
-        $count = 0;
-
-        foreach ($users as $user) {
-            foreach ($members as $member) {
-                //dump($member);
-                if ($user->id == $member->user_id) {
-                    unset($users[$count]);
-                }
+            if($users == null){
+                $users = [];
             }
-            if (count($invitations) > 0) {
-                foreach ($invitations as $invitation) {
-                    if ($user->id == $invitation->user_id) {
-                        unset($users[$count]);
-                    }
-                }
-            }
-            $count++;
-        }
-
-        if (Auth::user()->can('view', $group)) {
 
             return view('group.show', [
-                'group' => $group,
-                'members' => $members,
+                'group' => $http->object()->group,
+                'members' => $http->object()->members,
                 'users' => $users
 
             ]);
@@ -122,20 +104,16 @@ class GroupController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|RedirectResponse|Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        $group = Group::find($id);
+        $http = HttpRequest::makeRequest('/groups/' . $id);
 
-        if (Auth::user()->can('update', $group)) {
-            $members = UserGroup::where('group_id', $group->id)->where('user_id', '!=', $group->user_id)->get();
-            //members dans le 2nd where on exclut du groupe la personne propriétaire et on récupère les autres
-
-
+        if ($http->status() != 401 && $http->status() == 200){
             return view('group.edit', [
-                'group' => $group,
-                'members' => $members
+                'group' => $http->object()->group,
+                'members' => $http->object()->members,
             ]);
         }
 
@@ -148,22 +126,17 @@ class GroupController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        $group = Group::find($id);
 
-        if (Auth::user()->can('update', $group)) {
-            if ($request->input('name') != null) {
-                $group->name = $request->input('name');
-            }
+        $http = HttpRequest::makeRequest('/groups/'.$id , 'put' , $request->all());
 
-            $group->save();
+        if ($http->object()){
 
-            return redirect()->route('group.show', $group->id)->with('success', 'Les informations du groupe ont été modifiées avec succès');
+            return redirect()->route('group.show', $id)->with('success', 'Les informations du groupe ont été modifiées avec succès');
         }
-
         return redirect()->route('home')->with('danger', 'Vous n\'êtes pas propriétaire du groupe, vous ne pouvez pas modifier ses informations');
     }
 
@@ -171,150 +144,89 @@ class GroupController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function destroy($id)
     {
-        $group = Group::find($id);
+        $http = HttpRequest::makeRequest('/groups/'.$id , 'delete');
 
-        if (Auth::user()->can('delete', $group)) {
-            UserGroup::where('group_id', $group->id)->delete();
-
-            //delete the share directories from the group
-            ShareDirectory::where('group_id', $group->id)->delete();
-
-            ShareGroup::where('group_id', $group->id)->delete();
-
-            // and delete the group
-            $group->delete();
+        if ($http->object()){
             return redirect()->route('group.index')->with('success', 'Groupe supprimé avec succès');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez aps effectuer cette action');
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function exit($id)
     {
 
-        $userGroups = UserGroup::where('user_id', Auth::user()->id)->where('group_id', $id)->get();
+        $http = HttpRequest::makeRequest('/groups/exit/'.$id);
 
-        $group = Group::find($id);
+        if ($http->object()){
 
-
-        if (Auth::user()->can('exit', $group)) {
-            return redirect()->route('home')->with('danger', 'Vous ne pouvez pas quitter ce groupe');
+            return redirect()->route('group.index')->with('success', 'Vous avez bien quitté le groupe.');
         }
-
-        ShareGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->delete();
-
-
-        NotificationController::notificationAuto("Vous venez de quitter le groupe " . $userGroups[0]->group->name, "Bonjour, voici un mail vous informant que vous venez de quitter le groupe " . $userGroups[0]->group->name . ".");
-
-        $userGroups[0]->delete();
-
-        return redirect()->route('group.index')->with('success', 'Vous avez bien quitté le groupe.');
+        return redirect()->route('home')->with('danger', 'Vous ne pouvez pas quitter ce groupe');
     }
 
     /**
      * @param $id
      * @param $user_id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      * kick a member from a group
      */
     public function kick($id, $user_id)
     {
-        $group = Group::find($id);
 
-        if (Auth::user()->can('kick', $group)) {
+        $http = HttpRequest::makeRequest('/groups/'.$id.'/kick/'.$user_id);
 
-            $member = UserGroup::where('group_id', $id)->where('user_id', $user_id)->get();
-
-            //delete share
-            ShareGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->delete();
-
-            NotificationController::notificationAutoKick("Vous venez d'être exclue du groupe " . $group->name, "Bonjour, voici un mail vous informant que vous venez d'être exclue du groupe " . $group->name . ".", $member[0]->user->id);
-
-            $member[0]->delete();
-
-            return redirect()->route('group.show', $group->id)->with('success', 'La personne a bien été exclue !');
+        if ($http->object()){
+            return redirect()->route('group.show', $id)->with('success', 'La personne a bien été exclue !');
         }
         return redirect()->route('home')->with('danger', 'Vous ne pouvez pas effectuer cette action');
     }
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View|RedirectResponse
      *
      * display the view with all shares of the group
      */
     public function share($id)
     {
 
-        $group = Group::find($id);
+        $http = HttpRequest::makeRequest('/groups/' . $id);
 
-        if (Auth::user()->can('view', $group)) {
-            return view('group.share.share', ['group' => $group]);
-
+        if ($http->status() != 401 && $http->status() == 200){
+            return view('group.share.share', ['group' => $http->object()->group]);
         }
-
         return redirect()->route('home')->with('danger', 'Vous n\'appartenez pas à ce groupe. Par conséquent vous ne pouvez pas y acceder');
 
     }
 
     public function invite($id, $user_id)
     {
+        $http = HttpRequest::makeRequest('/groups/'.$id.'/invite/'.$user_id);
 
-        $group = Group::find($id);
-        // If user have rights he create a new invitation
-        if (Auth::user()->can('invite', $group)) {
-
-            if (count(UserGroup::where('user_id', $user_id)->get()) > 0) {
-                return redirect()->route('home')->with('danger', 'Personne déjà invitée');
-            }
-
-            $invitation = new InvitationGroup();
-
-            $invitation->user_id = $user_id;
-
-            $invitation->group_id = $group->id;
-
-            $invitation->save();
-
-            // Auto generate mail/notification
-            NotificationController::notificationAutoInviteGroup('Invitation à rejoindre ' . $group->name, 'Bonjour, voici un mail vous informant que vous venez d\'être inviter à rejoindre ' . $group->name .
-                '. Vous pouvez choisir de rejoindre ce groupe en cliquant sur le bouton rejoindre ou ignorer cette notification et là supprimer.', $user_id, $group);
-
-            return redirect(route('group.show', $group->id))->with('success', 'Votre invitation a été envoyée avec succès');
+        if ($http->object()){
+            return redirect(route('group.show', $id))->with('success', 'Votre invitation a été envoyée avec succès');
         }
         return redirect()->route('group.show')->with('danger', 'Vous ne pouvez pas effectuer cette action');
     }
 
     public function accept($id, $notificationId)
     {
-        $group = Group::find($id);
-        $userGroup = UserGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->get();
+        $http = HttpRequest::makeRequest('/groups/'.$id.'/kick/'.$notificationId);
 
-        if (count($userGroup) == 0) {
-            // User joining the group
-            $newUserGroup = new UserGroup();
-            $newUserGroup->user_id = Auth::user()->id;
-            $newUserGroup->group_id = $group->id;
-            $newUserGroup->save();
-
-            // Delete the invitationGroup for clean the bdd and so as not to pollute
-            Notification::find($notificationId)->delete();
-            Inbox::where('notification_id', $notificationId)->delete();
-            InvitationGroup::where('user_id', Auth::user()->id)->where('group_id', $group->id)->delete();
-
-            return redirect()->route('inbox.index', $group->id)->with('success', 'Vous avez rejoins le groupe');
+        if ($http->object()){
+            return redirect()->route('inbox.index', $id)->with('success', 'Vous avez rejoins le groupe');
         }
-        return redirect()->route('inbox.index', $group->id)->with('danger', 'Vous ne pouvez pas effectuer cette action');
+        return redirect()->route('inbox.index', $id)->with('danger', 'Vous ne pouvez pas effectuer cette action');
     }
 
 }

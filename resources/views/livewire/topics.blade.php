@@ -18,12 +18,11 @@
                 </div>
 
                 @if(count($categories) > 0)
-                    <li @if($current == 0) style="background-color: #A9A9A9" @endif wire:click="switchCategorie(0)"
+                    <li  style="@if($current == 0) background-color: #A9A9A9; @endif cursor: pointer"  wire:click="switchCategorie(0)"
                         class="list-group-item li"><p>Voir tout les topics</p></li>
                 @endif
                 @foreach($categories as $categorie)
-                    <li @if($current == $categorie->id) style="background-color: #A9A9A9"
-                        @endif wire:click="switchCategorie({{ $categorie->id }})" class="list-group-item li">
+                    <li style="@if($current == $categorie->id) background-color: #A9A9A9; @endif cursor: pointer"wire:click="switchCategorie({{ $categorie->id }})" class="list-group-item li">
                         <p>{{ $categorie->libelle }}</p></li>
                 @endforeach
             </div>
@@ -32,10 +31,10 @@
                 @if(count($topics) > 0)
                     @foreach($topics as $topic)
                         <div class="list-group-item">
-                            <h4><a href="{{ route('topics.show',$topic['id']) }}">{{ $topic->title }}</a></h4>
+                            <h4><a href="{{ route('topics.show',$topic->id) }}">{{ $topic->title }}</a></h4>
                             <p>{{ $topic->content }}</p>
                             <div class="align-items-center">
-                                <small>Posté le {{ $topic->created_at->format('d/m/Y à H:m') }}</small>
+                                <small>Posté le {{ date('d/m/Y à H:m', strtotime($topic->created_at)) }}</small>
                                 <span class="badge badge-primary float-right">{{ $topic->user->name }}</span>
                                 @if($current == 0) <span
                                     class="badge badge-warning float-right">{{ $topic->categorie->libelle}}</span> @endif
